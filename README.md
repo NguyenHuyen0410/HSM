@@ -1,7 +1,7 @@
 # Hotel Service Management - HSM
 An Android Application for booking and managing services in hotel.
 ## Description
-The Hotel Service Management Android Application is an innovative solution designed to streamline and enhance the overall guest experience at hotels. This comprehensive application serves as a bridge between hotel staff and guests, ensuring efficient service delivery, real-time communication, and seamless management of hotel operations.
+The Hotel Service Management Android Application is an innovative solution designed to transform the way guests utilize hotel services and elevate the overall quality of those services. This comprehensive application ensures efficient service delivery, real-time communication, and seamless management of hotel operations, all without the need for direct interaction between staff and guests.
 
 ## Main Feature
 - Book services, view book history
