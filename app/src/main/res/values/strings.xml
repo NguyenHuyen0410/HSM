@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">hsb</string>
+    <string name="edit_account">Edit Account</string>
 </resources>
