@@ -1,26 +1,58 @@
 package com.example.hsb.entities;
 
-import com.google.gson.annotations.SerializedName;
+import java.time.LocalDateTime;
 
 public class Account {
-    @SerializedName("id")
-    private String userId;
-    @SerializedName("email")
+
+    private boolean isExpanded;
+
+    public Account(int id, String name, String email, String password, String accountStatus,
+                   int images, boolean isDeleted, LocalDateTime createdDate,
+                   LocalDateTime lastModifiedDate) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.accountStatus = accountStatus;
+        this.images = images;
+        this.isDeleted = isDeleted;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.isExpanded = false;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
+    }
+
+    private int id;
+    private String name;
     private String email;
-    @SerializedName("password")
     private String password;
-    @SerializedName("verified")
-    private boolean verified;
+    private String accountStatus;
+    private int images;
+    private boolean isDeleted;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
 
-    public Account() {
+    public int getId() {
+        return id;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -39,11 +71,43 @@ public class Account {
         this.password = password;
     }
 
-    public boolean isVerified() {
-        return verified;
+    public String getAccountStatus() {
+        return accountStatus;
     }
 
-    public void setVerified(boolean verified) {
-        this.verified = verified;
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public int getImages() {
+        return images;
+    }
+
+    public void setImages(int images) {
+        this.images = images;
     }
 }
