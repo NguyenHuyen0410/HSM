@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">hsb</string>
+    <string name="edit_account">Edit Account</string>
     <string name="room_text">Phòng</string>
     <string name="room_type_text">Loại</string>
     <string name="capacity_text">Sức chứa</string>
     <string name="night">/Tối</string>
     <string name="status_text">Trạng thái</string>
-
 </resources>
