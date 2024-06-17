@@ -6,16 +6,14 @@ public class Account {
 
     private boolean isExpanded;
 
-    public Account(int id, String name, String email, String password, int status,
-                   boolean isActive, boolean verified, int images, boolean isDeleted, LocalDateTime createdDate,
+    public Account(int id, String name, String email, String password, String accountStatus,
+                   int images, boolean isDeleted, LocalDateTime createdDate,
                    LocalDateTime lastModifiedDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.status = status;
-        this.isActive = isActive;
-        this.verified = verified;
+        this.accountStatus = accountStatus;
         this.images = images;
         this.isDeleted = isDeleted;
         this.createdDate = createdDate;
@@ -32,24 +30,13 @@ public class Account {
     }
 
     private int id;
-
     private String name;
-
     private String email;
-
     private String password;
-
-    private int status;
-
-    private boolean isActive;
-
-    private boolean verified;
-
+    private String accountStatus;
     private int images;
-
     private boolean isDeleted;
     private LocalDateTime createdDate;
-
     private LocalDateTime lastModifiedDate;
 
     public int getId() {
@@ -84,28 +71,12 @@ public class Account {
         this.password = password;
     }
 
-    public int getStatus() {
-        return status;
+    public String getAccountStatus() {
+        return accountStatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
     }
 
     public boolean isDeleted() {

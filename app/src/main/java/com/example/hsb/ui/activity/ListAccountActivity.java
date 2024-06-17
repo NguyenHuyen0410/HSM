@@ -3,45 +3,68 @@ package com.example.hsb.ui.activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
 import com.example.hsb.ui.fragment.AccountFragment;
 import com.example.hsb.ui.fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-public class ListAccountActivity extends AppCompatActivity{
+public class ListAccountActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
-    HomeFragment homeFragment = new HomeFragment();
-    AccountFragment accountFragment = new AccountFragment();
+    private BottomNavigationView bottomNavigationView;
+    private FragmentManager fragmentManager;
+    private Fragment currentFragment;
+    private HomeFragment homeFragment;
+    private AccountFragment accountFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_list_account);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        fragmentManager = getSupportFragmentManager();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.bottom_navigation_container, homeFragment).commit();
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        homeFragment = new HomeFragment();
+        accountFragment = new AccountFragment();
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                if(id == R.id.home){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.bottom_navigation_container, homeFragment).commit();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.home) {
+                    switchFragment(homeFragment);
                     return true;
-                }
-                if(id == R.id.account){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.bottom_navigation_container, accountFragment).commit();
+                } else if (id == R.id.account) {
+                    switchFragment(accountFragment);
                     return true;
                 }
                 return false;
             }
         });
+
+        // Set the initial fragment if none is selected
+        if (savedInstanceState == null) {
+            switchFragment(homeFragment); // Default to homeFragment
+        }
+    }
+
+    private void switchFragment(Fragment fragment) {
+        if (fragment != currentFragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if (!fragment.isAdded()) {
+                transaction.add(R.id.bottom_navigation_container, fragment);
+            }
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.show(fragment).commit();
+            currentFragment = fragment;
+        }
     }
 }
