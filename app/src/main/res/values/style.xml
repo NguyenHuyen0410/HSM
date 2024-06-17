@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bg_main">
+        <item name="android:background">
+            #FFFFFF
+        </item>
+    </style>
+    <style name="edit_button">
+        <item name="android:textSize">10sp</item>
+        <item name="android:text">Edit</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#B6CDEC</item>
+        <item name="strokeColor">#57759C</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">5dp</item>
+    </style>
+</resources>

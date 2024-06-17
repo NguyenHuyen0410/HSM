@@ -7,4 +7,5 @@
     <color name="sidebar_button2">#313335</color>
     <color name="sidebar_backgr">#E2E3E4</color>
     <color name="gray">#808080</color>
+    <color name="dark_gray">#A9A9A9</color>
 </resources>
