@@ -20,7 +20,7 @@ The Hotel Service Management Android Application is an innovative solution desig
 - [Note](#note)
 
 ## Installation
-Clone the repository:
+- Clone the repository:
 ```bash
 git clone https://github.com/NguyenHuyen0410/HSM.git
 ```
@@ -31,15 +31,11 @@ git clone https://github.com/NguyenHuyen0410/HSM.git
 [Hotel Service Management - Project Report](https://docs.google.com/document/d/1R5lropDJHvllklIPJTw7E7A31h7EvJIKmGFfjKpDPIo/edit?usp=sharing)
 
 ## Contributing
-[Nguyen Duc Manh]
-
-[Nguyen Huu Tuan]
-
-[Nguyen Thi Huyen]
-
-[Tran The Hung]
-
-[Pham Cao Duc minh]
+- [Nguyen Duc Manh]
+- [Nguyen Huu Tuan]
+- [Nguyen Thi Huyen]
+- [Tran The Hung]
+- [Pham Cao Duc minh]
 
 
 ## License
