@@ -1,8 +1,9 @@
 package com.example.hsb.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Account {
+public class Account implements Serializable {
 
     private boolean isExpanded;
 

@@ -1,10 +1,12 @@
 package com.example.hsb.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.AccountRole;
 import com.example.hsb.entities.Role;
+import com.example.hsb.ui.activity.EditAccountActivity;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -93,6 +96,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
                 notifyItemChanged(pos);
             }
         });
+
+        holder.button.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditAccountActivity.class);
+            intent.putExtra("account", account);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -112,6 +121,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         ConstraintLayout accountItem;
         ConstraintLayout expandableLayout;
 
+        Button button;
+
         public AccountHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_account_name);
@@ -123,6 +134,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             images = itemView.findViewById(R.id.imv_ava);
             accountItem = itemView.findViewById(R.id.account_item);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
+            button = itemView.findViewById(R.id.button);
         }
     }
 

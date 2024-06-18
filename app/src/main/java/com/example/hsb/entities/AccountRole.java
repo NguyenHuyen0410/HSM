@@ -1,8 +1,9 @@
 package com.example.hsb.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AccountRole {
+public class AccountRole implements Serializable {
 
     public AccountRole(int id, int accountId, int roleId, boolean isDeleted, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
