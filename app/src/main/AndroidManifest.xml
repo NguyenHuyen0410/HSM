@@ -9,7 +9,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label=""
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsb"
@@ -20,7 +20,7 @@
             android:parentActivityName=".ui.activity.ListAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.EditAccountActivity"/>
+                android:value=".ui.activity.ListAccountActivity"/>
         </activity>
         <activity
             android:name=".ui.activity.ListAccountActivity"

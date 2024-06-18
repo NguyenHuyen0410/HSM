@@ -39,6 +39,7 @@ public class EditAccountActivity extends AppCompatActivity {
         // Enable the Up button
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         autoCompleteTextView = findViewById(R.id.auto_complete_text);
