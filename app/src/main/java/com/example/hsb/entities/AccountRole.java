@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class AccountRole implements Serializable {
 
-    public AccountRole(int id, int accountId, int roleId, boolean isDeleted, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public AccountRole(String id, String accountId, String roleId, boolean isDeleted, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.accountId = accountId;
         this.roleId = roleId;
@@ -14,27 +14,27 @@ public class AccountRole implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
-    public int getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 
@@ -62,9 +62,9 @@ public class AccountRole implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    private int id;
-    private int accountId;
-    private int roleId;
+    private String id;
+    private String accountId;
+    private String roleId;
     private boolean isDeleted;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;

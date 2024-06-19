@@ -73,7 +73,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         holder.status.setTextColor(Color.parseColor(hexColor));
         String roleName = "";
         for(Role role: roles){
-            if(accountRole.getRoleId() == role.getId()){
+            if(accountRole.getRoleId().equals(role.getId())){
                 roleName = "ROLE: "+role.getName();
             }
         }

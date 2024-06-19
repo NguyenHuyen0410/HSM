@@ -7,7 +7,7 @@ public class Account implements Serializable {
 
     private boolean isExpanded;
 
-    public Account(int id, String name, String email, String password, String accountStatus,
+    public Account(String id, String name, String email, String password, String accountStatus,
                    int images, boolean isDeleted, LocalDateTime createdDate,
                    LocalDateTime lastModifiedDate) {
         this.id = id;
@@ -30,7 +30,7 @@ public class Account implements Serializable {
         isExpanded = expanded;
     }
 
-    private int id;
+    private String id;
     private String name;
     private String email;
     private String password;
@@ -40,11 +40,11 @@ public class Account implements Serializable {
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
