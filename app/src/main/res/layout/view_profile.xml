@@ -241,41 +241,7 @@
         android:padding="8dp"
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/homeButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_home"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Home" />
 
-        <ImageButton
-            android:id="@+id/messagesButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_messages"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Messages" />
-
-        <ImageButton
-            android:id="@+id/discoverButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_discover"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Discover" />
-
-        <ImageButton
-            android:id="@+id/favoritesButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_favorites"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Profile" />
     </LinearLayout>
 
 </RelativeLayout>
