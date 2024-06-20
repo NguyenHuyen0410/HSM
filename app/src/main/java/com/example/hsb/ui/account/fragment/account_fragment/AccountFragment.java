@@ -1,4 +1,4 @@
-package com.example.hsb.ui.fragment;
+package com.example.hsb.ui.account.fragment.account_fragment;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hsb.R;
-import com.example.hsb.client.PocketBaseApi;
+import com.example.hsb.record.AccountRecord;
+import com.example.hsb.response.AccountResponse;
 import com.example.hsb.client.RetrofitClient;
-import com.example.hsb.client.record.AccountRecord;
-import com.example.hsb.client.response.AccountResponse;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.AccountRole;
 import com.example.hsb.entities.Role;
-import com.example.hsb.ui.adapter.AccountAdapter;
+import com.example.hsb.ui.account.adapter.AccountAdapter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,9 +34,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountFragment extends Fragment {
-
-    private PocketBaseApi pocketBaseApi;
-
     List<Account> accountList = new ArrayList<>();
     private List<Role> roleList = new ArrayList<>();
     private List<AccountRole> accountRoleList = new ArrayList<>();
@@ -50,9 +46,6 @@ public class AccountFragment extends Fragment {
         roleList.add(new Role("role1", "MANAGER", false, LocalDateTime.now(), LocalDateTime.now()));
         roleList.add(new Role("role2", "RECEPTIONIST", false, LocalDateTime.now(), LocalDateTime.now()));
         roleList.add(new Role("role3", "CUSTOMER", false, LocalDateTime.now(), LocalDateTime.now()));
-        // Initialize Retrofit and PocketBaseApi
-        pocketBaseApi = RetrofitClient.getInstance().create(PocketBaseApi.class);
-
         callApi();
         RecyclerView recyclerView = view.findViewById(R.id.account_list);
         adapter = new AccountAdapter(accountList, requireContext(), accountRoleList, roleList);
@@ -63,7 +56,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void callApi() {
-        Call<AccountResponse> call = pocketBaseApi.getRecords("accounts");
+        Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().getRecords();
         call.enqueue(new Callback<AccountResponse>() {
             @Override
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
@@ -75,7 +68,7 @@ public class AccountFragment extends Fragment {
                         // Process each record
                         Account account = new Account(record.getId(), record.getUsername(), "john.doe@example.com",
                                 "password9", "active",
-                                R.drawable.android_image_1, record.isIs_deleted(), stringToLocalDateTime(record.getCreated()), stringToLocalDateTime(record.getUpdated()));
+                                R.drawable.android_image_1, record.is_deleted(), stringToLocalDateTime(record.getCreated()), stringToLocalDateTime(record.getUpdated()));
                         accountList.add(account);
                         accountRoleList.add(new AccountRole("accountRole" + index, account.getId(), "role1", false, LocalDateTime.now(), LocalDateTime.now()));
                         System.out.println("Added account: " + account.toString());

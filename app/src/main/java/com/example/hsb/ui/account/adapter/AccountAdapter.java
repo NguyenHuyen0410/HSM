@@ -1,4 +1,4 @@
-package com.example.hsb.ui.adapter;
+package com.example.hsb.ui.account.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,13 +20,10 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.AccountRole;
 import com.example.hsb.entities.Role;
-import com.example.hsb.ui.activity.EditAccountActivity;
+import com.example.hsb.ui.account.activity.edit_account_acitivity.EditAccountActivity;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {

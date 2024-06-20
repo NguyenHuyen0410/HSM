@@ -1,4 +1,4 @@
-package com.example.hsb.ui.fragment;
+package com.example.hsb.ui.account.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

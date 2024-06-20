@@ -1,14 +1,14 @@
-package com.example.hsb.client;
+package com.example.hsb.service;
 
-import com.example.hsb.client.response.AccountResponse;
+import com.example.hsb.response.AccountResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface PocketBaseApi {
-    @GET("/api/collections/{collectionId}/records")
-    Call<AccountResponse> getRecords(@Path("collectionId") String collectionId);
+public interface AccountServiceApi {
+    @GET("accounts/records")
+    Call<AccountResponse> getRecords();
 
 //    @POST("/api/collections/{collectionId}/records")
 //    Call<Object> createRecord(@Path("collectionId") String collectionId, @Body Record record);

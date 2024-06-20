@@ -1,4 +1,4 @@
-package com.example.hsb.ui.activity;
+package com.example.hsb.ui.account.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
-import com.example.hsb.ui.fragment.AccountFragment;
-import com.example.hsb.ui.fragment.HomeFragment;
+import com.example.hsb.ui.account.fragment.account_fragment.AccountFragment;
+import com.example.hsb.ui.account.fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {

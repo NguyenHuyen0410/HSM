@@ -1,4 +1,4 @@
-package com.example.hsb.ui.activity;
+package com.example.hsb.ui.account.activity.edit_account_acitivity;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
