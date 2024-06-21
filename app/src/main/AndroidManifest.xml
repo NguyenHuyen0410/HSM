@@ -14,29 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsb"
         tools:targetApi="31">
-
         <activity
-            android:name=".ui.activity.CreateServiceActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.activity.ViewServiceActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.activity.EditAccountActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.ListAccountActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
