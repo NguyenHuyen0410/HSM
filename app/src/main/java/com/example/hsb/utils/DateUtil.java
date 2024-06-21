@@ -1,4 +1,8 @@
 package com.example.hsb.utils;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.Locale;
 import java.text.ParseException;
@@ -72,5 +76,15 @@ public class DateUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static LocalDateTime stringToLocalDateTime(String l){
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd HH:mm:ss")
+                .appendFraction(ChronoField.MILLI_OF_SECOND, 0, 3, true)
+                .appendPattern("'Z'")
+                .toFormatter();
+
+        return LocalDateTime.parse(l, formatter);
     }
 }
