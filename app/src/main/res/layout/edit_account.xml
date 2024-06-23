@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.account.activity.edit_account_activity.EditAccountActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -31,21 +33,24 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/et_user_name"
+            style="@style/edit_account_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/edit_account_input"
             android:background="@drawable/edittext_bg"
-            android:hint="Name"/>
+            android:hint="Name" />
 
         <EditText
+            android:id="@+id/et_password"
+            style="@style/edit_account_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/edit_account_input"
+            android:background="@drawable/edittext_bg"
             android:hint="Password"
-            android:background="@drawable/edittext_bg"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
         <EditText
+            android:id="@+id/et_email"
             style="@style/edit_account_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,29 +62,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
-
             <AutoCompleteTextView
-                android:id="@+id/auto_complete_text"
+                android:id="@+id/auto_complete_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Role" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select Status" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_save"
             style="@style/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@android:color/white"
-            android:text="Save"/>
+            android:text="Save"
+            android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/btn_delete"
             style="@style/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
-            android:text="@string/delete"
             android:backgroundTint="#D32317"
-            android:textColor="@android:color/white"/>
+            android:text="@string/delete"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </RelativeLayout>

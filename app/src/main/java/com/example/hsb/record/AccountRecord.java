@@ -1,7 +1,6 @@
 package com.example.hsb.record;
 
 import com.google.gson.annotations.SerializedName;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +23,27 @@ public class AccountRecord {
     private String updated;
     @SerializedName("username")
     private String username;
+    @SerializedName("account_password")
+    private String accountPassword;
+    @SerializedName("password")
+    private String password;
+    @SerializedName("passwordConfirm")
+    private String passwordConfirm;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("status")
+    private String status;
     @SerializedName("verified")
     private boolean verified;
+    @SerializedName("role_id")
+    private String roleId;
+    @SerializedName("expand")
+    private Expand expand;
 
-
+    @Getter
+    @Setter
+    public static class Expand {
+        @SerializedName("role_id")
+        private RoleRecord role;
+    }
 }

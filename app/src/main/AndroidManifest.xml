@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Hsb"
         tools:targetApi="31">
         <activity
-            android:name=".ui.account.activity.edit_account_acitivity.EditAccountActivity"
+            android:name=".ui.account.activity.edit_account_activity.EditAccountActivity"
             android:exported="false"
             android:parentActivityName=".ui.account.activity.ListAccountActivity">
             <meta-data

@@ -3,13 +3,20 @@ package com.example.hsb.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account implements Serializable {
 
     private boolean isExpanded;
 
     public Account(String id, String name, String email, String password, String accountStatus,
                    int images, boolean isDeleted, LocalDateTime createdDate,
-                   LocalDateTime lastModifiedDate) {
+                   LocalDateTime lastModifiedDate, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -19,6 +26,7 @@ public class Account implements Serializable {
         this.isDeleted = isDeleted;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
+        this.role = role;
         this.isExpanded = false;
     }
 
@@ -39,76 +47,5 @@ public class Account implements Serializable {
     private boolean isDeleted;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDateTime getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public int getImages() {
-        return images;
-    }
-
-    public void setImages(int images) {
-        this.images = images;
-    }
+    private Role role;
 }

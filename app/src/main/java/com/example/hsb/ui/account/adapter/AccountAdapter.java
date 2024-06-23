@@ -18,9 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.hsb.R;
 import com.example.hsb.entities.Account;
-import com.example.hsb.entities.AccountRole;
-import com.example.hsb.entities.Role;
-import com.example.hsb.ui.account.activity.edit_account_acitivity.EditAccountActivity;
+import com.example.hsb.storage.AccountStatus;
+import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,22 +27,13 @@ import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<Account> account;
-
-    private List<AccountRole> accountRoles;
-
-    private List<Role> roles;
-
+    private List<Account> accountList;
     private Context context;
-
     private static String hexColor;
 
-    public AccountAdapter(List<Account> account, Context context, List<AccountRole> accountRoles,
-                          List<Role> roles) {
+    public AccountAdapter(List<Account> accountList, Context context) {
         this.context = context;
-        this.account = account;
-        this.accountRoles = accountRoles;
-        this.roles = roles;
+        this.accountList = accountList;
     }
 
     @NonNull
@@ -55,8 +45,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     @Override
     public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
-        Account account = this.account.get(position);
-        AccountRole accountRole = this.accountRoles.get(position);
+        Account account = this.accountList.get(position);
         Glide.with(context)
                 .load(account.getImages()) // replace with your image source
                 .apply(RequestOptions.circleCropTransform())
@@ -65,15 +54,10 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         holder.name.setText(account.getName());
         String status = account.getAccountStatus();
         holder.status.setText(status);
-        if(status.equals("active")) hexColor = "#32BA7C";
-        else if(status.equals("terminated")) hexColor = "#F44336";
+        if(status.equals(AccountStatus.ACTIVE)) hexColor = "#32BA7C";
+        else if(status.equals(AccountStatus.TERMINATED)) hexColor = "#F44336";
         holder.status.setTextColor(Color.parseColor(hexColor));
-        String roleName = "";
-        for(Role role: roles){
-            if(accountRole.getRoleId().equals(role.getId())){
-                roleName = "ROLE: "+role.getName();
-            }
-        }
+        String roleName = account.getRole().getName();
 
         holder.role.setText(roleName);
 
@@ -97,13 +81,14 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         holder.button.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditAccountActivity.class);
             intent.putExtra("account", account);
+            intent.putExtra("role", roleName);
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return account.size();
+        return accountList.size();
     }
 
     public class AccountHolder extends RecyclerView.ViewHolder {
@@ -117,7 +102,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         ImageView images;
         ConstraintLayout accountItem;
         ConstraintLayout expandableLayout;
-
         Button button;
 
         public AccountHolder(@NonNull View itemView) {
