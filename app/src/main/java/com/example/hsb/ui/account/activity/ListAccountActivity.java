@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.hsb.R;
 import com.example.hsb.ui.account.fragment.account_fragment.AccountFragment;
 import com.example.hsb.ui.account.fragment.HomeFragment;
+import com.example.hsb.ui.account.fragment.category_fragment.CategoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {
@@ -21,6 +22,9 @@ public class ListAccountActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private HomeFragment homeFragment;
     private AccountFragment accountFragment;
+    private CategoryFragment categoryFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class ListAccountActivity extends AppCompatActivity {
 
         homeFragment = new HomeFragment();
         accountFragment = new AccountFragment();
+        categoryFragment = new CategoryFragment();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,6 +47,9 @@ public class ListAccountActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.account) {
                     switchFragment(accountFragment);
+                    return true;
+                } else if (id == R.id.category) {
+                    switchFragment(categoryFragment);
                     return true;
                 }
                 return false;

@@ -1,6 +1,7 @@
 package com.example.hsb.client;
 
 import com.example.hsb.service.AccountServiceApi;
+import com.example.hsb.service.CategoryServiceApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,5 +32,9 @@ public class RetrofitClient {
 
     public AccountServiceApi getAccountServiceApi(){
         return retrofit.create(AccountServiceApi.class);
+    }
+
+    public CategoryServiceApi getCategoryServiceApi(){
+        return retrofit.create(CategoryServiceApi.class);
     }
 }
