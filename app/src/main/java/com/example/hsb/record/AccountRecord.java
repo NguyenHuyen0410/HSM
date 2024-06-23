@@ -1,6 +1,7 @@
 package com.example.hsb.record;
 
 import com.google.gson.annotations.SerializedName;
+
 import lombok.Getter;
 import lombok.Setter;
 

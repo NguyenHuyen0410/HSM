@@ -7,9 +7,10 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
-public class AccountResponse extends BaseResponse{
+public class AccountResponse extends BaseResponse {
     @SerializedName("items")
     private List<AccountRecord> items;
 }

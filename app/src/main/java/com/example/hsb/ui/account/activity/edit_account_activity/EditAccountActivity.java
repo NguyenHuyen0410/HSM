@@ -75,7 +75,7 @@ public class EditAccountActivity extends AppCompatActivity {
             email.setText(account.getEmail());
             autoCompleteRole.setText(account.getRole().getName(), false);
             autoCompleteStatus.setText(account.getAccountStatus(), false);
-        } else{
+        } else {
             account = new Account();
         }
 

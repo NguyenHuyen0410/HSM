@@ -14,6 +14,7 @@ public class AlertDialogManagerUtil {
     public AlertDialogManagerUtil(Context context) {
         this.context = context;
     }
+
     public void showAlertDialog(String title, String message, String positiveButton, DialogInterface.OnClickListener positiveClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
@@ -24,6 +25,7 @@ public class AlertDialogManagerUtil {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     public void showConfirmationDialog(String title, String message, String positiveButton, String negativeButton,
                                        DialogInterface.OnClickListener positiveClickListener, DialogInterface.OnClickListener negativeClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

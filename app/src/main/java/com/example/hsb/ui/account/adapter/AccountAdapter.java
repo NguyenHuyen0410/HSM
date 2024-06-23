@@ -54,16 +54,16 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         holder.name.setText(account.getName());
         String status = account.getAccountStatus();
         holder.status.setText(status);
-        if(status.equals(AccountStatus.ACTIVE)) hexColor = "#32BA7C";
-        else if(status.equals(AccountStatus.TERMINATED)) hexColor = "#F44336";
+        if (status.equals(AccountStatus.ACTIVE)) hexColor = "#32BA7C";
+        else if (status.equals(AccountStatus.TERMINATED)) hexColor = "#F44336";
         holder.status.setTextColor(Color.parseColor(hexColor));
         String roleName = account.getRole().getName();
 
         holder.role.setText(roleName);
 
-        String createdDate = "Created Date: "+localDateTimeToString(account.getCreatedDate());
+        String createdDate = "Created Date: " + localDateTimeToString(account.getCreatedDate());
         holder.createdDate.setText(createdDate);
-        String lastModifiedDate = "Last Modified Date: "+localDateTimeToString(account.getLastModifiedDate());
+        String lastModifiedDate = "Last Modified Date: " + localDateTimeToString(account.getLastModifiedDate());
         holder.lastModifedDate.setText(lastModifiedDate);
 
         boolean isExpandable = account.isExpanded();

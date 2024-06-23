@@ -3,14 +3,9 @@ package com.example.hsb.ui.account.fragment.category_fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hsb.R;
 import com.example.hsb.client.RetrofitClient;
-import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Category;
-import com.example.hsb.entities.Role;
-import com.example.hsb.record.AccountRecord;
 import com.example.hsb.record.CategoryRecord;
-import com.example.hsb.response.AccountResponse;
 import com.example.hsb.response.CategoryResponse;
 import com.example.hsb.utils.DateUtil;
 
@@ -29,19 +24,19 @@ public class CategoryFragmentViewModel extends ViewModel {
     // LiveData for toast messages
     private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
 
-    public CategoryFragmentViewModel(){
+    public CategoryFragmentViewModel() {
         mListCategoryLiveData = new MutableLiveData<>();
         toastMessageLiveData = new MutableLiveData<>();
         initData();
     }
 
-    public void initData(){
+    public void initData() {
         categoryList = new ArrayList<>();
         callApi();
         mListCategoryLiveData.setValue(categoryList);
     }
 
-    public MutableLiveData<List<Category>> getListAccountLiveData(){
+    public MutableLiveData<List<Category>> getListCategoryLiveData() {
         return mListCategoryLiveData;
     }
 
@@ -60,8 +55,9 @@ public class CategoryFragmentViewModel extends ViewModel {
                                 record.getDescription(),
                                 record.isDeleted(),
                                 DateUtil.stringToLocalDateTime(record.getCreated()),
-                                DateUtil.stringToLocalDateTime(record.getUpdated())
-                                );
+                                DateUtil.stringToLocalDateTime(record.getUpdated()),
+                                null
+                        );
                         categoryList.add(category);
                     }
 

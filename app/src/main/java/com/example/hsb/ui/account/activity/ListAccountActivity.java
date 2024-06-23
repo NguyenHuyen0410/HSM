@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
-import com.example.hsb.ui.account.fragment.account_fragment.AccountFragment;
 import com.example.hsb.ui.account.fragment.HomeFragment;
+import com.example.hsb.ui.account.fragment.account_fragment.AccountFragment;
 import com.example.hsb.ui.account.fragment.category_fragment.CategoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,7 +23,6 @@ public class ListAccountActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private AccountFragment accountFragment;
     private CategoryFragment categoryFragment;
-
 
 
     @Override

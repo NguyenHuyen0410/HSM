@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.account.activity.edit_account_activity.EditAccountActivity">
+    tools:context=".ui.account.activity.edit_category_activity.EditCategoryActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/edit_account"
+            android:text="Edit category"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
@@ -33,55 +33,47 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_user_name"
+            android:id="@+id/et_name"
             style="@style/edit_account_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_bg"
             android:hint="Name" />
 
+
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/et_description"
             style="@style/edit_account_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_bg"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="Description" />
 
-        <EditText
-            android:id="@+id/et_email"
-            style="@style/edit_account_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_bg"
-            android:hint="Email" />
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="15dp">-->
+        <!--            <AutoCompleteTextView-->
+        <!--                android:id="@+id/auto_complete_role"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:hint="Select Role">-->
+        <!--            </AutoCompleteTextView>-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-            <AutoCompleteTextView
-                android:id="@+id/auto_complete_role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Select Role" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
-            <AutoCompleteTextView
-                android:id="@+id/auto_complete_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Select Status" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="15dp">-->
+        <!--            <AutoCompleteTextView-->
+        <!--                android:id="@+id/auto_complete_status"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:hint="Select Status" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/btn_save"

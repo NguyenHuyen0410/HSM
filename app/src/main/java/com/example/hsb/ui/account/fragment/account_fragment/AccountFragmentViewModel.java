@@ -26,19 +26,19 @@ public class AccountFragmentViewModel extends ViewModel {
     // LiveData for toast messages
     private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
 
-    public AccountFragmentViewModel(){
+    public AccountFragmentViewModel() {
         mListAccountLiveData = new MutableLiveData<>();
         toastMessageLiveData = new MutableLiveData<>();
         initData();
     }
 
-    public void initData(){
+    public void initData() {
         accountList = new ArrayList<>();
         callApi();
         mListAccountLiveData.setValue(accountList);
     }
 
-    public MutableLiveData<List<Account>> getListAccountLiveData(){
+    public MutableLiveData<List<Account>> getListAccountLiveData() {
         return mListAccountLiveData;
     }
 

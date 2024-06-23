@@ -20,9 +20,11 @@ import retrofit2.Response;
 public class EditAccountActivityViewModel extends ViewModel {
     private MutableLiveData<Account> mAccount = new MutableLiveData<>();
     private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+
     public MutableLiveData<Account> getAccountLiveData() {
         return mAccount;
     }
+
     public MutableLiveData<String> getToastMessageLiveData() {
         return toastMessageLiveData;
     }
@@ -73,6 +75,7 @@ public class EditAccountActivityViewModel extends ViewModel {
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
             }
+
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
                 // Handle the failure case
@@ -139,7 +142,7 @@ public class EditAccountActivityViewModel extends ViewModel {
         });
     }
 
-    public void deleteAccount(String id){
+    public void deleteAccount(String id) {
         Call<Void> call = RetrofitClient.getInstance().getAccountServiceApi().deleteRecord(id);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -149,7 +152,7 @@ public class EditAccountActivityViewModel extends ViewModel {
                     toastMessageLiveData.setValue("Response successful: " + response.message());
 
 
-                } else{
+                } else {
                     // Notify the fragment of an unsuccessful response
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
