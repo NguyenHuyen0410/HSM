@@ -6,7 +6,7 @@
     style="@style/bg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ListAccountActivity">
+    tools:context=".ui.samplepackage.activity.ListAccountActivity">
 
     <FrameLayout
         android:id="@+id/bottom_navigation_container"

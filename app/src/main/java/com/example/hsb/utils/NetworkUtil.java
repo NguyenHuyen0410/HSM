@@ -17,7 +17,7 @@ import okhttp3.Callback;
 
 //lớp base NetworkUtil với các phương thức tiện ích để tạo và gửi yêu cầu HTTP POST với JSON
 public class NetworkUtil {
-    private static final String BASE_URL = "http://anya-mock.koreacentral.cloudapp.azure.com/api"; // Thay bằng URL của mình nhưng chưa có
+    private static final String BASE_URL = "https://hotel-service-manage.pockethost.io/api"; // Thay bằng URL của mình nhưng chưa có
     private static OkHttpClient client = new OkHttpClient();
     private static Gson gson = new Gson();
 

@@ -14,7 +14,7 @@
 
     <!-- Background style for Button -->
     <style name="ButtonBackground">
-        <item name="android:backgroundTint">@color/sigin_button</item>
+        <item name="android:backgroundTint">@color/signin_button</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
@@ -23,8 +23,8 @@
     </style>
 
     <!-- Style for profile image circle background -->
-    <style name="CircleBackground">
-        <item name="android:background">@drawable/circle_background</item>
-    </style>
+<!--    <style name="CircleBackground">-->
+<!--        <item name="android:background">@drawable/circle_background</item>-->
+<!--    </style>-->
 
 </resources>

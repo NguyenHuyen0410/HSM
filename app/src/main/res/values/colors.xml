@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="sigin_button">#5C7A91</color> <!-- Light Gray -->
+    <color name="signin_button">#5C7A91</color> <!-- Light Gray -->
     <color name="sidebar_button">#5C7A91</color>
     <color name="sidebar_button2">#313335</color>
     <color name="sidebar_backgr">#E2E3E4</color>

@@ -33,6 +33,12 @@ dependencies {
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    implementation libs.constraintlayout
+    implementation libs.cardview
+
     //
     implementation "androidx.core:core:1.13.1"
     implementation "androidx.core:core-ktx:1.13.1"
@@ -40,28 +46,24 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     //Gson
     implementation 'com.google.code.gson:gson:2.8.8'
-
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.google.code.gson:gson:2.8.8'
     //RetrofitClient
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation libs.cardview
-
+    //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-    implementation libs.constraintlayout
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
+    //Material Design
     implementation 'com.google.android.material:material:1.2.1'
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
 
-    testImplementation libs.junit
-    androidTestImplementation libs.ext.junit
-    androidTestImplementation libs.espresso.core
 
-    implementation "com.android.support:support-v4:+"
-    implementation 'com.squareup.picasso:picasso:2.3.2'
-    implementation 'com.nineoldandroids:library:2.4.0'
-    implementation 'com.daimajia.slider:library:1.1.5@aar'
+//    implementation "com.android.support:support-v4:+"
+//    implementation 'com.squareup.picasso:picasso:2.3.2'
+//    implementation 'com.nineoldandroids:library:2.4.0'
+//    implementation 'com.daimajia.slider:library:1.1.5@aar'
 
 
 }

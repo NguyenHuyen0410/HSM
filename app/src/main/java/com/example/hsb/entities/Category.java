@@ -15,11 +15,15 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Category {
     @SerializedName("id")
-    private int id;
-    @SerializedName("name")
-    private String name;
+    private String id;
+    @SerializedName("category_name")
+    private String categoryName;
+    @SerializedName("category_image")
+    private String categoryImage;
+    @SerializedName("description")
+    private String description;
     @SerializedName("is_deleted")
     private boolean isDeleted;
     @SerializedName("created")
