@@ -15,4 +15,8 @@
         <item name="strokeWidth">2dp</item>
         <item name="cornerRadius">5dp</item>
     </style>
+    <style name="splash_screen">
+        <item name="background">@color/white</item>
+
+    </style>
 </resources>
