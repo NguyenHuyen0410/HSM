@@ -18,6 +18,6 @@
     <string name="status_text">Trạng thái</string>
     <string name="btn_create">Create</string>
     <string name="btn_update">Update</string>
-    <string name="head_service">Service</string>
+    <string name="head_service">Services</string>
     <string name="select_category">Select Category</string>
 </resources>
