@@ -17,14 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Service;
-import com.example.hsb.ui.account.activity.CategoryDetail;
 import com.example.hsb.ui.account.activity.edit_category_activity.EditCategoryActivity;
 import com.example.hsb.ui.account.adapter.CategoryAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment  extends Fragment {
+public class CategoryFragment extends Fragment {
     private List<Category> categoryList = new ArrayList<>();
     private CategoryAdaptor adapter;
     private CategoryFragmentViewModel categoryFragmentViewModel;
