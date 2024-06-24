@@ -38,6 +38,14 @@
                 android:value=".ui.account.activity.ListAccountActivity" />
         </activity>
         <activity
+            android:name=".ui.account.activity.CategoryDetail"
+            android:exported="false"
+            android:parentActivityName=".ui.account.activity.ListAccountActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.account.activity.ListAccountActivity" />
+        </activity>
+        <activity
             android:name=".ui.account.activity.edit_category_activity.EditCategoryActivity"
             android:exported="false"
             android:parentActivityName=".ui.account.activity.ListAccountActivity">

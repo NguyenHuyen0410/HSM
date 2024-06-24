@@ -7,6 +7,7 @@ import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Category;
 import com.example.hsb.record.CategoryRecord;
 import com.example.hsb.response.CategoryResponse;
+import com.example.hsb.ui.account.fragment.category_fragment.CategoryFragmentViewModel;
 import com.example.hsb.utils.DateUtil;
 
 import java.time.LocalDateTime;
@@ -125,6 +126,8 @@ public class EditCategoryActivityViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     // Notify the fragment of an successful response
                     toastMessageLiveData.setValue("Response successful: " + response.message());
+                        // Remove the object
+
 
 
                 } else {

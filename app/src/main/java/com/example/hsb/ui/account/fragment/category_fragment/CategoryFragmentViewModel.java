@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Category;
+import com.example.hsb.entities.Service;
 import com.example.hsb.record.CategoryRecord;
+import com.example.hsb.record.ServiceCategoryRecord;
+import com.example.hsb.record.ServiceRecord;
 import com.example.hsb.response.CategoryResponse;
 import com.example.hsb.utils.DateUtil;
 
@@ -47,6 +50,7 @@ public class CategoryFragmentViewModel extends ViewModel {
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<CategoryRecord> records = response.body().getItems();
+                    List<Service> serviceList;
                     for (CategoryRecord record : records) {
                         // Process each record
                         Category category = new Category(record.getId(),
@@ -56,9 +60,29 @@ public class CategoryFragmentViewModel extends ViewModel {
                                 record.isDeleted(),
                                 DateUtil.stringToLocalDateTime(record.getCreated()),
                                 DateUtil.stringToLocalDateTime(record.getUpdated()),
-                                null
+                                new ArrayList<>()
                         );
                         categoryList.add(category);
+                        serviceList = category.getServiceList();
+                        if (record.getExpand() != null) {
+                            for (ServiceCategoryRecord serviceCategoryRecord : record.getExpand().getServiceCategoryRecordList()) {
+                                ServiceRecord.ServiceRecordDetail serviceRecordDetail = serviceCategoryRecord.getServiceRecord().getServiceRecordDetail();
+                                Service service = new Service(
+                                        serviceRecordDetail.getId(),
+                                        serviceRecordDetail.getName(),
+                                        serviceRecordDetail.getImage(),
+                                        serviceRecordDetail.getDescription(),
+                                        DateUtil.stringToLocalDateTime(serviceRecordDetail.getStartTime()),
+                                        DateUtil.stringToLocalDateTime(serviceRecordDetail.getEndTime()),
+                                        serviceRecordDetail.getRemark(),
+                                        DateUtil.stringToLocalDateTime(serviceRecordDetail.getCreated()),
+                                        DateUtil.stringToLocalDateTime(serviceRecordDetail.getUpdated()),
+                                        false
+                                );
+                                serviceList.add(service);
+                            }
+                        }
+
                     }
 
                     // Update LiveData after data is added

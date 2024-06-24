@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.account.activity.edit_category_activity.EditCategoryActivity;
+import com.example.hsb.ui.account.activity.CategoryDetail;
+
 
 import java.util.List;
 
@@ -55,8 +56,8 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
         holder.images.setImageResource(R.drawable.android_image_1);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
-                childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
+                    childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         if (category.getServiceList() != null) {
             layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());
@@ -69,7 +70,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
 
         holder.button.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditCategoryActivity.class);
+            Intent intent = new Intent(context, CategoryDetail.class);
             intent.putExtra("category", category);
             context.startActivity(intent);
         });

@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface CategoryServiceApi {
-    @GET("category/records")
+    @GET("category/records?expand=service_category_via_category_id.service_id")
     Call<CategoryResponse> getRecords();
 
     @POST("category/records")
