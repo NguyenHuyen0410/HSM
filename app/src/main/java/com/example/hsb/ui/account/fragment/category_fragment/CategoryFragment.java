@@ -23,7 +23,7 @@ import com.example.hsb.ui.account.adapter.CategoryAdaptor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment  extends Fragment {
     private List<Category> categoryList = new ArrayList<>();
     private CategoryAdaptor adapter;
     private CategoryFragmentViewModel categoryFragmentViewModel;
@@ -33,21 +33,21 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
-        categoryFragmentViewModel = new CategoryFragmentViewModel();
-
-        // Observe changes in the account list
-        categoryFragmentViewModel.getListCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
-            @Override
-            public void onChanged(List<Category> categories) {
-                if (categories != null) {
-                    categoryList.clear();
-                    categoryList.addAll(categories);
-                    adapter.notifyDataSetChanged();
-                    System.out.println("Category list updated: " + categoryList.size() + " catogories");
-                }
-            }
-        });
-//        categoryList = getCategoryList();
+//        categoryFragmentViewModel = new CategoryFragmentViewModel();
+//
+//        // Observe changes in the account list
+//        categoryFragmentViewModel.getListCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
+//            @Override
+//            public void onChanged(List<Category> categories) {
+//                if (categories != null) {
+//                    categoryList.clear();
+//                    categoryList.addAll(categories);
+//                    adapter.notifyDataSetChanged();
+//                    System.out.println("Category list updated: " + categoryList.size() + " catogories");
+//                }
+//            }
+//        });
+        categoryList = getCategoryList();
         RecyclerView recyclerView = view.findViewById(R.id.category_list);
         adapter = new CategoryAdaptor(categoryList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -104,12 +104,12 @@ public class CategoryFragment extends Fragment {
 
     private List<Service> ChildItemList() {
         List<Service> ChildItemList = new ArrayList<>();
-        ChildItemList.add(new Service("1", "test 1", "test image", "test des", null, null, "test", null, false, null));
-        ChildItemList.add(new Service("2", "test 2", "test image", "test des", null, null, "test", null, false, null));
-        ChildItemList.add(new Service("3", "test 3", "test image", "test des", null, null, "test", null, false, null));
-        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, false, null));
-        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, false, null));
-        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, false, null));
+        ChildItemList.add(new Service("1", "test 1", "test image", "test des", null, null, "test", null, null, false));
+        ChildItemList.add(new Service("2", "test 2", "test image", "test des", null, null, "test", null, null, false));
+        ChildItemList.add(new Service("3", "test 3", "test image", "test des", null, null, "test", null, null, false));
+        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, null, false));
+        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, null, false));
+        ChildItemList.add(new Service("4", "test 4 ", "test image", "test des", null, null, "test", null, null, false));
         return ChildItemList;
     }
 

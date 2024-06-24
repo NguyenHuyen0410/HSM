@@ -2,6 +2,8 @@ package com.example.hsb.record;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,5 +28,15 @@ public class CategoryRecord {
     private String description;
     @SerializedName("is_deleted")
     private boolean isDeleted;
+
+    @SerializedName("expand")
+    private Expand expand;
+
+    @Getter
+    @Setter
+    public static class Expand {
+        @SerializedName("service_category_via_category_id")
+        private List<ServiceCategoryRecord> serviceCategoryRecordList;
+    }
 
 }
