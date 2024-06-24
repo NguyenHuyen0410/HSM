@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/service"
+        android:icon="@drawable/baseline_room_service_24"
+        android:title="Service"></item>
+    <item
+        android:id="@+id/order"
+        android:icon="@drawable/baseline_assignment_add_24"
+        android:title="Order"></item>
+    <item
+        android:id="@+id/room"
+        android:icon="@drawable/baseline_room_service_24"
+        android:title="Room"></item>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Profile"></item>
+</menu>

@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">hsb</string>
+    <string name="hotel_logo" />
+    <string name="label">Đăng nhập</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="sign_in">Sign in</string>
+    <string name="back_to_main">Quay lại</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="signin">Đăng nhập</string>
+    <string name="username">Pkdminh</string>
+    <string name="roomName">President Suite</string>
     <string name="edit_account">Edit Account</string>
     <string name="delete">Delete</string>
     <string name="add_account">Add new account</string>
@@ -7,4 +17,17 @@
     <string name="password">Password</string>
     <string name="password_confirm">Password confirm</string>
     <string name="email">Email</string>
+    <string name="room_text">Phòng</string>
+    <string name="room_type_text">Loại</string>
+    <string name="capacity_text">Sức chứa</string>
+    <string name="night">/Tối</string>
+    <string name="status_text">Trạng thái</string>
+    <string name="btn_create">Create</string>
+    <string name="btn_update">Update</string>
+    <string name="head_service">Service</string>
+    <string name="select_category">Select Category</string>
+    <string-array name="dropdown_items">
+        <item>Active</item>
+        <item>DeActive</item>
+    </string-array>
 </resources>

@@ -21,7 +21,7 @@
         android:background="@drawable/img_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-    />
+        />
 
     <TextView
         android:id="@+id/tv_account_name"
@@ -107,4 +107,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
