@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/baseline_area_chart_24"
+        android:title="Dashboard"></item>
+    <item
+        android:id="@+id/category"
+        android:icon="@drawable/baseline_category_24"
+        android:title="Category"></item>
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/baseline_person_add_alt_1_24"
+        android:title="Account"></item>
+    <item
+        android:id="@+id/service"
+        android:icon="@drawable/baseline_room_service_24"
+        android:title="Service"></item>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Profile"></item>
+</menu>

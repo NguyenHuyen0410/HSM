@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">hsb</string>
     <string name="hotel_logo" />
-    <string name="label">Login</string>
+    <string name="label">Đăng nhập</string>
     <string name="email_hint">Email</string>
-    <string name="password_hint">Password</string>
+    <string name="password_hint">Mật khẩu</string>
     <string name="sign_in">Sign in</string>
-    <string name="back_to_main">Back</string>
-    <string name="forgot_password">Forgot Password</string>
-    <string name="signin">Signin</string>
+    <string name="back_to_main">Quay lại</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="signin">Đăng nhập</string>
     <string name="username">Pkdminh</string>
     <string name="useremail">minhpcdhe170377@fpt.edu.vn</string>
     <string name="edit_account">Edit Account</string>
