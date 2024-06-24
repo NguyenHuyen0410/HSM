@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bg_main">
+        <item name="android:background">
+            #FFFFFF
+        </item>
+    </style>
+    <style name="splash_screen">
+        <item name="background">@color/white</item>
+    </style>
+</resources>
