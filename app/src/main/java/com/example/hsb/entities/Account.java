@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Account implements Serializable {
 
-    private boolean isExpanded;
+    private boolean isExpanded; //MVVM
 
     public Account(String id, String name, String email, String password, String accountStatus,
                    int images, boolean isDeleted, LocalDateTime createdDate,

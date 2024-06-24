@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/topBackground"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="centerCrop"
+        android:layout_height="170dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/hotel_logo"
         android:layout_alignParentTop="true" />
 
@@ -20,10 +20,10 @@
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="220dp"
         android:layout_marginLeft="45dp"
         android:text="@string/label"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="@android:color/black" />
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
-            android:drawableStart="@drawable/ic_email"
+            android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="10dp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"/>
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/password_hint"
             android:inputType="textPassword"
-            android:drawableStart="@drawable/ic_password"
+            android:drawableStart="@drawable/baseline_lock_outline_24"
             android:drawablePadding="10dp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
@@ -68,9 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/signin"
-        android:textSize="20dp"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@color/sigin_button"
+        android:textSize="20sp"
+        style="@style/save_button"
         android:layout_margin="32dp"
         android:layout_below="@id/loginForm"
         android:layout_centerHorizontal="true" />
@@ -85,26 +84,18 @@
         android:background="@color/sidebar_backgr"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/backToHome"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/clickable_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/back_to_main"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/sidebar_button"
-            />
-
-        <Button
-            android:id="@+id/forgotPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:text="@string/forgot_password"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/sidebar_button2"
-            android:layout_marginStart="8dp" />
-
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            />
+        
     </LinearLayout>
 
 </RelativeLayout>

@@ -19,7 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountFragmentViewModel extends ViewModel {
-
     private List<Account> accountList;
     private MutableLiveData<List<Account>> mListAccountLiveData;
 

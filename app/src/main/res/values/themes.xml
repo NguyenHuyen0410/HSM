@@ -3,7 +3,14 @@
     <style name="Base.Theme.Hsb" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="Theme.Hsb" parent="Base.Theme.Hsb" />
+    <style name="Theme.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/orchid_hotel_logo</item>
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimationDuration">2000</item>
+    </style>
 </resources>

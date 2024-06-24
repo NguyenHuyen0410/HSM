@@ -25,7 +25,7 @@ public class ValidateUtil {
             etPassword.setError("Password is required");
             etPassword.requestFocus();
             return false;
-        } else if (password.length() < 8) {
+        } else if (password.length() < 6) {
             etPassword.setError("Password must be at least 8 characters");
             etPassword.requestFocus();
             return false;
@@ -50,7 +50,7 @@ public class ValidateUtil {
 
     public static boolean isNameValid(EditText etName) {
         String name = etName.getText().toString();
-        if (name.isEmpty() || name.length() < 5) {
+        if (name.isEmpty() || name.length() < 6) {
             etName.setError("Name is required, at least 5 characters");
             etName.requestFocus();
             return false;
