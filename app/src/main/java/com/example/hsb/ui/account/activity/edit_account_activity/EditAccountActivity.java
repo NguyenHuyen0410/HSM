@@ -22,12 +22,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.storage.SystemRoles;
+import com.example.hsb.utils.ValidateUtil;
 
 public class EditAccountActivity extends AppCompatActivity {
     private String[] statusItems = {"ACTIVE", "TERMINATE"};
     private String[] roleItems = {"MANAGER", "RECEPTIONIST", "CUSTOMER"};
     private EditText name;
     private EditText password;
+    private EditText passwordConfirm;
     private EditText email;
     private AutoCompleteTextView autoCompleteStatus;
     private AutoCompleteTextView autoCompleteRole;
@@ -58,6 +60,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
         name = findViewById(R.id.et_user_name);
         password = findViewById(R.id.et_password);
+        passwordConfirm = findViewById(R.id.et_confirm_password);
         email = findViewById(R.id.et_email);
         autoCompleteRole = findViewById(R.id.auto_complete_role);
         autoCompleteStatus = findViewById(R.id.auto_complete_status);
@@ -70,11 +73,7 @@ public class EditAccountActivity extends AppCompatActivity {
         // Get the account passed to the activity
         Account account = (Account) getIntent().getSerializableExtra("account");
         if (account != null) {
-            name.setText(account.getName());
-            password.setText(account.getPassword()); // Assuming password is retrievable, otherwise, handle appropriately
-            email.setText(account.getEmail());
-            autoCompleteRole.setText(account.getRole().getName(), false);
-            autoCompleteStatus.setText(account.getAccountStatus(), false);
+            setCreateData(account);
         } else{
             account = new Account();
         }
@@ -99,7 +98,7 @@ public class EditAccountActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setData(finalAccount);
+                setUpdateData(finalAccount);
                 if (finalAccount.getId() != null) {
                     // Call ViewModel to update account
                     editAccountActivityViewModel.editAccounts(finalAccount);
@@ -146,11 +145,25 @@ public class EditAccountActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setData(@Nullable Account account) {
+    public void setUpdateData(@Nullable Account account) {
+        boolean check = true;
         // Retrieve data from the fields
-        String updatedName = name.getText().toString();
-        String updatedPassword = password.getText().toString();
-        String updatedEmail = email.getText().toString();
+        String updatedName = "";
+        if(check==ValidateUtil.isNameValid(name)){
+            updatedName = name.getText().toString();
+        }
+        String updatedPassword = "";
+        if(check!=ValidateUtil.isPassEqual(password, passwordConfirm)){
+
+        }
+        if(check==ValidateUtil.isPasswordValid(password)){
+            updatedPassword = password.getText().toString();
+        }
+        String updatedEmail = "";
+        if(check==ValidateUtil.isEmailValid(email)){
+            updatedEmail = email.getText().toString();
+        }
+
         String updatedRole = autoCompleteRole.getText().toString();
         String updatedStatus = autoCompleteStatus.getText().toString();
 
@@ -170,5 +183,25 @@ public class EditAccountActivity extends AppCompatActivity {
                 break;
         }
         account.setAccountStatus(updatedStatus);
+    }
+
+    public void setCreateData(@Nullable Account account){
+        boolean check = true;
+        name.setText(account.getName());
+        if(check!=ValidateUtil.isNameValid(name)){
+
+        }
+        password.setText(account.getPassword()); // Assuming password is retrievable, otherwise, handle appropriately
+        if(check!=ValidateUtil.isPasswordValid(password)){
+
+        } if(check!=ValidateUtil.isPassEqual(password, passwordConfirm)){
+
+        }
+        email.setText(account.getEmail());
+        if(check!=ValidateUtil.isEmailValid(email)){
+
+        }
+        autoCompleteRole.setText(account.getRole().getName(), false);
+        autoCompleteStatus.setText(account.getAccountStatus(), false);
     }
 }
