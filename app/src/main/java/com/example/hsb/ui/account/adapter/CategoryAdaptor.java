@@ -54,7 +54,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
         holder.name.setText(category.getName());
 
-        holder.images.setImageResource(R.drawable.android_image_1);
+        holder.images.setImageResource(R.drawable.hotel_logo);
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
                     childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);

@@ -58,11 +58,13 @@ public class CategoryDetail extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        name = findViewById(R.id.tv_category_name);
-        description = findViewById(R.id.tv_category_description);
-        imageView = findViewById(R.id.imv_category);
-        createBtn = findViewById(R.id.btn_create_category);
-        updateBtn = findViewById(R.id.btn_update_category);
+        //check category
+
+//        name = findViewById(R.id.tv_category_name);
+//        description = findViewById(R.id.tv_category_description);
+//        imageView = findViewById(R.id.imv_category);
+//        createBtn = findViewById(R.id.btn_create_category);
+//        updateBtn = findViewById(R.id.btn_update_category);
 
         // Get the category passed to the activity
         category = (Category) getIntent().getSerializableExtra("category");
