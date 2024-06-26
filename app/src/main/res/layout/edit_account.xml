@@ -106,7 +106,7 @@
             style="@style/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="130dp"
             android:backgroundTint="#D32317"
             android:text="@string/delete"
             android:textColor="@android:color/white" />

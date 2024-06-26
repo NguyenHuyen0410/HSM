@@ -40,5 +40,4 @@ public class ServiceRecord {
         @SerializedName("is_deleted")
         private boolean is_deleted;
     }
-
 }

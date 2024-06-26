@@ -1,5 +1,6 @@
 package com.example.hsb.entities;
 
+import com.example.hsb.utils.DateUtil;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -27,4 +28,19 @@ public class Role implements Serializable {
     private String createdDate;
     @SerializedName("updated")
     private String lastModifiedDate;
+
+
+    public Role(String id, String name, boolean isDeleted, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+        this.id = id;
+        this.name = name;
+        this.isDeleted = isDeleted;
+        this.createdDate = DateUtil.localDateTimeToString(createdDate);
+        this.lastModifiedDate = DateUtil.localDateTimeToString(lastModifiedDate);
+    }
+
+    public Role(String id, String name, boolean isDeleted) {
+        this.id = id;
+        this.name = name;
+        this.isDeleted = isDeleted;
+    }
 }

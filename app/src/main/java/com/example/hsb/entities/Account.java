@@ -18,24 +18,40 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Account implements Serializable {
-    @SerializedName("id")
+    private boolean isExpanded; //MVVM
+
+    public Account(String id, String name, String email, String password, String accountStatus,
+                   int images, boolean isDeleted, LocalDateTime createdDate,
+                   LocalDateTime lastModifiedDate, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.accountStatus = accountStatus;
+        this.images = images;
+        this.isDeleted = isDeleted;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.role = role;
+        this.isExpanded = false;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
+    }
+
     private String id;
-    @SerializedName("username")
-    private String username;
-    @SerializedName("email")
+    private String name;
     private String email;
-    @SerializedName("password")
     private String password;
-    @SerializedName("verified")
-    private boolean verified;
-    @SerializedName("role_id")
-    private int roleId;
-    @SerializedName("is_deleted")
+    private String accountStatus;
+    private int images;
     private boolean isDeleted;
-    @SerializedName("created")
-    private String createdDate;
-    @SerializedName("updated")
-    private String lastModifiedDate;
-    @SerializedName("expand")
-    private ExpandResponse expand;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
+    private Role role;
 }

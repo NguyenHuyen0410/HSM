@@ -5,6 +5,9 @@
 
     <!--CardView that holds the elements
         of the child RecyclerView -->
+    <!-- Drawable button not found
+         android:background="@drawable/button"
+    -->
         <TextView
             android:id="@+id/tv_child_item_service_name"
             android:layout_width="90dp"

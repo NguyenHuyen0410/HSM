@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.hsb.ui.auth.activity.LoginActivity;
 import com.example.hsb.ui.role.activity.RoleActivity;
 
 @SuppressLint("CustomSplashScreen")
