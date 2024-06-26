@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.adapter;
+package com.example.hsb.ui.service.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,7 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
     private List<Service> childItemList;
 
     // Constructor
-    ServiceAdaptor(List<Service> childItemList) {
+    public ServiceAdaptor(List<Service> childItemList) {
         this.childItemList = childItemList;
     }
 

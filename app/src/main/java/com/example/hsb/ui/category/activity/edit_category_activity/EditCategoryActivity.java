@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.activity.edit_category_activity;
+package com.example.hsb.ui.category.activity.edit_category_activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.account.activity.CategoryDetail;
 
 public class EditCategoryActivity extends AppCompatActivity {
     private EditText name;

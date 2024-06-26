@@ -23,7 +23,8 @@ import retrofit2.Response;
 
 public class AccountRepository {
     private static AccountRepository instance;
-    private static MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+    private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+
     public static AccountRepository getInstance() {
         if (instance == null) {
             instance = new AccountRepository();
@@ -31,7 +32,7 @@ public class AccountRepository {
         return instance;
     }
 
-    public MutableLiveData<List<Account>> getAccountList(){
+    public MutableLiveData<List<Account>> getAccountList() {
         MutableLiveData<List<Account>> mListAccountLiveData = new MutableLiveData<>();
         List<Account> accountList = new ArrayList<>();
         Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().getRecords();
@@ -40,12 +41,9 @@ public class AccountRepository {
             public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<AccountRecord> records = response.body().getItems();
-                    int index = 0;
                     for (AccountRecord record : records) {
-                        index++;
                         Role role = new Role(record.getExpand().getRole().getId(), record.getExpand().getRole().getName(), record.getExpand().getRole().isDeleted(),
                                 DateUtil.stringToLocalDateTime(record.getExpand().getRole().getCreated()), DateUtil.stringToLocalDateTime(record.getExpand().getRole().getUpdated()));
-                        // Process each record
                         Account account = new Account(record.getId(), record.getUsername(), record.getEmail(),
                                 record.getAccountPassword(), record.getStatus(), R.drawable.hotel_logo, record.is_deleted(),
                                 DateUtil.stringToLocalDateTime(record.getCreated()), DateUtil.stringToLocalDateTime(record.getUpdated()),
@@ -54,24 +52,35 @@ public class AccountRepository {
                     }
                     mListAccountLiveData.setValue(accountList);
                 } else {
-                    // Notify the fragment of an unsuccessful response
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
-                // Handle the failure case
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
         return mListAccountLiveData;
     }
 
-    public MutableLiveData<Account> editAccounts(Account account) {
-        MutableLiveData<Account> mAccount = new MutableLiveData<>();
-        AccountRecord accountRecord = setAccountRecord(account);
+    public interface EditAccountCallback {
+        void onEditSuccess(Account updatedAccount);
+        void onEditFailure(String errorMessage);
+    }
 
+    public interface CreateAccountCallback {
+        void onCreateSuccess(Account newAccount);
+        void onCreateFailure(String errorMessage);
+    }
+
+    public interface DeleteAccountCallback {
+        void onDeleteSuccess();
+        void onDeleteFailure(String errorMessage);
+    }
+
+    public void editAccount(Account account, EditAccountCallback callback) {
+        AccountRecord accountRecord = setAccountRecord(account);
         Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().updateRecord(account.getId(), accountRecord);
         call.enqueue(new Callback<AccountResponse>() {
             @Override
@@ -81,36 +90,22 @@ public class AccountRepository {
                     AccountRecord record = accountResponse.getItems().get(0);
                     Role role = new Role(record.getExpand().getRole().getId(), record.getExpand().getRole().getName(), record.getExpand().getRole().isDeleted(),
                             DateUtil.stringToLocalDateTime(record.getExpand().getRole().getCreated()), DateUtil.stringToLocalDateTime(record.getExpand().getRole().getUpdated()));
-                    Account updatedAccount = new Account(
-                            record.getId(),
-                            record.getUsername(),
-                            account.getEmail(),
-                            account.getPassword(),
-                            account.getAccountStatus(),
-                            R.drawable.hotel_logo,
-                            record.is_deleted(),
-                            DateUtil.stringToLocalDateTime(record.getCreated()),
-                            DateUtil.stringToLocalDateTime(record.getUpdated()),
-                            role
-                    );
-                    mAccount.setValue(updatedAccount);
-                    toastMessageLiveData.setValue("Update account successful: " + response.message());
+                    Account updatedAccount = new Account(record.getId(), record.getUsername(), record.getEmail(), record.getPassword(), record.getStatus(),
+                            R.drawable.hotel_logo, record.is_deleted(), DateUtil.stringToLocalDateTime(record.getCreated()), DateUtil.stringToLocalDateTime(record.getUpdated()), role);
+                    callback.onEditSuccess(updatedAccount);
                 } else {
-                    // Notify the fragment of an unsuccessful response
-                    toastMessageLiveData.setValue("Update account not successful: " + response.message());
+                    callback.onEditFailure(response.message());
                 }
             }
+
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
-                // Handle the failure case
-                toastMessageLiveData.setValue("Update account failed: " + t.getMessage());
+                callback.onEditFailure(t.getMessage());
             }
         });
-        return mAccount;
     }
 
-    public void createAccount(Account account) {
-        MutableLiveData<Account> mAccount = new MutableLiveData<>();
+    public void createAccount(Account account, CreateAccountCallback callback) {
         AccountRecord accountRecord = setAccountRecord(account);
         Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().createRecord(accountRecord);
         call.enqueue(new Callback<AccountResponse>() {
@@ -121,92 +116,59 @@ public class AccountRepository {
                     AccountRecord record = accountResponse.getItems().get(0);
                     Role role = new Role(record.getExpand().getRole().getId(), record.getExpand().getRole().getName(), record.getExpand().getRole().isDeleted(),
                             DateUtil.stringToLocalDateTime(record.getExpand().getRole().getCreated()), DateUtil.stringToLocalDateTime(record.getExpand().getRole().getUpdated()));
-                    Account newAccount = new Account(
-                            record.getId(),
-                            record.getUsername(),
-                            account.getEmail(),
-                            account.getPassword(),
-                            account.getAccountStatus(),
-                            R.drawable.hotel_logo,
-                            record.is_deleted(),
-                            DateUtil.stringToLocalDateTime(record.getCreated()),
-                            DateUtil.stringToLocalDateTime(record.getUpdated()),
-                            role
-                    );
-                    mAccount.setValue(newAccount);
-                    toastMessageLiveData.setValue("Create account successful: " + response.message());
+                    Account newAccount = new Account(record.getId(), record.getUsername(), record.getEmail(), record.getPassword(), record.getStatus(),
+                            R.drawable.hotel_logo, record.is_deleted(), DateUtil.stringToLocalDateTime(record.getCreated()), DateUtil.stringToLocalDateTime(record.getUpdated()), role);
+                    callback.onCreateSuccess(newAccount);
                 } else {
-                    // Notify the fragment of an unsuccessful response
-                    toastMessageLiveData.setValue("Create account not successful: " + response.message());
+                    callback.onCreateFailure(response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<AccountResponse> call, Throwable t) {
-                // Handle the failure case
-                toastMessageLiveData.setValue("Create account failed: " + t.getMessage());
+                callback.onCreateFailure(t.getMessage());
             }
         });
     }
 
-    public void deleteAccount(String id) {
-        MutableLiveData<Account> mAccount = new MutableLiveData<>();
-        Call<Void> call = RetrofitClient.getInstance().getAccountServiceApi().deleteRecord(id);
+    public void deleteAccount(String accountId, DeleteAccountCallback callback) {
+        Call<Void> call = RetrofitClient.getInstance().getAccountServiceApi().deleteRecord(accountId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Notify the fragment of a successful response
-                    toastMessageLiveData.setValue("Delete successful: " + response.message());
-                    // Set the account LiveData to null to indicate deletion
-                    mAccount.setValue(null);
+                    callback.onDeleteSuccess();
                 } else {
-                    // Log the response code and message
-                    int responseCode = response.code();
-                    String responseMessage = response.message();
-                    // Notify the fragment of an unsuccessful response
-                    toastMessageLiveData.setValue("Delete not successful: " + responseMessage + " (Code: " + responseCode + ")");
-                    Log.e("DeleteAccount", "Unsuccessful response: Code " + responseCode + ", Message: " + responseMessage);
+                    callback.onDeleteFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Handle the failure case
-                toastMessageLiveData.setValue("Delete failed: " + t.getMessage());
-                Log.e("DeleteAccount", "Request failed", t);
+                callback.onDeleteFailure(t.getMessage());
             }
         });
     }
 
-    public AccountRecord setAccountRecord(Account account){
+    private AccountRecord setAccountRecord(Account account) {
         AccountRecord accountRecord = new AccountRecord();
         accountRecord.setVerified(false);
-        if(account.getId()!=null){
+        if (account.getId() != null) {
             accountRecord.setId(account.getId());
             accountRecord.setCreated(DateUtil.localDateTimeToString(account.getCreatedDate()));
             accountRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
             accountRecord.setVerified(true);
-        }
-        else{
+        } else {
             accountRecord.setPassword(account.getPassword());
             accountRecord.setPasswordConfirm(account.getPassword());
             accountRecord.setCreated(DateUtil.localDateTimeToString(LocalDateTime.now()));
             accountRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
         }
-        // Account fields
         accountRecord.setAccountPassword(account.getPassword());
         accountRecord.setUsername(account.getName());
         accountRecord.setEmail(account.getEmail());
-        accountRecord.setRoleId(account.getRole().getId());
         accountRecord.setStatus(account.getAccountStatus());
-
-        // System fields
-        accountRecord.setCollectionId("scnidcpqzr1mpdh");
-        accountRecord.setCollectionName(AccountConstant.ACCOUNT);
-        accountRecord.setEmailVisibility(true);
-        accountRecord.set_deleted(false);
+        accountRecord.setRoleId(account.getRole().getId());
+        accountRecord.set_deleted(account.isDeleted());
         return accountRecord;
     }
-
 }

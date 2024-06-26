@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.adapter;
+package com.example.hsb.ui.category.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

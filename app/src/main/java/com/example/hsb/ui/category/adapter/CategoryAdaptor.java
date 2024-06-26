@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.adapter;
+package com.example.hsb.ui.category.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.account.activity.CategoryDetail;
+import com.example.hsb.ui.service.adapter.ServiceAdaptor;
+import com.example.hsb.ui.category.activity.edit_category_activity.CategoryDetail;
 
 
 import java.util.List;

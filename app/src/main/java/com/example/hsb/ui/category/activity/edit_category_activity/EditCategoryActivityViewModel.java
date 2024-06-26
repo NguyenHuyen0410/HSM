@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.activity.edit_category_activity;
+package com.example.hsb.ui.category.activity.edit_category_activity;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,7 +7,6 @@ import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Category;
 import com.example.hsb.record.CategoryRecord;
 import com.example.hsb.response.CategoryResponse;
-import com.example.hsb.ui.account.fragment.category_fragment.CategoryFragmentViewModel;
 import com.example.hsb.utils.DateUtil;
 
 import java.time.LocalDateTime;

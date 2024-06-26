@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.fragment.category_fragment;
+package com.example.hsb.ui.category.fragment.category_fragment;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

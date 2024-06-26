@@ -29,5 +29,4 @@ public class Role implements Serializable {
     private boolean isDeleted;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
-
 }

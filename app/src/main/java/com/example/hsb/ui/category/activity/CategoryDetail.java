@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.activity;
+package com.example.hsb.ui.category.activity.edit_category_activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Service;
-import com.example.hsb.ui.account.activity.edit_category_activity.EditCategoryActivity;
-import com.example.hsb.ui.account.adapter.CategoryDetailServiceAdaptor;
+import com.example.hsb.ui.category.adapter.CategoryDetailServiceAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -39,4 +39,8 @@ public class AccountFragmentViewModel extends ViewModel {
     public MutableLiveData<List<Account>> getListAccountLiveData() {
         return mListAccountLiveData;
     }
+
+    public MutableLiveData<String> getToastMessageLiveData() {
+        return toastMessageLiveData;
+    }
 }
