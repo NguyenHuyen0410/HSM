@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.hsb.R;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.account_fragment.AccountFragment;
-import com.example.hsb.ui.category.fragment.category_fragment.CategoryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {
@@ -22,7 +21,6 @@ public class ListAccountActivity extends AppCompatActivity {
     private Fragment currentFragment;
     private HomeFragment homeFragment;
     private AccountFragment accountFragment;
-    private CategoryFragment categoryFragment;
 
     private static final String TAG_HOME = "homeFragment";
     private static final String TAG_ACCOUNT = "accountFragment";
@@ -46,11 +44,6 @@ public class ListAccountActivity extends AppCompatActivity {
             accountFragment = new AccountFragment();
         }
 
-        categoryFragment = (CategoryFragment) fragmentManager.findFragmentByTag(TAG_CATEGORY);
-        if (categoryFragment == null) {
-            categoryFragment = new CategoryFragment();
-        }
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,9 +54,6 @@ public class ListAccountActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.account) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
-                    return true;
-                } else if (id == R.id.category) {
-                    switchFragment(categoryFragment, TAG_CATEGORY);
                     return true;
                 }
                 return false;

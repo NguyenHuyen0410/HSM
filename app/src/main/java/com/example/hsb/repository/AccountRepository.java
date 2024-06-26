@@ -1,7 +1,5 @@
 package com.example.hsb.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hsb.R;
@@ -9,8 +7,7 @@ import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Role;
 import com.example.hsb.record.AccountRecord;
-import com.example.hsb.response.AccountResponse;
-import com.example.hsb.storage.AccountConstant;
+import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
 
 import java.time.LocalDateTime;
@@ -35,10 +32,10 @@ public class AccountRepository {
     public MutableLiveData<List<Account>> getAccountList() {
         MutableLiveData<List<Account>> mListAccountLiveData = new MutableLiveData<>();
         List<Account> accountList = new ArrayList<>();
-        Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().getRecords();
-        call.enqueue(new Callback<AccountResponse>() {
+        Call<ListResponse<AccountRecord>> call = RetrofitClient.getInstance().getAccountServiceApi().getRecords();
+        call.enqueue(new Callback<ListResponse<AccountRecord>>() {
             @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+            public void onResponse(Call<ListResponse<AccountRecord>> call, Response<ListResponse<AccountRecord>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<AccountRecord> records = response.body().getItems();
                     for (AccountRecord record : records) {
@@ -57,7 +54,7 @@ public class AccountRepository {
             }
 
             @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
+            public void onFailure(Call<ListResponse<AccountRecord>> call, Throwable t) {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
@@ -81,12 +78,12 @@ public class AccountRepository {
 
     public void editAccount(Account account, EditAccountCallback callback) {
         AccountRecord accountRecord = setAccountRecord(account);
-        Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().updateRecord(account.getId(), accountRecord);
-        call.enqueue(new Callback<AccountResponse>() {
+        Call<ListResponse<AccountRecord>> call = RetrofitClient.getInstance().getAccountServiceApi().updateRecord(account.getId(), accountRecord);
+        call.enqueue(new Callback<ListResponse<AccountRecord>>() {
             @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+            public void onResponse(Call<ListResponse<AccountRecord>> call, Response<ListResponse<AccountRecord>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    AccountResponse accountResponse = response.body();
+                    ListResponse<AccountRecord> accountResponse = response.body();
                     AccountRecord record = accountResponse.getItems().get(0);
                     Role role = new Role(record.getExpand().getRole().getId(), record.getExpand().getRole().getName(), record.getExpand().getRole().isDeleted(),
                             DateUtil.stringToLocalDateTime(record.getExpand().getRole().getCreated()), DateUtil.stringToLocalDateTime(record.getExpand().getRole().getUpdated()));
@@ -99,7 +96,7 @@ public class AccountRepository {
             }
 
             @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
+            public void onFailure(Call<ListResponse<AccountRecord>> call, Throwable t) {
                 callback.onEditFailure(t.getMessage());
             }
         });
@@ -107,12 +104,12 @@ public class AccountRepository {
 
     public void createAccount(Account account, CreateAccountCallback callback) {
         AccountRecord accountRecord = setAccountRecord(account);
-        Call<AccountResponse> call = RetrofitClient.getInstance().getAccountServiceApi().createRecord(accountRecord);
-        call.enqueue(new Callback<AccountResponse>() {
+        Call<ListResponse<AccountRecord>> call = RetrofitClient.getInstance().getAccountServiceApi().createRecord(accountRecord);
+        call.enqueue(new Callback<ListResponse<AccountRecord>>() {
             @Override
-            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+            public void onResponse(Call<ListResponse<AccountRecord>> call, Response<ListResponse<AccountRecord>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    AccountResponse accountResponse = response.body();
+                    ListResponse<AccountRecord> accountResponse = response.body();
                     AccountRecord record = accountResponse.getItems().get(0);
                     Role role = new Role(record.getExpand().getRole().getId(), record.getExpand().getRole().getName(), record.getExpand().getRole().isDeleted(),
                             DateUtil.stringToLocalDateTime(record.getExpand().getRole().getCreated()), DateUtil.stringToLocalDateTime(record.getExpand().getRole().getUpdated()));
@@ -124,7 +121,7 @@ public class AccountRepository {
                 }
             }
             @Override
-            public void onFailure(Call<AccountResponse> call, Throwable t) {
+            public void onFailure(Call<ListResponse<AccountRecord>> call, Throwable t) {
                 callback.onCreateFailure(t.getMessage());
             }
         });
