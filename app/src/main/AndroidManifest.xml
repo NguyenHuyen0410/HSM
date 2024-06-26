@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,13 +18,15 @@
             android:name=".SplashActivity"
             android:theme="@style/Theme.Splash"
             android:exported="true">
+        </activity>
+        <activity android:name=".ui.account.activity.ListAccountActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.account.activity.edit_account_activity.EditAccountActivity"
             android:exported="false"
@@ -34,7 +36,7 @@
                 android:value=".ui.account.activity.ListAccountActivity"/>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.activity.LoginActivity"
             android:exported="true">
         </activity>
     </application>

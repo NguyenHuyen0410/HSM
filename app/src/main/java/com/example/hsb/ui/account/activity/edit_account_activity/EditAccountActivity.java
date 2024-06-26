@@ -1,5 +1,8 @@
 package com.example.hsb.ui.account.activity.edit_account_activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,6 +27,8 @@ import com.example.hsb.entities.Account;
 import com.example.hsb.storage.SystemRoles;
 import com.example.hsb.utils.ValidateUtil;
 
+import java.util.Arrays;
+
 public class EditAccountActivity extends AppCompatActivity {
     private String[] statusItems = {"ACTIVE", "TERMINATE"};
     private String[] roleItems = {"MANAGER", "RECEPTIONIST", "CUSTOMER"};
@@ -41,7 +46,6 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_account);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,14 +62,7 @@ public class EditAccountActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        name = findViewById(R.id.et_user_name);
-        password = findViewById(R.id.et_password);
-        passwordConfirm = findViewById(R.id.et_confirm_password);
-        email = findViewById(R.id.et_email);
-        autoCompleteRole = findViewById(R.id.auto_complete_role);
-        autoCompleteStatus = findViewById(R.id.auto_complete_status);
-        saveBtn = findViewById(R.id.btn_save);
-        deleteBtn = findViewById(R.id.btn_delete);
+        setLayout();
 
         // Initialize ViewModel
         editAccountActivityViewModel = new ViewModelProvider(this).get(EditAccountActivityViewModel.class);
@@ -73,8 +70,8 @@ public class EditAccountActivity extends AppCompatActivity {
         // Get the account passed to the activity
         Account account = (Account) getIntent().getSerializableExtra("account");
         if (account != null) {
-            setCreateData(account);
-        } else{
+            setData(account);
+        } else {
             account = new Account();
         }
 
@@ -99,20 +96,35 @@ public class EditAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setUpdateData(finalAccount);
-                if (finalAccount.getId() != null) {
-                    // Call ViewModel to update account
-                    editAccountActivityViewModel.editAccounts(finalAccount);
-                } else {
-                    // Call ViewModel to create account
-                    editAccountActivityViewModel.createAccount(finalAccount);
-                }
             }
         });
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editAccountActivityViewModel.deleteAccount(finalAccount.getId());
+                new AlertDialog.Builder(EditAccountActivity.this)
+                        .setTitle("Delete Account")
+                        .setMessage("Are you sure you want to delete this account?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Call ViewModel to delete account
+                                editAccountActivityViewModel.deleteAccount(finalAccount.getId());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+        // Observe the ViewModel for delete status
+        editAccountActivityViewModel.getDeleteStatusLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isDeleted) {
+                if (isDeleted != null && isDeleted) {
+                    Toast.makeText(EditAccountActivity.this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
 
@@ -136,6 +148,17 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
+    public void setLayout(){
+        name = findViewById(R.id.et_user_name);
+        password = findViewById(R.id.et_password);
+        passwordConfirm = findViewById(R.id.et_confirm_password);
+        email = findViewById(R.id.et_email);
+        autoCompleteRole = findViewById(R.id.auto_complete_role);
+        autoCompleteStatus = findViewById(R.id.auto_complete_status);
+        saveBtn = findViewById(R.id.btn_save);
+        deleteBtn = findViewById(R.id.btn_delete);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -146,31 +169,37 @@ public class EditAccountActivity extends AppCompatActivity {
     }
 
     public void setUpdateData(@Nullable Account account) {
-        boolean check = true;
-        // Retrieve data from the fields
-        String updatedName = "";
-        if(check==ValidateUtil.isNameValid(name)){
-            updatedName = name.getText().toString();
-        }
-        String updatedPassword = "";
-        if(check!=ValidateUtil.isPassEqual(password, passwordConfirm)){
+        boolean isValid = true;
 
-        }
-        if(check==ValidateUtil.isPasswordValid(password)){
-            updatedPassword = password.getText().toString();
-        }
-        String updatedEmail = "";
-        if(check==ValidateUtil.isEmailValid(email)){
-            updatedEmail = email.getText().toString();
+        // Validate name
+        if (ValidateUtil.isNameValid(name)) {
+            account.setName(name.getText().toString());
+        } else {
+            name.setError("Invalid name");
+            isValid = false;
         }
 
+        // Validate password and password confirmation
+        if (!ValidateUtil.isPassEqual(password, passwordConfirm)) {
+            passwordConfirm.setError("Passwords do not match");
+            isValid = false;
+        } else if (!ValidateUtil.isPasswordValid(password)) {
+            password.setError("Invalid password");
+            isValid = false;
+        } else {
+            account.setPassword(password.getText().toString());
+        }
+
+        // Validate email
+        if (ValidateUtil.isEmailValid(email)) {
+            account.setEmail(email.getText().toString());
+        } else {
+            email.setError("Invalid email");
+            isValid = false;
+        }
+
+        // Validate role
         String updatedRole = autoCompleteRole.getText().toString();
-        String updatedStatus = autoCompleteStatus.getText().toString();
-
-        // Update the account
-        account.setName(updatedName);
-        account.setPassword(updatedPassword);
-        account.setEmail(updatedEmail);
         switch (updatedRole) {
             case "RECEPTIONIST":
                 account.setRole(SystemRoles.RECEPTIONIST);
@@ -181,26 +210,38 @@ public class EditAccountActivity extends AppCompatActivity {
             case "CUSTOMER":
                 account.setRole(SystemRoles.CUSTOMER);
                 break;
+            default:
+                autoCompleteRole.setError("Invalid role");
+                isValid = false;
+                break;
         }
-        account.setAccountStatus(updatedStatus);
+
+        // Validate status
+        String updatedStatus = autoCompleteStatus.getText().toString();
+        if (Arrays.asList(statusItems).contains(updatedStatus)) {
+            account.setAccountStatus(updatedStatus);
+        } else {
+            autoCompleteStatus.setError("Invalid status");
+            isValid = false;
+        }
+
+        if (isValid) {
+            // Call ViewModel to update or create account
+            if (account.getId() != null) {
+                editAccountActivityViewModel.editAccount(account);
+            } else {
+                editAccountActivityViewModel.createAccount(account);
+            }
+        } else {
+            Toast.makeText(EditAccountActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void setCreateData(@Nullable Account account){
-        boolean check = true;
+    public void setData(@Nullable Account account){
         name.setText(account.getName());
-        if(check!=ValidateUtil.isNameValid(name)){
-
-        }
         password.setText(account.getPassword()); // Assuming password is retrievable, otherwise, handle appropriately
-        if(check!=ValidateUtil.isPasswordValid(password)){
-
-        } if(check!=ValidateUtil.isPassEqual(password, passwordConfirm)){
-
-        }
+        passwordConfirm.setText(account.getPassword());
         email.setText(account.getEmail());
-        if(check!=ValidateUtil.isEmailValid(email)){
-
-        }
         autoCompleteRole.setText(account.getRole().getName(), false);
         autoCompleteStatus.setText(account.getAccountStatus(), false);
     }

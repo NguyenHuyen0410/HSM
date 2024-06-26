@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.account.activity.edit_category_activity.EditCategoryActivity">
+    tools:context=".ui.category.activity.edit_category_activity.EditCategoryActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar

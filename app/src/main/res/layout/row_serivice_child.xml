@@ -5,11 +5,13 @@
 
     <!--CardView that holds the elements
         of the child RecyclerView -->
+    <!-- Drawable button not found
+         android:background="@drawable/button"
+    -->
         <TextView
             android:id="@+id/tv_child_item_service_name"
             android:layout_width="90dp"
             android:layout_height="32dp"
-            android:background="@drawable/button"
             android:backgroundTint="#8DA2BF"
             android:gravity="center"
             android:text="Sinh nhật"

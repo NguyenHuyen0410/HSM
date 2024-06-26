@@ -1,6 +1,8 @@
 package com.example.hsb.ui.account.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.storage.AccountStatus;
 import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
+import com.example.hsb.ui.account.fragment.account_fragment.AccountFragmentViewModel;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +33,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
     private List<Account> accountList;
     private Context context;
     private static String hexColor;
+    private AccountFragmentViewModel accountFragmentViewModel;
 
     public AccountAdapter(List<Account> accountList, Context context) {
         this.context = context;
@@ -78,7 +82,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             }
         });
 
-        holder.button.setOnClickListener(v -> {
+        holder.btn_edit.setOnClickListener(v -> {
+            System.out.println("---------gmail--------------");
+            System.out.println(account.getEmail());
             Intent intent = new Intent(context, EditAccountActivity.class);
             intent.putExtra("account", account);
             intent.putExtra("role", roleName);
@@ -102,7 +108,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         ImageView images;
         ConstraintLayout accountItem;
         ConstraintLayout expandableLayout;
-        Button button;
+        Button btn_edit;
 
         public AccountHolder(@NonNull View itemView) {
             super(itemView);
@@ -115,7 +121,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             images = itemView.findViewById(R.id.imv_ava);
             accountItem = itemView.findViewById(R.id.account_item);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
-            button = itemView.findViewById(R.id.button);
+            btn_edit = itemView.findViewById(R.id.btn_edit_account);
         }
     }
 
