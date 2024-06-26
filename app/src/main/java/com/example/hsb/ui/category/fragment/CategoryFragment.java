@@ -1,11 +1,9 @@
-package com.example.hsb.ui.account.fragment.category_fragment;
+package com.example.hsb.ui.category.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.entities.Service;
-import com.example.hsb.ui.account.activity.edit_category_activity.EditCategoryActivity;
-import com.example.hsb.ui.account.adapter.CategoryAdaptor;
+import com.example.hsb.ui.category.adapter.CategoryAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;

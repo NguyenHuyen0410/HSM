@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.activity;
+package com.example.hsb.ui.category.activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +19,10 @@ import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Service;
-import com.example.hsb.ui.account.activity.edit_category_activity.EditCategoryActivity;
-import com.example.hsb.ui.account.adapter.CategoryDetailServiceAdaptor;
+import com.example.hsb.ui.category.activity.edit_category_activity.EditCategoryActivity;
+import com.example.hsb.ui.category.adapter.CategoryDetailServiceAdaptor;
+//import com.example.hsb.ui.category.activity.edit_category_activity.EditCategoryActivity;
+//import com.example.hsb.ui.category.adapter.CategoryDetailServiceAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +59,11 @@ public class CategoryDetail extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        name = findViewById(R.id.tv_category_name);
-        description = findViewById(R.id.tv_category_description);
-        imageView = findViewById(R.id.imv_category);
-        createBtn = findViewById(R.id.btn_create_category);
-        updateBtn = findViewById(R.id.btn_update_category);
+//        name = findViewById(R.id.tv_category_name);
+//        description = findViewById(R.id.tv_category_description);
+//        imageView = findViewById(R.id.imv_category);
+//        createBtn = findViewById(R.id.btn_create_category);
+//        updateBtn = findViewById(R.id.btn_update_category);
 
         // Get the category passed to the activity
         category = (Category) getIntent().getSerializableExtra("category");
@@ -76,10 +77,10 @@ public class CategoryDetail extends AppCompatActivity {
         imgAddess.append(category.getImage());
         Glide.with(this).load(imgAddess.toString()).into(imageView);
 
-        if (category.getServiceList() != null) {
-            serviceList.clear();
-            serviceList.addAll(category.getServiceList());
-        }
+//        if (category.getServiceList() != null) {
+//            serviceList.clear();
+//            serviceList.addAll(category.getServiceList());
+//        }
 
         RecyclerView recyclerView = findViewById(R.id.rv_service_child);
         adapter = new CategoryDetailServiceAdaptor(serviceList, this);

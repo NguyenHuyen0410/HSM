@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.adapter;
+package com.example.hsb.ui.category.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +28,7 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
 
         // Here we inflate the corresponding
         // layout of the child item
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_serivice_child, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_service_child, parent, false);
         return new ServiceHolder(view);
     }
 
@@ -51,13 +51,13 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
 
     @Override
     public int getItemCount() {
-
-        // This method returns the number
-        // of items we have added
-        // in the ChildItemList
-        // i.e. the number of instances
-        // of the ChildItemList
-        // that have been created
+//
+//        // This method returns the number
+//        // of items we have added
+//        // in the ChildItemList
+//        // i.e. the number of instances
+//        // of the ChildItemList
+//        // that have been created
         return childItemList.size();
     }
 

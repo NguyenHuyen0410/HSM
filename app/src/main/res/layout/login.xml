@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".MainActivity"
+    tools:context=".ui.auth.activity.LoginActivity"
     android:id="@+id/main">
     <!-- Top background image -->
     <ImageView
-        android:id="@+id/topBackground"
+        android:id="@+id/img_login_background"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:scaleType="fitCenter"
@@ -17,40 +17,40 @@
         android:layout_alignParentTop="true" />
 
     <TextView
-        android:id="@+id/loginTitle"
+        android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
-        android:layout_marginLeft="45dp"
-        android:text="@string/label"
+        android:layout_marginStart="45dp"
+        android:text="@string/login_label"
         android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="@android:color/black" />
 
     <LinearLayout
-        android:id="@+id/loginForm"
+        android:id="@+id/form_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/login_title"
         android:padding="32dp"
         android:background="@drawable/form_background"
         android:elevation="8dp"
         android:layout_margin="16dp">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/edt_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email_hint"
-            android:inputType="textEmailAddress"
+            android:hint="@string/identity_hint"
+            android:inputType="text"
             android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="10dp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/edt_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_hint"
@@ -61,42 +61,28 @@
             android:background="@drawable/edittext_background"
             android:layout_marginTop="16dp"/>
 
+        <TextView
+            android:id="@+id/login_forgot_password"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="90dp"
+            android:text="@string/forgot_password"
+            android:textColor="@android:color/darker_gray" />
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/signin"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signin"
+        android:text="@string/btn_login"
         android:textSize="20sp"
         style="@style/save_button"
-        android:layout_margin="32dp"
-        android:layout_below="@id/loginForm"
+        android:layout_margin="10dp"
+        android:layout_below="@id/form_login"
         android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@color/sidebar_backgr"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/clickable_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
-            android:textColor="@android:color/black"
-            android:textSize="21sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="10dp"
-            />
-        
-    </LinearLayout>
 
 </RelativeLayout>
 

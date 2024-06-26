@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.activity.edit_category_activity;
+package com.example.hsb.ui.category.activity.edit_category_activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.account.activity.CategoryDetail;
+import com.example.hsb.ui.category.activity.CategoryDetail;
 
 public class EditCategoryActivity extends AppCompatActivity {
     private EditText name;
@@ -76,7 +76,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                     editCategoryActivityViewModel.editCategory(finalCategory);
                 } else {
                     // Call ViewModel to create account
-                    editCategoryActivityViewModel.createCategory(finalCategory);
+//                    editCategoryActivityViewModel.createCategory(finalCategory);
                 }
             }
         });
@@ -84,7 +84,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editCategoryActivityViewModel.deleteCategory(finalCategory.getId());
+//                editCategoryActivityViewModel.deleteCategory(finalCategory.getId());
             }
         });
 
@@ -96,7 +96,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                 // Handle the updated account, e.g., show a message or update UI
                 Toast.makeText(EditCategoryActivity.this, "Category updated successfully", Toast.LENGTH_SHORT).show();
                 // Optionally finish the activity or update the UI further
-//                finish();
+                finish();
 
                 Intent intent = new Intent(EditCategoryActivity.this, CategoryDetail.class);
                 intent.putExtra("category", editCategoryActivityViewModel.getCategoryLiveData().getValue());

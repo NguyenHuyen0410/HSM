@@ -10,7 +10,7 @@
         android:title="Order"></item>
     <item
         android:id="@+id/room"
-        android:icon="@drawable/baseline_room_service_24"
+        android:icon="@drawable/baseline_bedroom_child_24"
         android:title="Room"></item>
     <item
         android:id="@+id/profile"

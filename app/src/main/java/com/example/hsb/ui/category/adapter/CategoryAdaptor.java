@@ -1,4 +1,4 @@
-package com.example.hsb.ui.account.adapter;
+package com.example.hsb.ui.category.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.account.activity.CategoryDetail;
-
+import com.example.hsb.ui.category.activity.CategoryDetail;
 
 import java.util.List;
 
@@ -54,19 +53,19 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
         holder.name.setText(category.getName());
 
-        holder.images.setImageResource(R.drawable.android_image_1);
+//        holder.images.setImageResource(R.drawable.android_image_1);
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
                     childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-        if (category.getServiceList() != null) {
-            layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());
-
-            ServiceAdaptor childItemAdapter = new ServiceAdaptor(category.getServiceList());
-            holder.childRecyclerView.setLayoutManager(layoutManager);
-            holder.childRecyclerView.setAdapter(childItemAdapter);
-            holder.childRecyclerView.setRecycledViewPool(viewPool);
-        }
+//        if (category.getServiceList() != null) {
+//            layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());
+//
+//            ServiceAdaptor childItemAdapter = new ServiceAdaptor(category.getServiceList());
+//            holder.childRecyclerView.setLayoutManager(layoutManager);
+//            holder.childRecyclerView.setAdapter(childItemAdapter);
+//            holder.childRecyclerView.setRecycledViewPool(viewPool);
+//        }
 
 
         holder.button.setOnClickListener(v -> {
@@ -81,7 +80,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
         return categoryList.size();
     }
 
-    public static class CategoryHolder extends RecyclerView.ViewHolder {
+    public class CategoryHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         ImageView images;

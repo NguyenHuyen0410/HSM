@@ -1,5 +1,6 @@
 package com.example.hsb.response;
 
+import com.example.hsb.entities.Account;
 import com.example.hsb.record.AccountRecord;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,26 +11,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountResponse extends BaseResponse {
-    @SerializedName("items")
-    private List<AccountRecord> items;
+public class AccountResponse{
+    @SerializedName("token")
+    private String token;
+    @SerializedName("record")
+    private Account account;
 }
-
-// code cũ của chị Huyền
-//private String token;
-//private Account account;
-//public String getToken() {
-//    return token;
-//}
-//
-//public void setToken(String token) {
-//    this.token = token;
-//}
-//
-//public Account getAccount() {
-//    return account;
-//}
-//
-//public void setAccount(Account account) {
-//    this.account = account;
-//}

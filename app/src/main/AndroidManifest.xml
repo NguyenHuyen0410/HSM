@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -34,7 +35,11 @@
                 android:value=".ui.account.activity.ListAccountActivity"/>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.activity.LoginActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.role.activity.RoleActivity"
             android:exported="true">
         </activity>
     </application>

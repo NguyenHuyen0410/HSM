@@ -1,33 +1,30 @@
 package com.example.hsb.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Role implements Serializable {
-
-    public Role(String id, String name, boolean isDeleted) {
-        this.id = id;
-        this.name = name;
-        this.isDeleted = isDeleted;
-    }
-
-    public Role(String id, String name, boolean isDeleted, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
-        this.id = id;
-        this.name = name;
-        this.isDeleted = isDeleted;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
+    @SerializedName("id")
     private String id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("is_deleted")
     private boolean isDeleted;
-    private LocalDateTime createdDate;
-    private LocalDateTime lastModifiedDate;
-
+    @SerializedName("created")
+    private String createdDate;
+    @SerializedName("updated")
+    private String lastModifiedDate;
 }
