@@ -20,4 +20,6 @@
     <string name="btn_update">Update</string>
     <string name="head_service">Services</string>
     <string name="select_category">Select Category</string>
+    <string name="service_name">Pool</string>
+    <string name="service_desc">Pool service available</string>
 </resources>

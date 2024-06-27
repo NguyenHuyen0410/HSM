@@ -20,7 +20,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/android_image_1" />
+            app:srcCompat="@drawable/hotel_logo" />
 
         <TextView
             android:id="@+id/service_name"
@@ -28,17 +28,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Name"
+            android:text="@string/service_name"
             app:layout_constraintStart_toEndOf="@+id/service_img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/service_des"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Description"
+            android:layout_marginEnd="17dp"
+            android:text="@string/service_desc"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/service_img"
             app:layout_constraintTop_toBottomOf="@+id/service_name" />
 
