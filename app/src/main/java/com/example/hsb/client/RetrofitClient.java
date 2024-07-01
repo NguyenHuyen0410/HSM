@@ -1,6 +1,7 @@
 package com.example.hsb.client;
 
 import com.example.hsb.service.AccountServiceApi;
+import com.example.hsb.service.AuthServiceApi;
 import com.example.hsb.service.CategoryServiceApi;
 import com.example.hsb.service.RoleServiceApi;
 
@@ -34,5 +35,8 @@ public class RetrofitClient {
     }
     public RoleServiceApi getRoleServiceApi() {
         return retrofit.create(RoleServiceApi.class);
+    }
+    public AuthServiceApi getAuthServiceApi() {
+        return retrofit.create(AuthServiceApi.class);
     }
 }

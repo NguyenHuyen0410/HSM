@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">HSM</string>
-    <string name="hotel_logo" />
     <string name="login_label">Đăng nhập</string>
     <string name="identity_hint">Username</string>
     <string name="password_hint">Mật khẩu</string>

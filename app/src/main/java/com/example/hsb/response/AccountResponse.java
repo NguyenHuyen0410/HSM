@@ -1,6 +1,7 @@
 package com.example.hsb.response;
 
 import com.example.hsb.entities.Account;
+import com.example.hsb.entities.Account_Fix;
 import com.example.hsb.record.AccountRecord;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,5 +16,5 @@ public class AccountResponse{
     @SerializedName("token")
     private String token;
     @SerializedName("record")
-    private Account account;
+    private Account_Fix account;
 }
