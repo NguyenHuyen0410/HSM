@@ -12,14 +12,14 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface AccountServiceApi {
-    @GET("accounts/records?expand=role_id")
+    @GET("accounts/records?expand=role_id,profile")
     Call<ListResponse<AccountRecord>> getRecords();
 
     @POST("accounts/records?expand=role_id")
-    Call<ListResponse<AccountRecord>> createRecord(@Body AccountRecord record);
+    Call<AccountRecord> createRecord(@Body AccountRecord record);
 
     @PATCH("accounts/records/{recordId}?expand=role_id")
-    Call<ListResponse<AccountRecord>> updateRecord(@Path("recordId") String recordId, @Body AccountRecord record);
+    Call<AccountRecord> updateRecord(@Path("recordId") String recordId, @Body AccountRecord record);
 
     @DELETE("accounts/records/{recordId}")
     Call<Void> deleteRecord(@Path("recordId") String recordId);

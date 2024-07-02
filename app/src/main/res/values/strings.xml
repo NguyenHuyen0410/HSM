@@ -30,4 +30,14 @@
         <item>Active</item>
         <item>DeActive</item>
     </string-array>
+    <string name="field_date_of_birth">Date of birth: </string>
+    <string name="field_gender">Gender: </string>
+    <string name="field_address">Address: </string>
+    <string name="field_phone_number">Phone Number: </string>
+    <string name="field_start_work_date">Start working from: </string>
+    <string name="dashboard">Dashboard</string>
+    <string name="category">Category</string>
+    <string name="account">Account</string>
+    <string name="service">Service</string>
+    <string name="profile">Profile</string>
 </resources>

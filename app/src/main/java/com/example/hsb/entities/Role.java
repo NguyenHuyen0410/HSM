@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Role implements Serializable {
 
     public Role(String id, String name, boolean isDeleted) {

@@ -1,8 +1,6 @@
 package com.example.hsb.ui.account.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -22,16 +20,15 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.storage.AccountStatus;
 import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
-import com.example.hsb.ui.account.fragment.account_fragment.AccountFragmentViewModel;
+import com.example.hsb.ui.account.fragment.AccountFragmentViewModel;
+import com.example.hsb.utils.DateUtil;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<Account> accountList;
-    private Context context;
+    private final List<Account> accountList;
+    private final Context context;
     private static String hexColor;
     private AccountFragmentViewModel accountFragmentViewModel;
 
@@ -50,8 +47,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
     @Override
     public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
         Account account = this.accountList.get(position);
+        String imageUrl = "https://hotel-service-manage.pockethost.io/api/files/s1fvh4cvz1v4k80/"+account.getProfileId()+"/"+account.getAccountImage()+"?token=";
         Glide.with(context)
-                .load(account.getImages()) // replace with your image source
+                .load(imageUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.images);
 
@@ -65,26 +63,21 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
         holder.role.setText(roleName);
 
-        String createdDate = "Created Date: " + localDateTimeToString(account.getCreatedDate());
+        String createdDate = "Created Date: " + DateUtil.localDateTimeToString(account.getCreatedDate());
         holder.createdDate.setText(createdDate);
-        String lastModifiedDate = "Last Modified Date: " + localDateTimeToString(account.getLastModifiedDate());
+        String lastModifiedDate = "Last Modified Date: " + DateUtil.localDateTimeToString(account.getLastModifiedDate());
         holder.lastModifedDate.setText(lastModifiedDate);
 
         boolean isExpandable = account.isExpanded();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
 
         int pos = position;
-        holder.accountItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                account.setExpanded(!account.isExpanded());
-                notifyItemChanged(pos);
-            }
+        holder.accountItem.setOnClickListener(v -> {
+            account.setExpanded(!account.isExpanded());
+            notifyItemChanged(pos);
         });
 
         holder.btn_edit.setOnClickListener(v -> {
-            System.out.println("---------gmail--------------");
-            System.out.println(account.getEmail());
             Intent intent = new Intent(context, EditAccountActivity.class);
             intent.putExtra("account", account);
             intent.putExtra("role", roleName);
@@ -97,7 +90,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         return accountList.size();
     }
 
-    public class AccountHolder extends RecyclerView.ViewHolder {
+    public static class AccountHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         TextView status;
@@ -125,11 +118,4 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         }
     }
 
-    public static String localDateTimeToString(LocalDateTime input) {
-        // Define the output format
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-        // Format the LocalDateTime object to the desired format
-        return input.format(formatter);
-    }
 }

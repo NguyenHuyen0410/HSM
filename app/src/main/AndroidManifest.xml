@@ -36,6 +36,14 @@
                 android:value=".ui.account.activity.ListAccountActivity"/>
         </activity>
         <activity
+            android:name=".ui.employee.activity.EditProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.account.activity.ListAccountActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.account.activity.ListAccountActivity"/>
+        </activity>
+        <activity
             android:name=".ui.auth.activity.LoginActivity"
             android:exported="true">
         </activity>

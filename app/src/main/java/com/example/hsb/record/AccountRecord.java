@@ -30,14 +30,16 @@ public class AccountRecord {
     private String password;
     @SerializedName("passwordConfirm")
     private String passwordConfirm;
-    @SerializedName("email")
-    private String email;
+    @SerializedName("account_gmail")
+    private String accountGmail;
     @SerializedName("status")
     private String status;
     @SerializedName("verified")
     private boolean verified;
     @SerializedName("role_id")
     private String roleId;
+    @SerializedName("profile")
+    private String profileId;
     @SerializedName("expand")
     private Expand expand;
 
@@ -46,5 +48,16 @@ public class AccountRecord {
     public static class Expand {
         @SerializedName("role_id")
         private RoleRecord role;
+        @SerializedName("profile")
+        private AccountImage accountImage;
+    }
+
+    @Getter
+    @Setter
+    public static class AccountImage{
+        @SerializedName("id")
+        private String id;
+        @SerializedName("profile_image")
+        private String images;
     }
 }
