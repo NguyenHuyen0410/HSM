@@ -83,7 +83,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         });
 
         holder.btn_edit.setOnClickListener(v -> {
-            System.out.println("---------gmail--------------");
             System.out.println(account.getEmail());
             Intent intent = new Intent(context, EditAccountActivity.class);
             intent.putExtra("account", account);

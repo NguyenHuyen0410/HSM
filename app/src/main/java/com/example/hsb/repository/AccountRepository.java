@@ -21,6 +21,7 @@ import retrofit2.Response;
 public class AccountRepository {
     private static AccountRepository instance;
     private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Account>> mListAccountLiveData = new MutableLiveData<>();
 
     public static AccountRepository getInstance() {
         if (instance == null) {
@@ -30,7 +31,11 @@ public class AccountRepository {
     }
 
     public MutableLiveData<List<Account>> getAccountList() {
-        MutableLiveData<List<Account>> mListAccountLiveData = new MutableLiveData<>();
+        fetchAccountList();
+        return mListAccountLiveData;
+    }
+
+    private void fetchAccountList() {
         List<Account> accountList = new ArrayList<>();
         Call<ListResponse<AccountRecord>> call = RetrofitClient.getInstance().getAccountServiceApi().getRecords();
         call.enqueue(new Callback<ListResponse<AccountRecord>>() {
@@ -58,7 +63,6 @@ public class AccountRepository {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
-        return mListAccountLiveData;
     }
 
     public interface EditAccountCallback {
@@ -133,6 +137,7 @@ public class AccountRepository {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
+                    fetchAccountList();  // Fetch updated account list after deletion
                     callback.onDeleteSuccess();
                 } else {
                     callback.onDeleteFailure(response.message());
