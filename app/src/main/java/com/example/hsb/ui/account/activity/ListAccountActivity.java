@@ -67,16 +67,23 @@ public class ListAccountActivity extends AppCompatActivity {
     }
 
     private void switchFragment(Fragment fragment, String tag) {
-        if (fragment != currentFragment) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            if (!fragment.isAdded()) {
-                transaction.add(R.id.bottom_navigation_container, fragment, tag);
-            }
-            if (currentFragment != null) {
-                transaction.hide(currentFragment);
-            }
-            transaction.show(fragment).commit();
-            currentFragment = fragment;
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        // Remove existing AccountFragment instances
+        Fragment existingAccountFragment = fragmentManager.findFragmentByTag(TAG_ACCOUNT);
+        if (existingAccountFragment != null && existingAccountFragment != fragment) {
+            transaction.remove(existingAccountFragment);
         }
+
+        // Add or show the new fragment
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.bottom_navigation_container, fragment, tag);
+        }
+        if (currentFragment != null) {
+            transaction.hide(currentFragment);
+        }
+        transaction.show(fragment).commitAllowingStateLoss(); // Use commitAllowingStateLoss for safer fragment transactions
+
+        currentFragment = fragment;
     }
 }

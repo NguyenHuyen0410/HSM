@@ -19,6 +19,7 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
 import com.example.hsb.ui.account.adapter.AccountAdapter;
+import com.example.hsb.ui.account.fragment.account_fragment.AccountFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,6 @@ public class AccountFragment extends Fragment {
                     accountList.clear();
                     accountList.addAll(accounts);
                     adapter.notifyDataSetChanged();
-                    System.out.println("Account list updated: " + accountList.size() + " accounts");
                 }
             }
         });
