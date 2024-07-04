@@ -20,11 +20,9 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Service;
 import com.example.hsb.ui.category.activity.edit_category_activity.EditCategoryActivity;
-import com.example.hsb.ui.category.adapter.CategoryDetailServiceAdaptor;
-//import com.example.hsb.ui.category.activity.edit_category_activity.EditCategoryActivity;
-//import com.example.hsb.ui.category.adapter.CategoryDetailServiceAdaptor;
+import com.example.hsb.ui.category.adapter.ServiceAdaptor;
+import com.example.hsb.ui.category.fragment.ServiceFragmentViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDetail extends AppCompatActivity {
@@ -35,8 +33,10 @@ public class CategoryDetail extends AppCompatActivity {
     private Button updateBtn;
 
     private Category category;
-    private List<Service> serviceList = new ArrayList<>();
-    private CategoryDetailServiceAdaptor adapter;
+    private List<Service> serviceList;
+    private ServiceAdaptor adapter;
+
+    private ServiceFragmentViewModel serviceFragmentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,46 +59,58 @@ public class CategoryDetail extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-//        name = findViewById(R.id.tv_category_name);
-//        description = findViewById(R.id.tv_category_description);
-//        imageView = findViewById(R.id.imv_category);
-//        createBtn = findViewById(R.id.btn_create_category);
-//        updateBtn = findViewById(R.id.btn_update_category);
+        name = findViewById(R.id.tv_name_category);
+        description = findViewById(R.id.tv_description_category);
+        imageView = findViewById(R.id.iv_image_category);
+        updateBtn = findViewById(R.id.btn_update_category);
+        createBtn = findViewById(R.id.btn_create_category);
 
         // Get the category passed to the activity
         category = (Category) getIntent().getSerializableExtra("category");
+        serviceList = category.getServiceList();
+
 
         name.setText(category.getName());
         description.setText(category.getDescription());
-        StringBuilder imgAddess = new StringBuilder();
-        imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/category/");
-        imgAddess.append(category.getId());
-        imgAddess.append("/");
-        imgAddess.append(category.getImage());
-        Glide.with(this).load(imgAddess.toString()).into(imageView);
+        StringBuilder imgAddress = new StringBuilder();
+        imgAddress.append("https://hotel-service-manage.pockethost.io/api/files/category/");
+        imgAddress.append(category.getId());
+        imgAddress.append("/");
+        imgAddress.append(category.getImage());
+        Glide.with(this).load(imgAddress.toString()).into(imageView);
 
-//        if (category.getServiceList() != null) {
-//            serviceList.clear();
-//            serviceList.addAll(category.getServiceList());
-//        }
+//        serviceFragmentViewModel = new ServiceFragmentViewModel();
+//        serviceFragmentViewModel.getListServiceLiveData().observe(this, new Observer<List<Service>>() {
+//            @Override
+//            public void onChanged(List<Service> services) {
+//                if (services != null) {
+//                    serviceList.clear();
+//                    serviceList.addAll(services);
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
+//
+//        serviceFragmentViewModel.getToastMessageLiveData().observe(this, message -> {
+//            if (message != null) {
+//                Toast.makeText(CategoryDetail.this, message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        RecyclerView recyclerView = findViewById(R.id.rv_service_child);
-        adapter = new CategoryDetailServiceAdaptor(serviceList, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        RecyclerView recyclerView = findViewById(R.id.rcv_category_service);
+        adapter = new ServiceAdaptor(serviceList, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        createBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(CategoryDetail.this, EditCategoryActivity.class);
-            startActivity(intent);
-        });
 
         updateBtn.setOnClickListener(v -> {
             Intent intent = new Intent(CategoryDetail.this, EditCategoryActivity.class);
             intent.putExtra("category", category);
             startActivity(intent);
         });
-
-
+        createBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(CategoryDetail.this, EditCategoryActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

@@ -1,18 +1,12 @@
 package com.example.hsb.ui.role.activity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
-import com.example.hsb.entities.Role;
 import com.example.hsb.ui.role.viewmodel.RoleViewModel;
-
-import java.util.List;
 
 public class RoleActivity extends AppCompatActivity {
     private RoleViewModel roleViewModel;

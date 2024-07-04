@@ -67,16 +67,19 @@ public class AccountRepository {
 
     public interface EditAccountCallback {
         void onEditSuccess(Account updatedAccount);
+
         void onEditFailure(String errorMessage);
     }
 
     public interface CreateAccountCallback {
         void onCreateSuccess(Account newAccount);
+
         void onCreateFailure(String errorMessage);
     }
 
     public interface DeleteAccountCallback {
         void onDeleteSuccess();
+
         void onDeleteFailure(String errorMessage);
     }
 
@@ -124,6 +127,7 @@ public class AccountRepository {
                     callback.onCreateFailure(response.message());
                 }
             }
+
             @Override
             public void onFailure(Call<ListResponse<AccountRecord>> call, Throwable t) {
                 callback.onCreateFailure(t.getMessage());

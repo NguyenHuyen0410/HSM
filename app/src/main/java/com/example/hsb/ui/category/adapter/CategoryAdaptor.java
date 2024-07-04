@@ -53,10 +53,8 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
         holder.name.setText(category.getName());
 
-//        holder.images.setImageResource(R.drawable.android_image_1);
-
-            LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
-                    childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
+                childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
 //        if (category.getServiceList() != null) {
 //            layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());

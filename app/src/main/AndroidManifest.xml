@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -16,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsb"
         tools:targetApi="31">
+        <!--        <activity-->
+        <!--            android:name=".ui.account.activity.ListAccountActivity"-->
+        <!--            android:exported="true">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
+
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/Theme.Splash"
@@ -32,16 +42,26 @@
             android:parentActivityName=".ui.account.activity.ListAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.account.activity.ListAccountActivity"/>
+                android:value=".ui.account.activity.ListAccountActivity" />
         </activity>
         <activity
             android:name=".ui.auth.activity.LoginActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.category.activity.CategoryDetail"
+            android:exported="true"></activity>
         <activity
             android:name=".ui.role.activity.RoleActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+
+        <!--        <activity-->
+        <!--            android:name=".ui.category.activity.edit_category_activity.EditCategoryActivity"-->
+        <!--            android:exported="false"-->
+        <!--            android:parentActivityName=".ui.account.activity.ListAccountActivity">-->
+        <!--            <meta-data-->
+        <!--                android:name="android.support.PARENT_ACTIVITY"-->
+        <!--                android:value=".ui.account.activity.ListAccountActivity" />-->
+        <!--        </activity>-->
     </application>
 
 </manifest>

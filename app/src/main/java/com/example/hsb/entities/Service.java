@@ -1,42 +1,63 @@
 package com.example.hsb.entities;
 
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class Service implements Serializable {
-    @SerializedName("id")
-    private int id;
-    @SerializedName("service_name")
+public class Service implements Parcelable, Serializable {
+    private String id;
     private String name;
-    @SerializedName("service_image")
-    private int image;
-    @SerializedName("description")
+    private String image;
     private String description;
-    @SerializedName("start_time")
-    private LocalTime startTime;
-    @SerializedName("end_time")
-    private LocalTime endTime;
-    @SerializedName("remark")
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String remark;
-    @SerializedName("is_deleted")
     private boolean isDeleted;
-    @SerializedName("created")
     private LocalDateTime createdDate;
-    @SerializedName("updated")
     private LocalDateTime lastModifiedDate;
 
+    protected Service(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        image = in.readString();
+        description = in.readString();
+        remark = in.readString();
+        isDeleted = in.readByte() != 0;
+    }
+
+    public static final Creator<Service> CREATOR = new Creator<Service>() {
+        @Override
+        public Service createFromParcel(Parcel in) {
+            return new Service(in);
+        }
+
+        @Override
+        public Service[] newArray(int size) {
+            return new Service[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+    }
 }

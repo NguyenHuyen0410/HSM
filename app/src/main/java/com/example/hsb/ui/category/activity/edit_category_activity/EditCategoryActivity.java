@@ -1,6 +1,7 @@
 package com.example.hsb.ui.category.activity.edit_category_activity;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.ui.category.activity.CategoryDetail;
+import com.example.hsb.utils.ValidateUtil;
 
 public class EditCategoryActivity extends AppCompatActivity {
     private EditText name;
@@ -31,7 +32,7 @@ public class EditCategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_category);
+        setContentView(R.layout.activity_category_add);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,15 +50,15 @@ public class EditCategoryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        name = findViewById(R.id.et_name);
-        description = findViewById(R.id.et_description);
+        name = findViewById(R.id.et_name_category);
+        description = findViewById(R.id.et_description_category);
         saveBtn = findViewById(R.id.btn_save);
         deleteBtn = findViewById(R.id.btn_delete);
 
         // Initialize ViewModel
         editCategoryActivityViewModel = new ViewModelProvider(this).get(EditCategoryActivityViewModel.class);
 
-        // Get the account passed to the activity
+        // Get the category passed to the activity
         Category category = (Category) getIntent().getSerializableExtra("category");
         if (category != null) {
             name.setText(category.getName());
@@ -66,49 +67,52 @@ public class EditCategoryActivity extends AppCompatActivity {
             category = new Category();
         }
 
+
         Category finalCategory = category;
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setData(finalCategory);
-                if (finalCategory.getId() != null) {
-                    // Call ViewModel to update account
-                    editCategoryActivityViewModel.editCategory(finalCategory);
-                } else {
-                    // Call ViewModel to create account
-//                    editCategoryActivityViewModel.createCategory(finalCategory);
-                }
+                setUpdateData(finalCategory);
             }
         });
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                editCategoryActivityViewModel.deleteCategory(finalCategory.getId());
+                new AlertDialog.Builder(EditCategoryActivity.this)
+                        .setTitle("Delete Category")
+                        .setMessage("Are you sure you want to delete this category?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Call ViewModel to delete category
+                                editCategoryActivityViewModel.deleteCategory(finalCategory.getId());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
 
-        // Observe the ViewModel for account updates
-        editCategoryActivityViewModel.getCategoryLiveData().observe(this, new Observer<Category>() {
+        // Observe the ViewModel for category updates
+        editCategoryActivityViewModel.getDeleteStatusLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isDeleted) {
+                if (isDeleted != null && isDeleted) {
+                    Toast.makeText(EditCategoryActivity.this, "Category deleted successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        });
 
+        // Observe the ViewModel for category updates
+        editCategoryActivityViewModel.getCategoryLiveData().observe(this, new Observer<Category>() {
             @Override
             public void onChanged(Category updatedCategory) {
                 // Handle the updated account, e.g., show a message or update UI
                 Toast.makeText(EditCategoryActivity.this, "Category updated successfully", Toast.LENGTH_SHORT).show();
                 // Optionally finish the activity or update the UI further
                 finish();
-
-                Intent intent = new Intent(EditCategoryActivity.this, CategoryDetail.class);
-                intent.putExtra("category", editCategoryActivityViewModel.getCategoryLiveData().getValue());
-                startActivity(intent);
-            }
-        });
-
-        // Observe the ViewModel for toast messages
-        editCategoryActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String message) {
-                Toast.makeText(EditCategoryActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,12 +126,35 @@ public class EditCategoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setUpdateData(@Nullable Category category) {
+        boolean isValid = true;
+
+        // Validate name
+        if (ValidateUtil.isNameValid(name)) {
+            category.setName(name.getText().toString());
+        } else {
+            name.setError("Invalid name");
+            isValid = false;
+        }
+
+        if (isValid) {
+            // Call ViewModel to update or create category
+            if (category.getId() != null) {
+                editCategoryActivityViewModel.editCategory(category);
+            } else {
+                editCategoryActivityViewModel.createCategory(category);
+            }
+        } else {
+            Toast.makeText(EditCategoryActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void setData(@Nullable Category category) {
         // Retrieve data from the fields
         String updatedName = name.getText().toString();
         String updatedCategory = description.getText().toString();
 
-        // Update the account
+        // Update the category
         category.setName(updatedName);
         category.setDescription(updatedCategory);
     }

@@ -19,7 +19,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            app:srcCompat="@drawable/baseline_fastfood_24"/>
+            app:srcCompat="@drawable/baseline_fastfood_24" />
 
         <TextView
             android:id="@+id/tv_id_category"

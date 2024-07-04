@@ -1,8 +1,5 @@
 package com.example.hsb.entities;
 
-import com.example.hsb.response.ExpandResponse;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

@@ -2,12 +2,14 @@ package com.example.hsb.record;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ServiceRecord {
+public class CategoryServiceRecord {
     @SerializedName("collectionId")
     private String collectionId;
     @SerializedName("collectionName")
@@ -16,20 +18,25 @@ public class ServiceRecord {
     private String created;
     @SerializedName("updated")
     private String updated;
-    @SerializedName("service_name")
+    @SerializedName("category_name")
     private String name;
-    @SerializedName("service_image")
+    @SerializedName("category_image")
     private String image;
     @SerializedName("id")
     private String id;
-    @SerializedName("start_time")
-    private String startTime;
-    @SerializedName("end_time")
-    private String endTime;
     @SerializedName("description")
     private String description;
-    @SerializedName("remark")
-    private String remark;
     @SerializedName("is_deleted")
     private boolean isDeleted;
+
+    @SerializedName("expand")
+    private Expand expand;
+
+    @Getter
+    @Setter
+    public static class Expand {
+        @SerializedName("service_category_via_category_id")
+        private List<ServiceCategoryRecord> serviceCategoryRecordList;
+    }
+
 }

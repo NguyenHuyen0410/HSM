@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ListResponse <T> {
+public class ListResponse<T> {
     @SerializedName("page")
     private int page;
     @SerializedName("perPage")

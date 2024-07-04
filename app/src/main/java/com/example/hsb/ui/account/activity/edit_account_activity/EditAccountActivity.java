@@ -1,7 +1,6 @@
 package com.example.hsb.ui.account.activity.edit_account_activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -148,7 +147,7 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
-    public void setLayout(){
+    public void setLayout() {
         name = findViewById(R.id.et_user_name);
         password = findViewById(R.id.et_password);
         passwordConfirm = findViewById(R.id.et_confirm_password);
@@ -237,7 +236,7 @@ public class EditAccountActivity extends AppCompatActivity {
         }
     }
 
-    public void setData(@Nullable Account account){
+    public void setData(@Nullable Account account) {
         name.setText(account.getName());
         password.setText(account.getPassword()); // Assuming password is retrievable, otherwise, handle appropriately
         passwordConfirm.setText(account.getPassword());

@@ -1,5 +1,6 @@
 package com.example.hsb.ui.category.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,13 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
 
     private List<Service> childItemList;
 
+    private Context context;
+
+
     // Constructor
-    ServiceAdaptor(List<Service> childItemList) {
+    public ServiceAdaptor(List<Service> childItemList, Context context) {
         this.childItemList = childItemList;
+        this.context = context;
     }
 
     @NonNull
@@ -51,13 +56,13 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
 
     @Override
     public int getItemCount() {
-//
-//        // This method returns the number
-//        // of items we have added
-//        // in the ChildItemList
-//        // i.e. the number of instances
-//        // of the ChildItemList
-//        // that have been created
+
+        // This method returns the number
+        // of items we have added
+        // in the ChildItemList
+        // i.e. the number of instances
+        // of the ChildItemList
+        // that have been created
         return childItemList.size();
     }
 

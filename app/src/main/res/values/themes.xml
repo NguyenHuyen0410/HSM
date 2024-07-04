@@ -8,6 +8,7 @@
     </style>
 
     <style name="Theme.Hsb" parent="Base.Theme.Hsb" />
+
     <style name="Theme.Splash" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/orchid_hotel_logo</item>

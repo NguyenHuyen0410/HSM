@@ -21,5 +21,12 @@ public class ServiceCategoryRecord {
     @SerializedName("updated")
     private String updated;
     @SerializedName("expand")
-    private ServiceRecord serviceRecord;
+    private Expand expand;
+
+    @Getter
+    @Setter
+    public static class Expand {
+        @SerializedName("service_id")
+        private ServiceRecord serviceRecord;
+    }
 }

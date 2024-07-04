@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 public interface AuthServiceApi {
     @POST("accounts/auth-with-password")
     Call<AccountResponse> login(@Body RequestBody params);
+
     // refresh token api
     @POST("accounts/auth-refresh")
     Call<AccountResponse> refreshToken(@Header("Authorization") String token);
