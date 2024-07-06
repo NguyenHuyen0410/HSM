@@ -40,4 +40,6 @@
     <string name="account">Account</string>
     <string name="service">Service</string>
     <string name="profile">Profile</string>
+    <string name="order">Order</string>
+    <string name="room">Room</string>
 </resources>

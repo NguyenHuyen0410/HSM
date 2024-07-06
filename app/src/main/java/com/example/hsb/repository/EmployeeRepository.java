@@ -93,7 +93,7 @@ public class EmployeeRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     EmployeeRecord createRecord = response.body();
                     Employee newEmployee = new Employee();
-                    newEmployee.setAccountId(createRecord.getAccountId());
+                    newEmployee.setId(createRecord.getId());
                     createEmployeeCallBack.onCreateSuccess(newEmployee);
                 } else {
                     // Handle update failure
@@ -112,9 +112,7 @@ public class EmployeeRepository {
     }
 
     public void editEmployee(Employee employee, EditEmployeeCallBack editEmployeeCallBack) {
-        final EmployeeRecord employeeRecord = setEmployeeRecord(employee);
-
-        Call<EmployeeRecord> updateCall = RetrofitClient.getInstance().getEmployeeServiceApi().updateRecord(employeeRecord.getId(), employeeRecord);
+        Call<EmployeeRecord> updateCall = RetrofitClient.getInstance().getEmployeeServiceApi().updateRecord(employee.getId(), setEmployeeRecord(employee));
         updateCall.enqueue(new Callback<EmployeeRecord>() {
             @Override
             public void onResponse(@NonNull Call<EmployeeRecord> call, @NonNull Response<EmployeeRecord> response) {
@@ -136,17 +134,13 @@ public class EmployeeRepository {
         });
     }
 
-    public void uploadImage(Employee employee, MultipartBody.Part image, UpdateProfileImageCallback updateProfileImageCallback) {
-        Call<EmployeeRecord> uploadCall = RetrofitClient.getInstance().getEmployeeServiceApi().uploadFile(employee.getId(), image);
+    public void uploadImage(String employeeId, MultipartBody.Part image, UpdateProfileImageCallback updateProfileImageCallback) {
+        Call<EmployeeRecord> uploadCall = RetrofitClient.getInstance().getEmployeeServiceApi().uploadFile(employeeId, image);
         uploadCall.enqueue(new Callback<EmployeeRecord>() {
             @Override
             public void onResponse(@NonNull Call<EmployeeRecord> call,@NonNull Response<EmployeeRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Update profile image in the record
-                    String imageName = response.body().getProfileImage();
-                    employee.setProfileImage(imageName);
-                    // Notify success
-                    updateProfileImageCallback.onUpdateSuccess(imageName);
+                    updateProfileImageCallback.onUpdateSuccess(response.body().getProfileImage());
                 } else {
                     // Handle image upload failure
                     Log.e("UpdateProfileImage", "Image upload failed: " + response.message());

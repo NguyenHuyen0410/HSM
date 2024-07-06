@@ -44,30 +44,29 @@ public class EditAccountActivityViewModel extends ViewModel {
     }
 
     public void createAccount(Account account) {
-        accountRepository.createAccount(account, new AccountRepository.CreateAccountCallback() {
+        Employee employee = new Employee();
+        employeeRepository.createEmployee(employee, new EmployeeRepository.CreateEmployeeCallBack() {
             @Override
-            public void onCreateSuccess(Account newAccount) {
-                Employee employee = new Employee();
-                employee.setId(newAccount.getProfileId());
-                employee.setAccountId(newAccount.getId());
-                employeeRepository.createEmployee(employee, new EmployeeRepository.CreateEmployeeCallBack() {
+            public void onCreateSuccess(Employee employee) {
+                account.setProfileId(employee.getId());
+                accountRepository.createAccount(account, new AccountRepository.CreateAccountCallback() {
                     @Override
-                    public void onCreateSuccess(Employee employee) {
+                    public void onCreateSuccess(Account newAccount) {
                         mAccount.postValue(newAccount);
                         toastMessageLiveData.postValue("Account created successfully.");
                     }
                     @Override
                     public void onCreateFailure(String errorMessage) {
-                        toastMessageLiveData.postValue("Create profile failed: " + errorMessage);
+                        toastMessageLiveData.postValue("Create account failed: " + errorMessage);
                     }
                 });
             }
-
             @Override
             public void onCreateFailure(String errorMessage) {
-                toastMessageLiveData.postValue("Create account failed: " + errorMessage);
+                toastMessageLiveData.postValue("Create profile failed: " + errorMessage);
             }
         });
+
     }
 
     public void deleteAccount(String accountId) {
