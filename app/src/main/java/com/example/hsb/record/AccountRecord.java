@@ -28,6 +28,8 @@ public class AccountRecord {
     private String accountPassword;
     @SerializedName("password")
     private String password;
+    @SerializedName("oldPassword")
+    private String oldPassword;
     @SerializedName("passwordConfirm")
     private String passwordConfirm;
     @SerializedName("account_gmail")

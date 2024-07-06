@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
+import com.example.hsb.storage.SystemRoles;
 import com.example.hsb.ui.employee.fragment.EmployeeProfileFragment;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.AccountFragment;
@@ -29,6 +30,9 @@ public class ListAccountActivity extends AppCompatActivity {
     private static final String TAG_CATEGORY = "categoryFragment";
     private static final String TAG_SERVICE = "serviceFragment";
     private static final String TAG_PROFILE = "employeeProfileFragment";
+    private static final String TAG_HISTORY = "historyFragment";
+    private static final String TAG_ORDER = "orderFragment";
+    private static final String TAG_ROOM = "roomFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +58,68 @@ public class ListAccountActivity extends AppCompatActivity {
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.dashboard) {
-                switchFragment(homeFragment, TAG_DASHBOARD);
-                return true;
-            } else if (id == R.id.account) {
-                switchFragment(accountFragment, TAG_ACCOUNT);
-                return true;
-            } else if (id == R.id.category) {
-                switchFragment(accountFragment, TAG_ACCOUNT);
-                return true;
-            } else if (id == R.id.service) {
-                switchFragment(accountFragment, TAG_ACCOUNT);
-                return true;
-            } else if (id == R.id.profile) {
-                switchFragment(employeeProfileFragment, TAG_PROFILE);
-                return true;
-            }
-            return false;
-        });
-
+        String currentRole = SystemRoles.MANAGER.getName();
+        if(currentRole.equals(SystemRoles.MANAGER.getName())){
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(R.menu.nav_menu_manager);
+            bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.dashboard) {
+                    switchFragment(homeFragment, TAG_DASHBOARD);
+                    return true;
+                } else if (id == R.id.account) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.category) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.service) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.profile) {
+                    switchFragment(employeeProfileFragment, TAG_PROFILE);
+                    return true;
+                }
+                return false;
+            });
+        } else if(currentRole.equals(SystemRoles.RECEPTIONIST.getName())){
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(R.menu.nav_menu_receptionist);
+            bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.order) {
+                    switchFragment(homeFragment, TAG_DASHBOARD);
+                    return true;
+                } else if (id == R.id.room) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.service) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.profile) {
+                    switchFragment(employeeProfileFragment, TAG_PROFILE);
+                    return true;
+                }
+                return false;
+            });
+        } else{
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(R.menu.nav_menu_customer);
+            bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.history) {
+                    switchFragment(homeFragment, TAG_DASHBOARD);
+                    return true;
+                }  else if (id == R.id.service) {
+                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    return true;
+                } else if (id == R.id.profile) {
+                    switchFragment(employeeProfileFragment, TAG_PROFILE);
+                    return true;
+                }
+                return false;
+            });
+        }
         // Set the initial fragment if none is selected
         if (savedInstanceState == null) {
             switchFragment(homeFragment, TAG_DASHBOARD); // Default to homeFragment
@@ -86,8 +131,11 @@ public class ListAccountActivity extends AppCompatActivity {
 
         // Remove existing AccountFragment instances
         Fragment existingAccountFragment = fragmentManager.findFragmentByTag(TAG_ACCOUNT);
+        Fragment existingProfileFragment = fragmentManager.findFragmentByTag(TAG_PROFILE);
         if (existingAccountFragment != null && existingAccountFragment != fragment) {
             transaction.remove(existingAccountFragment);
+        } else if(existingProfileFragment != null && existingProfileFragment != fragment){
+            transaction.remove(existingProfileFragment);
         }
 
         // Add or show the new fragment

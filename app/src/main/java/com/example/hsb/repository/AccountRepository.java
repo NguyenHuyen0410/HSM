@@ -9,6 +9,7 @@ import com.example.hsb.entities.Role;
 import com.example.hsb.record.AccountRecord;
 import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
+import com.google.gson.Gson;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -77,13 +78,14 @@ public class AccountRepository {
 
     public void editAccount(Account account, EditAccountCallback callback) {
         AccountRecord accountRecord = setAccountRecord(account);
+        accountRecord.setOldPassword(account.getPassword());
+        System.out.println("AccountRecord: " + new Gson().toJson(accountRecord));
         Call<AccountRecord> call = RetrofitClient.getInstance().getAccountServiceApi().updateRecord(account.getId(), accountRecord);
         call.enqueue(new Callback<AccountRecord>() {
             @Override
             public void onResponse(@NonNull Call<AccountRecord> call, @NonNull Response<AccountRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    AccountRecord record = response.body();
-                    callback.onEditSuccess(setAccount(record));
+                    callback.onEditSuccess(setAccount(response.body()));
                 } else {
                     callback.onEditFailure(response.message());
                 }
@@ -97,19 +99,20 @@ public class AccountRepository {
 
     public void createAccount(Account account, CreateAccountCallback callback) {
         AccountRecord accountRecord = setAccountRecord(account);
+        System.out.println("AccountRecord: " + new Gson().toJson(accountRecord));
         Call<AccountRecord> call = RetrofitClient.getInstance().getAccountServiceApi().createRecord(accountRecord);
         call.enqueue(new Callback<AccountRecord>() {
             @Override
-            public void onResponse(@NonNull Call<AccountRecord> call, @NonNull Response<AccountRecord> response) {
+            public void onResponse(@NonNull Call<AccountRecord> call,@NonNull Response<AccountRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    AccountRecord record = response.body();
-                    callback.onCreateSuccess(setAccount(record));
+                    callback.onCreateSuccess(setAccount(response.body()));
                 } else {
                     callback.onCreateFailure(response.message());
                 }
             }
+
             @Override
-            public void onFailure(@NonNull Call<AccountRecord> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<AccountRecord> call,@NonNull Throwable t) {
                 callback.onCreateFailure(t.getMessage());
             }
         });
@@ -150,7 +153,6 @@ public class AccountRepository {
             accountRecord.setId(account.getId());
             accountRecord.setCreated(DateUtil.localDateTimeToString(account.getCreatedDate()));
             accountRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
-            accountRecord.setVerified(true);
         } else {
             accountRecord.setCreated(DateUtil.localDateTimeToString(LocalDateTime.now()));
             accountRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
@@ -162,8 +164,7 @@ public class AccountRepository {
         accountRecord.setAccountGmail(account.getEmail());
         accountRecord.setStatus(account.getAccountStatus());
         accountRecord.setRoleId(account.getRole().getId());
-        String randomId = UUID.randomUUID().toString();
-        accountRecord.setProfileId(randomId);
+        accountRecord.setProfileId(account.getProfileId());
         accountRecord.set_deleted(account.isDeleted());
         return accountRecord;
     }

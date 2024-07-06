@@ -160,7 +160,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 MultipartBody.Part avtImage = ImageLoaderUtil.bitmapToPart(this, bitmap);
                 // Initialize ViewModel
                 editProfileActivityViewModel = new EditProfileActivityViewModel();
-                editProfileActivityViewModel.updateProfileImage(employee, avtImage);
+                editProfileActivityViewModel.updateProfileImage(employee.getId(), avtImage);
                 // After updating image, update profile data
                 setUpdate(employee);
             } catch (Exception e) {
