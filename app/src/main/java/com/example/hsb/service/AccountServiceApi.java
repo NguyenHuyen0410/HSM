@@ -15,10 +15,10 @@ public interface AccountServiceApi {
     @GET("accounts/records?expand=role_id,profile")
     Call<ListResponse<AccountRecord>> getRecords();
 
-    @POST("accounts/records?expand=role_id")
+    @POST("accounts/records?expand=role_id,profile")
     Call<AccountRecord> createRecord(@Body AccountRecord record);
 
-    @PATCH("accounts/records/{recordId}?expand=role_id")
+    @PATCH("accounts/records/{recordId}?expand=role_id,profile")
     Call<AccountRecord> updateRecord(@Path("recordId") String recordId, @Body AccountRecord record);
 
     @DELETE("accounts/records/{recordId}")

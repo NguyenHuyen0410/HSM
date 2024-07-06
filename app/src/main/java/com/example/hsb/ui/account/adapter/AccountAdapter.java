@@ -20,7 +20,6 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Account;
 import com.example.hsb.storage.AccountStatus;
 import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
-import com.example.hsb.ui.account.fragment.AccountFragmentViewModel;
 import com.example.hsb.utils.DateUtil;
 
 import java.util.List;
@@ -55,8 +54,14 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         holder.name.setText(account.getName());
         String status = account.getAccountStatus();
         holder.status.setText(status);
-        if (status.equals(AccountStatus.ACTIVE)) hexColor = "#32BA7C";
-        else if (status.equals(AccountStatus.TERMINATED)) hexColor = "#F44336";
+        System.out.println(status);
+        if (status.equals(AccountStatus.ACTIVE)){
+            holder.icon.setImageResource(R.drawable.checked);
+            hexColor = "#32BA7C";
+        } else if (status.equals(AccountStatus.TERMINATED)){
+            holder.icon.setImageResource(R.drawable.remove);
+            hexColor = "#F44336";
+        }
         holder.status.setTextColor(Color.parseColor(hexColor));
         String roleName = account.getRole().getName();
 
@@ -65,7 +70,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         String createdDate = "Created Date: " + DateUtil.localDateTimeToString(account.getCreatedDate());
         holder.createdDate.setText(createdDate);
         String lastModifiedDate = "Last Modified Date: " + DateUtil.localDateTimeToString(account.getLastModifiedDate());
-        holder.lastModifedDate.setText(lastModifiedDate);
+        holder.lastModifiedDate.setText(lastModifiedDate);
 
         boolean isExpandable = account.isExpanded();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
@@ -95,7 +100,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         TextView status;
         TextView role;
         TextView createdDate;
-        TextView lastModifedDate;
+        TextView lastModifiedDate;
         ImageView icon;
         ImageView images;
         ConstraintLayout accountItem;
@@ -109,7 +114,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             status = itemView.findViewById(R.id.tv_account_status);
             icon = itemView.findViewById(R.id.status_icon);
             createdDate = itemView.findViewById(R.id.tv_created_date);
-            lastModifedDate = itemView.findViewById(R.id.tv_last_modified_date);
+            lastModifiedDate = itemView.findViewById(R.id.tv_last_modified_date);
             images = itemView.findViewById(R.id.imv_ava);
             accountItem = itemView.findViewById(R.id.account_item);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);

@@ -25,7 +25,7 @@ public class ValidateUtil {
             etPassword.setError("Password is required");
             etPassword.requestFocus();
             return false;
-        } else if (password.length() < 6) {
+        } else if (password.length() < 8) {
             etPassword.setError("Password must be at least 8 characters");
             etPassword.requestFocus();
             return false;

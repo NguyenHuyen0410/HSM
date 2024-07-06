@@ -36,8 +36,8 @@ public class EditProfileActivityViewModel extends ViewModel {
         });
     }
 
-    public void updateProfileImage(Employee employee, MultipartBody.Part avtImage){
-        employeeRepository.uploadImage(employee, avtImage, new EmployeeRepository.UpdateProfileImageCallback() {
+    public void updateProfileImage(String employeeId, MultipartBody.Part avtImage){
+        employeeRepository.uploadImage(employeeId, avtImage, new EmployeeRepository.UpdateProfileImageCallback() {
             @Override
             public void onUpdateSuccess(String imageName) {
                 toastMessageLiveData.postValue("Image updated successfully.");
