@@ -5,18 +5,19 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Employee;
-import com.example.hsb.record.EmployeeRecord;
 import com.example.hsb.repository.AccountRepository;
 import com.example.hsb.repository.EmployeeRepository;
 
-import java.util.List;
+import lombok.Getter;
 
 public class EditAccountActivityViewModel extends ViewModel {
-    private MutableLiveData<Account> mAccount = new MutableLiveData<>();
-    private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> deleteStatusLiveData = new MutableLiveData<>();
-    private AccountRepository accountRepository;
-    private EmployeeRepository employeeRepository;
+    private final MutableLiveData<Account> mAccount = new MutableLiveData<>();
+    @Getter
+    private final MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+    @Getter
+    private final MutableLiveData<Boolean> deleteStatusLiveData = new MutableLiveData<>();
+    private final AccountRepository accountRepository;
+    private final EmployeeRepository employeeRepository;
 
     public EditAccountActivityViewModel() {
         accountRepository = AccountRepository.getInstance();
@@ -25,14 +26,6 @@ public class EditAccountActivityViewModel extends ViewModel {
 
     public MutableLiveData<Account> getAccountLiveData() {
         return mAccount;
-    }
-
-    public MutableLiveData<String> getToastMessageLiveData() {
-        return toastMessageLiveData;
-    }
-
-    public MutableLiveData<Boolean> getDeleteStatusLiveData() {
-        return deleteStatusLiveData;
     }
 
     public void editAccount(Account account) {

@@ -2,9 +2,6 @@ package com.example.hsb.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,9 +14,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class ImageLoaderUtil {
-    public static void loadImage(Context context, String imageUrl, ImageView imageView) {
-        Picasso.get().load(imageUrl).into(imageView);
-    }
 
     public static MultipartBody.Part bitmapToPart(Context context, Bitmap image) {
         String randomFileName = UUID.randomUUID().toString() + ".png";

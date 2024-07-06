@@ -61,11 +61,7 @@ public class ValidateUtil {
     }
 
     public static boolean isNameValid(String name) {
-        if (name.isEmpty() || name.length() < 6) {
-            return false;
-        } else {
-            return true;
-        }
+        return !name.isEmpty() && name.length() >= 6;
     }
 
     public static boolean isPhoneValid(EditText etPhone) {

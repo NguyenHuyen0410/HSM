@@ -54,28 +54,25 @@ public class ListAccountActivity extends AppCompatActivity {
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.dashboard) {
-                    switchFragment(homeFragment, TAG_DASHBOARD);
-                    return true;
-                } else if (id == R.id.account) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
-                    return true;
-                } else if (id == R.id.category) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
-                    return true;
-                } else if (id == R.id.service) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
-                    return true;
-                } else if (id == R.id.profile) {
-                    switchFragment(employeeProfileFragment, TAG_PROFILE);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.dashboard) {
+                switchFragment(homeFragment, TAG_DASHBOARD);
+                return true;
+            } else if (id == R.id.account) {
+                switchFragment(accountFragment, TAG_ACCOUNT);
+                return true;
+            } else if (id == R.id.category) {
+                switchFragment(accountFragment, TAG_ACCOUNT);
+                return true;
+            } else if (id == R.id.service) {
+                switchFragment(accountFragment, TAG_ACCOUNT);
+                return true;
+            } else if (id == R.id.profile) {
+                switchFragment(employeeProfileFragment, TAG_PROFILE);
+                return true;
             }
+            return false;
         });
 
         // Set the initial fragment if none is selected

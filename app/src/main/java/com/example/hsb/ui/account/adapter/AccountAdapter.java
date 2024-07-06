@@ -30,7 +30,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
     private final List<Account> accountList;
     private final Context context;
     private static String hexColor;
-    private AccountFragmentViewModel accountFragmentViewModel;
 
     public AccountAdapter(List<Account> accountList, Context context) {
         this.context = context;

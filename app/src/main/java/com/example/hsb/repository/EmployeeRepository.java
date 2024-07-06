@@ -2,9 +2,9 @@ package com.example.hsb.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.hsb.R;
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Employee;
@@ -24,8 +24,8 @@ import retrofit2.Response;
 
 public class EmployeeRepository {
     private static EmployeeRepository instance;
-    private MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
-    private MutableLiveData<Employee> mEmployeeLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Employee> mEmployeeLiveData = new MutableLiveData<>();
 
     public static EmployeeRepository getInstance(){
         if(instance==null){
@@ -34,17 +34,10 @@ public class EmployeeRepository {
         return instance;
     }
 
-    public MutableLiveData<Employee> getEmployeeList(){
-        fetchEmployees();
-        return mEmployeeLiveData;
-    }
-
     public MutableLiveData<Employee> getEmployee(String accountId){
         fetchEmployee(accountId);
         return mEmployeeLiveData;
     }
-
-    public void fetchEmployees(){};
 
     public void fetchEmployee(String accountId){
         final Employee[] employee = {new Employee()};
@@ -53,7 +46,7 @@ public class EmployeeRepository {
         Call<ListResponse<EmployeeRecord>> call = RetrofitClient.getInstance().getEmployeeServiceApi().getRecords(expand, filter);
         call.enqueue(new Callback<ListResponse<EmployeeRecord>>() {
             @Override
-            public void onResponse(Call<ListResponse<EmployeeRecord>> call, Response<ListResponse<EmployeeRecord>> response) {
+            public void onResponse(@NonNull Call<ListResponse<EmployeeRecord>> call,@NonNull  Response<ListResponse<EmployeeRecord>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     ListResponse<EmployeeRecord> employeeRecordList = response.body();
                     EmployeeRecord employeeRecord = employeeRecordList.getItems().get(0);
@@ -64,7 +57,7 @@ public class EmployeeRepository {
                 }
             }
             @Override
-            public void onFailure(Call<ListResponse<EmployeeRecord>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ListResponse<EmployeeRecord>> call,@NonNull  Throwable t) {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
@@ -96,7 +89,7 @@ public class EmployeeRepository {
         Call<EmployeeRecord> createCall = RetrofitClient.getInstance().getEmployeeServiceApi().createRecord(employeeRecord);
         createCall.enqueue(new Callback<EmployeeRecord>() {
             @Override
-            public void onResponse(Call<EmployeeRecord> call, Response<EmployeeRecord> response) {
+            public void onResponse(@NonNull Call<EmployeeRecord> call,@NonNull Response<EmployeeRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     EmployeeRecord createRecord = response.body();
                     Employee newEmployee = new Employee();
@@ -109,7 +102,7 @@ public class EmployeeRepository {
                 }
             }
             @Override
-            public void onFailure(Call<EmployeeRecord> call, Throwable t) {
+            public void onFailure(@NonNull Call<EmployeeRecord> call, @NonNull Throwable t) {
                 // Handle update failure
                 Log.e("CreateEmployee", "Create failed: " + t.getMessage());
                 createEmployeeCallBack.onCreateFailure(t.getMessage());
@@ -124,7 +117,7 @@ public class EmployeeRepository {
         Call<EmployeeRecord> updateCall = RetrofitClient.getInstance().getEmployeeServiceApi().updateRecord(employeeRecord.getId(), employeeRecord);
         updateCall.enqueue(new Callback<EmployeeRecord>() {
             @Override
-            public void onResponse(Call<EmployeeRecord> call, Response<EmployeeRecord> response) {
+            public void onResponse(@NonNull Call<EmployeeRecord> call, @NonNull Response<EmployeeRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     EmployeeRecord updatedRecord = response.body();
                     editEmployeeCallBack.onEditSuccess(setEmployee(updatedRecord));
@@ -135,7 +128,7 @@ public class EmployeeRepository {
                 }
             }
             @Override
-            public void onFailure(Call<EmployeeRecord> call, Throwable t) {
+            public void onFailure(@NonNull Call<EmployeeRecord> call,@NonNull Throwable t) {
                 // Handle update failure
                 Log.e("EditEmployee", "Update call failed: " + t.getMessage());
                 editEmployeeCallBack.onEditFailure(t.getMessage());
@@ -147,7 +140,7 @@ public class EmployeeRepository {
         Call<EmployeeRecord> uploadCall = RetrofitClient.getInstance().getEmployeeServiceApi().uploadFile(employee.getId(), image);
         uploadCall.enqueue(new Callback<EmployeeRecord>() {
             @Override
-            public void onResponse(Call<EmployeeRecord> call, Response<EmployeeRecord> response) {
+            public void onResponse(@NonNull Call<EmployeeRecord> call,@NonNull Response<EmployeeRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Update profile image in the record
                     String imageName = response.body().getProfileImage();
@@ -162,27 +155,27 @@ public class EmployeeRepository {
             }
 
             @Override
-            public void onFailure(Call<EmployeeRecord> call, Throwable t) {
+            public void onFailure(@NonNull Call<EmployeeRecord> call,@NonNull Throwable t) {
                 // Handle image upload failure
                 Log.e("UpdateProfileImage", "Image upload call failed: " + t.getMessage());
                 updateProfileImageCallback.onUpdateFailure(t.getMessage());
             }
         });
     }
-    public void deleteEmployee(String employeeId, DeleteEmployeeCallBack deleteEmployeeCallBack){
+    public void deleteEmployee(String accountId, String employeeId, DeleteEmployeeCallBack deleteEmployeeCallBack){
         Call<Void> call = RetrofitClient.getInstance().getEmployeeServiceApi().deleteRecord(employeeId);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    fetchEmployees();
+                    fetchEmployee(accountId);
                     deleteEmployeeCallBack.onDeleteSuccess();
                 } else {
                     deleteEmployeeCallBack.onDeleteFailure(response.message());
                 }
             }
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 deleteEmployeeCallBack.onDeleteFailure(t.getMessage());
             }
         });

@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.hsb.entities.Employee;
 import com.example.hsb.repository.EmployeeRepository;
 
+import lombok.Getter;
+
 public class EmployeeFragmentViewModel extends ViewModel {
+    @Getter
     MutableLiveData<Employee> employeeMutableLiveData;
     MutableLiveData<String> toastMessageLiveData;
 
@@ -22,7 +25,4 @@ public class EmployeeFragmentViewModel extends ViewModel {
         employeeMutableLiveData = employeeRepository.getEmployee(accountId);
     }
 
-    public MutableLiveData<Employee> getEmployeeMutableLiveData(){
-        return employeeMutableLiveData;
-    }
 }

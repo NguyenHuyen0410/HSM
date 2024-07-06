@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -32,6 +30,7 @@ import com.example.hsb.utils.ValidateUtil;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Objects;
 
 import okhttp3.MultipartBody;
 
@@ -59,7 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
         if (upArrow != null) {
             upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+            Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(upArrow);
         }
 
         // Enable the Up button
@@ -69,7 +68,9 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         setLayout();
         Employee employee = (Employee) getIntent().getSerializableExtra("profileInfo");
-        setData(employee);
+        if(employee!=null){
+            setData(employee);
+        }
     }
 
     @Override

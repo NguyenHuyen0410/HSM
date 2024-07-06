@@ -1,24 +1,19 @@
 package com.example.hsb.ui.account.activity.edit_account_activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Account;
@@ -28,6 +23,7 @@ import com.example.hsb.utils.ValidateUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class EditAccountActivity extends AppCompatActivity {
     private final String[] statusItems = {"ACTIVE", "TERMINATE"};
@@ -51,7 +47,7 @@ public class EditAccountActivity extends AppCompatActivity {
         Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
         if (upArrow != null) {
             upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+            Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(upArrow);
         }
         // Enable the Up button
         if (getSupportActionBar() != null) {
