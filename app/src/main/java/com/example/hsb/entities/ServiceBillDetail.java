@@ -1,6 +1,5 @@
 package com.example.hsb.entities;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,23 +12,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Price implements Serializable {
+public class ServiceBillDetail {
     private String id;
 
     private String serviceId;
 
-    private Double price;
+    private int quantity;
 
-    private LocalDateTime startDate;
-
-    private LocalDateTime endDate;
+    private String status;
 
     private String remark;
 
+    private String billId;
+
+    private String priceId;
+
     private boolean isDeleted;
 
-    private LocalDateTime created;
+    private LocalDateTime createdDate;
 
-    private LocalDateTime updated;
+    private LocalDateTime lastModifiedDate;
 
+    private Price price;
 }

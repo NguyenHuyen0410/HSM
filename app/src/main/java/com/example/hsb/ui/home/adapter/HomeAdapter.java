@@ -29,7 +29,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.CategoryHolder
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public HomeAdapter(List<Category> categoryList, List<Price> priceList,  Context context) {
+    public HomeAdapter(List<Category> categoryList, List<Price> priceList, Context context) {
         this.context = context;
         this.categoryList = categoryList;
         this.priceList = priceList;
@@ -44,36 +44,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.CategoryHolder
 
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
-        StringBuilder imgAddess = new StringBuilder();
-
-
         Category category = categoryList.get(position);
-//        imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/category/");
-//        imgAddess.append(category.getId());
-//        imgAddess.append("/");
-//        imgAddess.append(category.getImage());
-//        Glide.with(context).load(imgAddess.toString()).into(holder.images);
-
         holder.name.setText(category.getName());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
-                childRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.childRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
 
         if (category.getServiceList() != null) {
             layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());
 
-            ServiceAdaptor childItemAdapter = new ServiceAdaptor(category.getServiceList(),priceList,context);
+            ServiceAdaptor childItemAdapter = new ServiceAdaptor(category.getServiceList(), priceList, context);
             holder.childRecyclerView.setLayoutManager(layoutManager);
             holder.childRecyclerView.setAdapter(childItemAdapter);
             holder.childRecyclerView.setRecycledViewPool(viewPool);
+            holder.childRecyclerView.setNestedScrollingEnabled(false); // Disable scrolling for childRecyclerView
         }
 
-
-//        holder.button.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, CategoryDetail.class);
-//            intent.putExtra("category", category);
-//            context.startActivity(intent);
-//        });
     }
 
     @Override
@@ -84,7 +69,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.CategoryHolder
     public class CategoryHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-//        ImageView images;
+        //        ImageView images;
         Button button;
 
         private RecyclerView childRecyclerView;
@@ -92,8 +77,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.CategoryHolder
         public CategoryHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_home_category_name);
-//            images = itemView.findViewById(R.id.imv_category);
-//            button = itemView.findViewById(R.id.btn_category_edit);
             childRecyclerView = itemView.findViewById(R.id.rv_service_child);
         }
     }

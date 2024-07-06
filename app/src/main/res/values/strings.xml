@@ -30,4 +30,6 @@
         <item>Active</item>
         <item>DeActive</item>
     </string-array>
+    <string name="service_desc">Pool service available</string>
+    <string name="service_name">Pool</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.example.hsb.ui.home.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Price;
+import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
 import com.example.hsb.ui.home.adapter.HomeAdapter;
 
 import com.google.android.material.tabs.TabLayout;
