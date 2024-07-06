@@ -53,18 +53,6 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
         holder.name.setText(category.getName());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.
-                childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-//        if (category.getServiceList() != null) {
-//            layoutManager.setInitialPrefetchItemCount(category.getServiceList().size());
-//
-//            ServiceAdaptor childItemAdapter = new ServiceAdaptor(category.getServiceList());
-//            holder.childRecyclerView.setLayoutManager(layoutManager);
-//            holder.childRecyclerView.setAdapter(childItemAdapter);
-//            holder.childRecyclerView.setRecycledViewPool(viewPool);
-//        }
-
 
         holder.button.setOnClickListener(v -> {
             Intent intent = new Intent(context, CategoryDetail.class);
@@ -83,15 +71,13 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
         TextView name;
         ImageView images;
         Button button;
-
-        private RecyclerView childRecyclerView;
+        
 
         public CategoryHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_category_name);
             images = itemView.findViewById(R.id.imv_category);
             button = itemView.findViewById(R.id.btn_category_edit);
-            childRecyclerView = itemView.findViewById(R.id.rv_service_child);
         }
     }
 }

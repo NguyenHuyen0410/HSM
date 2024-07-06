@@ -223,66 +223,9 @@
                             android:textColorHint="#363637"
                             android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/room_number"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="0.3"
-                            android:background="@drawable/bg_transparent_input"
-                            android:hint="Số phòng"
-                            android:inputType="text"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="20dp"
-                            android:textColor="#000000"
-                            android:textColorHint="#363637"
-                            android:textSize="16sp" />
                     </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/phone_number"
-                        android:inputType="textMultiLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/bg_transparent_input"
-                        android:hint="SĐT"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="20dp"
-                        android:textColor="#000000"
-                        android:textColorHint="#363637"
-                        android:textSize="16sp" />
 
-                    <EditText
-                        android:id="@+id/email"
-                        android:inputType="textMultiLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/bg_transparent_input"
-                        android:hint="Email"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="20dp"
-                        android:textColor="#000000"
-                        android:textColorHint="#363637"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/btn_book"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:backgroundTint="#09304F"
-                        android:text="Đặt dịch vụ"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

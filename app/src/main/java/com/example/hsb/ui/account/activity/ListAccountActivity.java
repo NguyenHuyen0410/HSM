@@ -57,7 +57,7 @@ public class ListAccountActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.home) {
+                if (id == R.id.dashboard) {
                     switchFragment(homeFragment, TAG_HOME);
                     return true;
                 } else if (id == R.id.account) {
