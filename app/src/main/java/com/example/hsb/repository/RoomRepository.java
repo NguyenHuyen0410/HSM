@@ -36,36 +36,36 @@ public class RoomRepository {
         return mRoomLiveData;
     }
 
-    public MutableLiveData<Room> getRooms(){
-        fetchRooms();
+    public MutableLiveData<Room> getRooms(String value, String field){
+        fetchRooms(value, field);
         return mRoomLiveData;
     }
 
     public void fetchRoom(String value, String field){
         String expand = "device_account_id";
         String filter = field+"='"+value+"'";
-        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand, filter);
-        call.enqueue(new Callback<ListResponse<RoomRecord>>() {
+        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().getRecord(expand, filter);
+        call.enqueue(new Callback<RoomRecord>() {
             @Override
-            public void onResponse(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Response<ListResponse<RoomRecord>> response) {
+            public void onResponse(@NonNull Call<RoomRecord> call, @NonNull Response<RoomRecord> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    RoomRecord record = response.body().getItems().get(0);
+                    RoomRecord record = response.body();
                     mRoomLiveData.setValue(setRoom(record));
                 } else{
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<RoomRecord> call, @NonNull Throwable t) {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
     }
 
-    public void fetchRooms(){
+    public void fetchRooms(String value, String field){
         String expand = "device_account_id";
-        String filter = "";
-        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand, filter);
+        String filter = field == null || field.isEmpty()  ? null :  field+"='"+value+"'";
+        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand,filter);
         call.enqueue(new Callback<ListResponse<RoomRecord>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Response<ListResponse<RoomRecord>> response) {

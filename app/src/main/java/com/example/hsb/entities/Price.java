@@ -12,17 +12,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Service implements Serializable {
+public class Price implements Serializable {
     private String id;
-    private String name;
-    private String image;
-    private String description;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private String remark;
-    private boolean isDeleted;
-    private LocalDateTime createdDate;
-    private LocalDateTime lastModifiedDate;
 
+    private String serviceId;
+
+    private Double price;
+
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
+
+    private String remark;
+
+    private boolean isDeleted;
+
+    private LocalDateTime created;
+
+    private LocalDateTime updated;
 
 }
