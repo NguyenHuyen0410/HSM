@@ -106,6 +106,36 @@
 
 
             <TextView
+                android:id="@+id/room_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_transparent_input"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="15dp"
+                android:text="Mô tả  "
+                android:textColor="#09304F"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+
+            <TextView
                 android:id="@+id/room_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
