@@ -1,9 +1,11 @@
 package com.example.hsb.utils;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 public class ToastUtil {
 
     public static void showToast(Context context, String message) {
