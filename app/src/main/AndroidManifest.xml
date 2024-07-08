@@ -44,9 +44,22 @@
                 android:value=".ui.account.activity.ListAccountActivity"/>
         </activity>
         <activity
+            android:name=".ui.category.activity.CategoryDetail"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.home.activity.edit_order_service_activity.OrderServiceActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.customer_history.activity.OrderedServiceDetail"
+            android:exported="true"></activity>
+        <activity
             android:name=".ui.auth.activity.LoginActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".ui.home_customer.activity.edit_order_service_activity.OrderServiceCustomerActivity"
+            android:exported="true"></activity>
+
     </application>
 
 </manifest>

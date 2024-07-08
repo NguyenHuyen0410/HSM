@@ -36,9 +36,9 @@ public class RoomRepository {
         return mRoomLiveData;
     }
 
-    public MutableLiveData<Room> getRooms(){
-        fetchRooms();
-        return mRoomLiveData;
+    public MutableLiveData<List<Room>> getRooms(String value, String field){
+        fetchRooms(value, field);
+        return mRoomListLiveData;
     }
 
     public void fetchRoom(String value, String field){
@@ -62,9 +62,9 @@ public class RoomRepository {
         });
     }
 
-    public void fetchRooms(){
+    public void fetchRooms(String value, String field) {
         String expand = "device_account_id";
-        String filter = "";
+        String filter = field == null || field.isEmpty()  ? null :  field+"='"+value+"'";
         Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand, filter);
         call.enqueue(new Callback<ListResponse<RoomRecord>>() {
             @Override
