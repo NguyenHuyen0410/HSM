@@ -44,6 +44,12 @@
                 android:value=".ui.account.activity.ListAccountActivity"/>
         </activity>
         <activity
+            android:name=".ui.category.activity.CategoryDetail"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.home.edit_order_service_activity.OrderServiceActivity"
+            android:exported="true"/>
+        <activity
             android:name=".ui.auth.activity.LoginActivity"
             android:exported="true">
         </activity>
