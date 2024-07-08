@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServiceRecord {
-
+public class PriceRecord {
     @SerializedName("collectionId")
     private String collectionId;
     @SerializedName("collectionName")
@@ -17,20 +16,19 @@ public class ServiceRecord {
     private String created;
     @SerializedName("updated")
     private String updated;
-    @SerializedName("service_name")
-    private String name;
-    @SerializedName("service_image")
-    private String image;
-    @SerializedName("id")
-    private String id;
-    @SerializedName("start_time")
+    @SerializedName("start_date")
     private String startTime;
-    @SerializedName("end_time")
+    @SerializedName("end_date")
     private String endTime;
-    @SerializedName("description")
-    private String description;
     @SerializedName("remark")
     private String remark;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("service_id")
+    private String serviceId;
+    @SerializedName("service_price")
+    private String servicePrice;
     @SerializedName("is_deleted")
     private boolean isDeleted;
+
 }

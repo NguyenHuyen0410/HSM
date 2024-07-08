@@ -17,10 +17,13 @@ import retrofit2.http.Query;
 
 public interface RoomServiceApi {
     @GET("rooms/records")
-    Call<ListResponse<RoomRecord>> getRecords(
+    Call<RoomRecord> getRecord(
             @Query("expand") String expand,
             @Query("filter") String filter
     );
+
+    @GET("rooms/records?expand=device_account_id")
+    Call<ListResponse<RoomRecord>> getRecords();
 
     @POST("rooms/records?expand=device_account_id")
     Call<RoomRecord> createRecord(@Body RoomRecord record);

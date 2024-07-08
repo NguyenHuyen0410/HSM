@@ -1,9 +1,15 @@
 package com.example.hsb.client;
 
 import com.example.hsb.service.AccountServiceApi;
+import com.example.hsb.service.AuthServiceApi;
+import com.example.hsb.service.CategoryServiceApi;
 import com.example.hsb.service.EmployeeServiceApi;
+import com.example.hsb.service.PriceServiceApi;
+import com.example.hsb.service.RoleServiceApi;
 import com.example.hsb.service.RoomServiceApi;
+import com.example.hsb.service.ServiceBillDetailServiceApi;
 import com.example.hsb.service.ServiceBillServiceApi;
+import com.example.hsb.service.ServicesServiceApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -48,5 +54,27 @@ public class RetrofitClient {
     public ServiceBillServiceApi getServiceBillServiceApi(){
         return retrofit.create(ServiceBillServiceApi.class);
     }
+
+    public ServicesServiceApi getServicesServiceApi() {
+        return retrofit.create(ServicesServiceApi.class);
+    }
+
+    public CategoryServiceApi getCategoryServiceApi() {
+        return retrofit.create(CategoryServiceApi.class);
+    }
+
+    public PriceServiceApi getPriceServiceApi() {
+        return retrofit.create(PriceServiceApi.class);
+    }
+
+    public RoleServiceApi getRoleServiceApi() {
+        return retrofit.create(RoleServiceApi.class);
+    }
+
+    public AuthServiceApi getAuthServiceApi() {
+        return retrofit.create(AuthServiceApi.class);
+    }
+
+    public ServiceBillDetailServiceApi getServiceBillDetailServiceApi () {return retrofit.create(ServiceBillDetailServiceApi.class);}
 
 }
