@@ -75,8 +75,8 @@ public class ListAccountActivity extends AppCompatActivity {
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        String currentRole = SystemRoles.MANAGER.getName();
-        String currentRole = SystemRoles.CUSTOMER.getName();
+        String currentRole = SystemRoles.MANAGER.getName();
+//        String currentRole = SystemRoles.CUSTOMER.getName();
         if(currentRole.equals(SystemRoles.MANAGER.getName())){
             bottomNavigationView.getMenu().clear();
             bottomNavigationView.inflateMenu(R.menu.nav_menu_manager);

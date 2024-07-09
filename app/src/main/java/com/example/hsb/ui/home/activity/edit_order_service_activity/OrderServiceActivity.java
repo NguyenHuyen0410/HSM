@@ -189,13 +189,13 @@ public class OrderServiceActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if (selectedRoomId != null) {
+//        if (selectedRoomId != null) {
 //            orderServiceActivityViewModel.getServiceBillLiveData("room_id",selectedRoomId);
-
-        } else {
-            autoCompleteRooms.setError("Invalid room");
-            isValid = false;
-        }
+//
+//        } else {
+//            autoCompleteRooms.setError("Invalid room");
+//            isValid = false;
+//        }
 
         if (isValid) {
 

@@ -17,6 +17,12 @@ import retrofit2.http.Query;
 
 public interface RoomServiceApi {
     @GET("rooms/records")
+    Call<RoomRecord> getRecord(
+            @Query("expand") String expand,
+            @Query("filter") String filter
+    );
+
+    @GET("rooms/records")
     Call<ListResponse<RoomRecord>> getRecords(
             @Query("expand") String expand,
             @Query("filter") String filter
