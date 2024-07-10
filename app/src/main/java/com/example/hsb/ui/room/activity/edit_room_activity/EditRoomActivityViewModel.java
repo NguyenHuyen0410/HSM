@@ -24,7 +24,7 @@ public class EditRoomActivityViewModel extends ViewModel {
         return mRoom;
     }
 
-        public MutableLiveData<List<Room>> getRoomListLiveData() {
+    public MutableLiveData<List<Room>> getRoomListLiveData() {
         return mListRoomLiveData;
     }
 
