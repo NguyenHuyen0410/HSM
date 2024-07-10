@@ -1,4 +1,4 @@
-package com.example.hsb.ui.home.adapter;
+package com.example.hsb.ui.home_customer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
-
 import com.example.hsb.entities.Price;
 import com.example.hsb.entities.Service;
-import com.example.hsb.ui.home.activity.edit_order_service_activity.OrderServiceActivity;
+import com.example.hsb.ui.home_customer.activity.edit_order_service_activity.OrderServiceCustomerActivity;
 
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
 
             //putting this onclick listenter outside this if methods create errors , needs fixing later
             serviceCategoryChildHolder.btnOrder.setOnClickListener(v -> {
-                Intent intent = new Intent(context, OrderServiceActivity.class);
+                Intent intent = new Intent(context, OrderServiceCustomerActivity.class);
                 intent.putExtra("service", service);
                 intent.putExtra("price", price);
                 context.startActivity(intent);

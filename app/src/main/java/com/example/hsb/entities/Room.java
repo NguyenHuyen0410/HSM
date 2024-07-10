@@ -1,5 +1,6 @@
 package com.example.hsb.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Room {
+public class Room implements Serializable {
     private String id;
     private LocalDateTime created;
     private LocalDateTime updated;
@@ -42,5 +43,10 @@ public class Room {
         this.deviceAccountId = deviceAccountId;
         this.status = status;
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return getRoomNumber();
     }
 }

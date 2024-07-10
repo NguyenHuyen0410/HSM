@@ -1,10 +1,12 @@
-package com.example.hsb.ui.home.edit_order_service_activity;
+package com.example.hsb.ui.home.activity.edit_order_service_activity;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,8 +23,16 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Price;
+import com.example.hsb.entities.Room;
 import com.example.hsb.entities.Service;
+import com.example.hsb.entities.ServiceBill;
 import com.example.hsb.entities.ServiceBillDetail;
+import com.example.hsb.ui.home.fragment.HomeFragmentViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderServiceActivity extends AppCompatActivity {
     private TextView name;
@@ -36,15 +46,22 @@ public class OrderServiceActivity extends AppCompatActivity {
     private Button addButton;
     private Button removeButton;
     private Button orderButton;
+
+    private ArrayAdapter<ServiceBill> adapter;
+
+    private AutoCompleteTextView autoCompleteRooms;
     private OrderServiceActivityViewModel orderServiceActivityViewModel;
 
+    private String selectedRoomId;
 
+    private List<ServiceBill> serviceBillList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_request);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        System.out.println("Badfasdfasdfdasf");
 
         // Set navigation icon (arrow) to be white
         Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
@@ -62,57 +79,62 @@ public class OrderServiceActivity extends AppCompatActivity {
         setLayout();
 
         // Initialize ViewModel
-        orderServiceActivityViewModel = new ViewModelProvider(this).get(OrderServiceActivityViewModel.class);
+        orderServiceActivityViewModel = new OrderServiceActivityViewModel();
 
         // Get the order passed to the activity
         Service service = (Service) getIntent().getSerializableExtra("service");
         Price price = (Price) getIntent().getSerializableExtra("price");
         setData(service, price);
 
-        // Set up role AutoCompleteTextView
+  
 
-
-        addButton.setOnClickListener(v -> {
-            totalAmount++;
-            updateAmountAndPrice(price);
-        });
-
-        removeButton.setOnClickListener(v -> {
-            if (totalAmount > 0) {
-                totalAmount--;
-                updateAmountAndPrice(price);
+        orderServiceActivityViewModel.getServiceBillLiveData().observe(this, serviceBills -> {
+            if (serviceBills != null) {
+                serviceBillList.clear();
+                serviceBillList.addAll(serviceBills);
+                adapter.notifyDataSetChanged();
             }
         });
 
 
-        // Observe the ViewModel for toast messages
-        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, message -> Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show());
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalAmount++;
+                updateAmountAndPrice(price);
+            }
+        });
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalAmount > 0) {
+                    totalAmount--;
+                    updateAmountAndPrice(price);
+                }
+            }
+        });
+
+        adapter = new ArrayAdapter<>(this, R.layout.list_room_item, serviceBillList);
+        autoCompleteRooms.setAdapter(adapter);
+
+
+        autoCompleteRooms.setOnItemClickListener((parent, view, position, id) -> {
+            ServiceBill serviceBill = (ServiceBill) parent.getItemAtPosition(position);
+            selectedRoomId= serviceBill.getRoomId() ;
+        });
+
+
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setUpdateData(service,price);
-                Toast.makeText(OrderServiceActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        // Observe the ViewModel for toast messages
-//        orderButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Handle order logic here
-//                Toast.makeText(OrderServiceActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
-        // Observe the ViewModel for toast messages
-        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String message) {
-                Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void setLayout() {
@@ -124,6 +146,7 @@ public class OrderServiceActivity extends AppCompatActivity {
         removeButton = findViewById(R.id.btn_remove);
         orderButton = findViewById(R.id.btn_order);
         imageView = findViewById(R.id.iv_image_service);
+        autoCompleteRooms = findViewById(R.id.auto_complete_room);
     }
 
     @Override
@@ -137,26 +160,38 @@ public class OrderServiceActivity extends AppCompatActivity {
 
     public void setUpdateData(@Nullable Service service,@Nullable Price price) {
         boolean isValid = true;
-
+        ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
+                null,
+                service.getId(),
+                totalAmount,
+                "waiting",
+                remark.getText().toString(),
+                "ryh7idmam2q3k4m",
+                price.getId(),
+                null,
+                false,
+                null,
+                null,
+                price
+        );
         // Validate name
+        if (totalAmount > 0) {
+            serviceBillDetail.setQuantity(totalAmount);
+        } else {
+            tvAmount.setError("Hay dat nhieu hon 0");
+            isValid = false;
+        }
+
+        if (selectedRoomId == null) {
+            autoCompleteRooms.setError("Invalid room");
+            isValid = false;
+        }
 
         if (isValid) {
-            ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
-                null,
-                    service.getId(),
-                    totalAmount,
-                    "waiting",
-                    remark.getText().toString(),
-                    "ryh7idmam2q3k4m",
-                    price.getId(),
-                    null,
-                    false,
-                    null,
-                    null,
-                    price
-            );
+
             // Call ViewModel to update or create category
-                orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
+            orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
+            Toast.makeText(OrderServiceActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(OrderServiceActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
         }

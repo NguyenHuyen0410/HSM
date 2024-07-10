@@ -6,11 +6,16 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Room;
 import com.example.hsb.entities.ServiceBill;
+import com.example.hsb.entities.ServiceBillDetail;
+import com.example.hsb.record.ServiceBillDetailRecord;
 import com.example.hsb.record.ServiceBillRecord;
 import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +25,7 @@ public class ServiceBillRepository {
 
     public static ServiceBillRepository instance;
     private final MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
-    private final MutableLiveData<ServiceBill> mServiceBillLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<ServiceBill>> mServiceBillListLiveData = new MutableLiveData<>();
 
     public static ServiceBillRepository getInstance(){
         if(instance==null){
@@ -29,21 +34,33 @@ public class ServiceBillRepository {
         return instance;
     }
 
-    public MutableLiveData<ServiceBill> getServiceBill(String field, String value){
+    public MutableLiveData<List<ServiceBill>>  getServiceBill(String field, String value){
         fetchServiceBill(field, value);
-        return mServiceBillLiveData;
+        return mServiceBillListLiveData;
     }
 
     public void fetchServiceBill(String field, String value){
-        String expand = "device_account_id";
-        String filter = field+"='"+value+"'";
+        String expand = "room_id";
+        String filter;
+        if (field == null || field.isEmpty()) {
+            filter = null;
+        } else if (Objects.equals(value, "false") || Objects.equals(value, "true")) {
+            filter = field+"="+value;
+        } else {
+            filter =  field+"='"+value+"'";
+        }
+        List<ServiceBill> serviceBillList = new ArrayList<>();
         Call<ListResponse<ServiceBillRecord>> call = RetrofitClient.getInstance().getServiceBillServiceApi().getRecords(expand, filter);
         call.enqueue(new Callback<ListResponse<ServiceBillRecord>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<ServiceBillRecord>> call, @NonNull Response<ListResponse<ServiceBillRecord>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    ServiceBillRecord record = response.body().getItems().get(0);
-                    mServiceBillLiveData.setValue(setServiceBill(record));
+                    List<ServiceBillRecord> records = response.body().getItems();
+
+                    for (ServiceBillRecord record : records) {
+                        serviceBillList.add(setServiceBill(record));
+                    }
+                    mServiceBillListLiveData.setValue(serviceBillList);
                 } else{
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
