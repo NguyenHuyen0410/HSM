@@ -25,6 +25,7 @@ import com.example.hsb.R;
 import com.example.hsb.entities.Price;
 import com.example.hsb.entities.Room;
 import com.example.hsb.entities.Service;
+import com.example.hsb.entities.ServiceBill;
 import com.example.hsb.entities.ServiceBillDetail;
 import com.example.hsb.ui.home.fragment.HomeFragmentViewModel;
 
@@ -46,14 +47,14 @@ public class OrderServiceActivity extends AppCompatActivity {
     private Button removeButton;
     private Button orderButton;
 
-    private ArrayAdapter<Room> adapter;
+    private ArrayAdapter<ServiceBill> adapter;
 
     private AutoCompleteTextView autoCompleteRooms;
-//    private OrderServiceActivityViewModel orderServiceActivityViewModel;
+    private OrderServiceActivityViewModel orderServiceActivityViewModel;
 
     private String selectedRoomId;
 
-    private List<Room> roomList = new ArrayList<>();
+    private List<ServiceBill> serviceBillList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class OrderServiceActivity extends AppCompatActivity {
         setLayout();
 
         // Initialize ViewModel
-//        orderServiceActivityViewModel = new OrderServiceActivityViewModel();
+        orderServiceActivityViewModel = new OrderServiceActivityViewModel();
 
         // Get the order passed to the activity
         Service service = (Service) getIntent().getSerializableExtra("service");
@@ -87,13 +88,13 @@ public class OrderServiceActivity extends AppCompatActivity {
 
   
 
-//        orderServiceActivityViewModel.getListRoomLiveData().observe(this, rooms -> {
-//            if (rooms != null) {
-//                roomList.clear();
-//                roomList.addAll(rooms);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
+        orderServiceActivityViewModel.getServiceBillLiveData().observe(this, serviceBills -> {
+            if (serviceBills != null) {
+                serviceBillList.clear();
+                serviceBillList.addAll(serviceBills);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -114,24 +115,16 @@ public class OrderServiceActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<>(this, R.layout.list_room_item, roomList);
+        adapter = new ArrayAdapter<>(this, R.layout.list_room_item, serviceBillList);
         autoCompleteRooms.setAdapter(adapter);
 
 
         autoCompleteRooms.setOnItemClickListener((parent, view, position, id) -> {
-            Room selectedRoomRecord = (Room) parent.getItemAtPosition(position);
-            selectedRoomId= selectedRoomRecord.getId();
-            Toast.makeText(OrderServiceActivity.this, "Selected ID: " + selectedRoomId, Toast.LENGTH_SHORT).show();
+            ServiceBill serviceBill = (ServiceBill) parent.getItemAtPosition(position);
+            selectedRoomId= serviceBill.getRoomId() ;
         });
 
 
-        // Observe the ViewModel for toast messages
-//        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(String message) {
-//                Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,18 +182,15 @@ public class OrderServiceActivity extends AppCompatActivity {
             isValid = false;
         }
 
-//        if (selectedRoomId != null) {
-//            orderServiceActivityViewModel.getServiceBillLiveData("room_id",selectedRoomId);
-//
-//        } else {
-//            autoCompleteRooms.setError("Invalid room");
-//            isValid = false;
-//        }
+        if (selectedRoomId == null) {
+            autoCompleteRooms.setError("Invalid room");
+            isValid = false;
+        }
 
         if (isValid) {
 
             // Call ViewModel to update or create category
-//            orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
+            orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
             Toast.makeText(OrderServiceActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(OrderServiceActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
