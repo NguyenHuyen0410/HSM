@@ -183,7 +183,7 @@ public class RoomRepository {
 
     public RoomRecord setRoomRecord(Room room){
         RoomRecord roomRecord = new RoomRecord();
-        if(!room.getId().isEmpty()){
+        if(room.getId() != null){
             roomRecord.setId(room.getId());
             roomRecord.setCreated(DateUtil.localDateTimeToJsonFormat(room.getCreated()));
             roomRecord.setUpdated(DateUtil.localDateTimeToJsonFormat(room.getUpdated()));

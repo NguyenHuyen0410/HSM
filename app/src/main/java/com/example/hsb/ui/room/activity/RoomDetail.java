@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Room;
+import com.example.hsb.ui.category.activity.CategoryDetail;
+import com.example.hsb.ui.category.activity.edit_category_activity.EditCategoryActivity;
 import com.example.hsb.ui.room.activity.edit_room_activity.EditRoomActivity;
 
 public class RoomDetail extends AppCompatActivity {
@@ -22,6 +25,7 @@ public class RoomDetail extends AppCompatActivity {
     private TextView description;
     private TextView device;
     private Button updateBtn;
+    private Button createBtn;
     private Room room;
 
     @Override
@@ -51,6 +55,7 @@ public class RoomDetail extends AppCompatActivity {
         type = findViewById(R.id.room_info);
         device = findViewById(R.id.device_account_id);
         updateBtn = findViewById(R.id.btn_update_room);
+        createBtn = findViewById(R.id.btn_create_room);
 
         // Get the category passed to the activity
         room = (Room) getIntent().getSerializableExtra("room");
@@ -72,5 +77,17 @@ public class RoomDetail extends AppCompatActivity {
             intent.putExtra("room", room);
             startActivity(intent);
         });
+        createBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(RoomDetail.this, EditRoomActivity.class);
+            startActivity(intent);
+        });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // Navigate back to previous activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

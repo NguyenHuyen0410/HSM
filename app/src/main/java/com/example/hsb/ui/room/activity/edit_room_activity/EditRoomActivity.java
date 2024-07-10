@@ -30,8 +30,6 @@ public class EditRoomActivity extends AppCompatActivity {
     private EditText device;
 
     private EditRoomActivityViewModel editRoomActivityViewModel;
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +52,14 @@ public class EditRoomActivity extends AppCompatActivity {
         type = findViewById(R.id.et_type_room);
         description = findViewById(R.id.et_description_room);
         device = findViewById(R.id.et_device_room);
-        Button deleteBtn = findViewById(R.id.btn_delete);
-        Button saveBtn = findViewById(R.id.btn_save);
+        Button deleteBtn = findViewById(R.id.btn_delete_room);
+        Button saveBtn = findViewById(R.id.btn_save_room);
 
         // Initialize ViewModel
         editRoomActivityViewModel = new ViewModelProvider(this).get(EditRoomActivityViewModel.class);
 
         // Get the room passed to the activity
-        Room room = (Room) getIntent().getSerializableExtra("category");
+        Room room = (Room) getIntent().getSerializableExtra("room");
         if (room != null) {
             name.setText(room.getRoomNumber());
             image.setText(room.getRoomImage());
@@ -76,10 +74,10 @@ public class EditRoomActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(v -> setUpdateData(finalRoom));
 
         deleteBtn.setOnClickListener(v -> new AlertDialog.Builder(EditRoomActivity.this)
-                .setTitle("Delete Category")
-                .setMessage("Are you sure you want to delete this category?")
+                .setTitle("Delete room")
+                .setMessage("Are you sure you want to delete this room?")
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    // Call ViewModel to delete category
+                    // Call ViewModel to delete room
                     editRoomActivityViewModel.deleteRoom(finalRoom.getId());
                 })
                 .setNegativeButton(android.R.string.no, null)
@@ -94,16 +92,6 @@ public class EditRoomActivity extends AppCompatActivity {
             }
         });
 
-        // Observe the ViewModel for room updates
-        editRoomActivityViewModel.getRoomLiveData().observe(this, new Observer<Room>() {
-            @Override
-            public void onChanged(Room updatedRoom) {
-                // Handle the updated account, e.g., show a message or update UI
-                Toast.makeText(EditRoomActivity.this, "Category updated successfully", Toast.LENGTH_SHORT).show();
-                // Optionally finish the activity or update the UI further
-                finish();
-            }
-        });
         // Observe the ViewModel for room updates
         editRoomActivityViewModel.getRoomLiveData().observe(this, new Observer<Room>() {
             @Override
@@ -124,15 +112,15 @@ public class EditRoomActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpdateData(@Nullable Room room) {
+    private void setUpdateData(Room room) {
         boolean isValid =  true;
         // Validate name
-        if (ValidateUtil.isNameValid(name)) {
-            room.setRoomNumber(name.getText().toString());
-        } else {
-            name.setError("Invalid name");
-            isValid = false;
-        }
+//        if (ValidateUtil.isNameValid(name)) {
+//            room.setRoomNumber(name.getText().toString());
+//        } else {
+//            name.setError("Invalid name");
+//            isValid = false;
+//        }
         if (isValid) {
             // Call ViewModel to update or create room
             if (room.getId() != null) {

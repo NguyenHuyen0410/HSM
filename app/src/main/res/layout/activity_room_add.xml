@@ -89,16 +89,23 @@
             android:hint="Id thiết bị" />
 
 
-
         <Button
+            android:id="@+id/btn_save_room"
             style="@style/save_button"
-            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Tạo mới"
+            android:text="Save"
             android:textColor="@android:color/white" />
 
-
+        <Button
+            android:id="@+id/btn_delete_room"
+            style="@style/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#D32317"
+            android:text="Delete"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </LinearLayout>
