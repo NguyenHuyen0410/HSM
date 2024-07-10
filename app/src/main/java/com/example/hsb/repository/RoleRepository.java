@@ -17,9 +17,7 @@ import retrofit2.Response;
 
 public class RoleRepository {
     private static RoleRepository instance;
-    private MutableLiveData<String> status;
-    private static final String SUCCESS = "success";
-    private static final String ERROR = "error";
+    private final MutableLiveData<List<Role>> rolesLiveData = new MutableLiveData<>();
 
     public static RoleRepository getInstance() {
         if (instance == null) {
@@ -28,29 +26,31 @@ public class RoleRepository {
         return instance;
     }
 
-    public LiveData<List<Role>> getRoles() {
-        status = new MutableLiveData<>();
-        MutableLiveData<List<Role>> roles = new MutableLiveData<>();
+    public LiveData<List<Role>> getRolesLiveData() {
+        if (rolesLiveData.getValue() == null) {
+            fetchRoles();
+        }
+        return rolesLiveData;
+    }
+
+    private void fetchRoles() {
         Call<ListResponse<Role>> call = RetrofitClient.getInstance().getRoleServiceApi().getRecords();
         call.enqueue(new Callback<ListResponse<Role>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<Role>> call, @NonNull Response<ListResponse<Role>> response) {
-                if (response.isSuccessful()) {
-                    ListResponse<Role> roleResponse = response.body();
-                    assert roleResponse != null;
-                    roles.setValue(roleResponse.getItems());
-                    status.setValue(SUCCESS);
+                if (response.isSuccessful() && response.body() != null) {
+                    rolesLiveData.postValue(response.body().getItems());
                 } else {
-                    status.setValue(ERROR);
+                    rolesLiveData.postValue(null);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ListResponse<Role>> call, @NonNull Throwable t) {
                 LoggerUtil.e(t.getMessage());
-                status.setValue(ERROR);
+                rolesLiveData.postValue(null);
             }
         });
-        return roles;
     }
+
 }

@@ -3,7 +3,7 @@ package com.example.hsb.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.hsb.ui.base.activity.BaseActivity;
+import com.example.hsb.App;
 
 public class SharedPrefManager {
     private static final String PREFS_NAME = "my_prefs";
@@ -11,7 +11,7 @@ public class SharedPrefManager {
     private final SharedPreferences mSharedPreferences;
 
     private SharedPrefManager() {
-        mSharedPreferences = BaseActivity.self().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        mSharedPreferences = App.self().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
     public static SharedPrefManager getInstance() {
@@ -34,7 +34,7 @@ public class SharedPrefManager {
         } else if (anonymousClass == Long.class) {
             return (T) Long.valueOf(mSharedPreferences.getLong(key, 0));
         } else {
-            return (T) BaseActivity.self().getGSon().fromJson(mSharedPreferences.getString(key, ""), anonymousClass);
+            return (T) App.self().getGSon().fromJson(mSharedPreferences.getString(key, ""), anonymousClass);
         }
     }
 
@@ -51,7 +51,7 @@ public class SharedPrefManager {
         } else if (data instanceof Long) {
             editor.putLong(key, (Long) data);
         } else {
-            editor.putString(key, BaseActivity.self().getGSon().toJson(data));
+            editor.putString(key, App.self().getGSon().toJson(data));
         }
         editor.apply();
     }

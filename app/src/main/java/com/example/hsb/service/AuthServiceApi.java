@@ -8,20 +8,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface AuthServiceApi {
     @POST("accounts/auth-with-password")
-    Call<AccountResponse> login(@Body RequestBody params);
+    Call<AccountResponse> login(@Body RequestBody params, @Query("expand") String expand);
 
     // refresh token api
     @POST("accounts/auth-refresh")
-    Call<AccountResponse> refreshToken(@Header("Authorization") String token);
-
-    // user request forgot password api
-    @POST("accounts/request-password-reset")
-    Call<Account> requestPasswordReset(@Body RequestBody params);
-
-    // user forgot password api
-    @POST("users/confirm-password-reset")
-    Call<AccountResponse> confirmPasswordReset(@Body RequestBody params);
+    Call<AccountResponse> refreshToken(@Header("Authorization") String token, @Query("expand") String expand);
 }

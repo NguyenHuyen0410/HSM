@@ -25,11 +25,8 @@ import com.example.hsb.utils.DateUtil;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
-
     private final List<Account> accountList;
     private final Context context;
-    private static String hexColor;
-
     public AccountAdapter(List<Account> accountList, Context context) {
         this.context = context;
         this.accountList = accountList;
@@ -44,47 +41,36 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     @Override
     public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
-        Account account = this.accountList.get(position);
+        Account account = accountList.get(position);
         String imageUrl = "https://hotel-service-manage.pockethost.io/api/files/s1fvh4cvz1v4k80/"+account.getProfileId()+"/"+account.getAccountImage()+"?token=";
-        Glide.with(context)
-                .load(imageUrl)
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.images);
+        Glide.with(context).load(imageUrl).apply(RequestOptions.circleCropTransform()).into(holder.images);
 
         holder.name.setText(account.getName());
-        String status = account.getAccountStatus();
-        holder.status.setText(status);
-        System.out.println(status);
-        if (status.equals(AccountStatus.ACTIVE)){
+        holder.status.setText(account.getAccountStatus());
+        if (AccountStatus.ACTIVE.equals(account.getAccountStatus())){
             holder.icon.setImageResource(R.drawable.checked);
-            hexColor = "#32BA7C";
-        } else if (status.equals(AccountStatus.TERMINATED)){
+            holder.status.setTextColor(Color.parseColor("#32BA7C"));
+        } else if (AccountStatus.TERMINATED.equals(account.getAccountStatus())){
             holder.icon.setImageResource(R.drawable.remove);
-            hexColor = "#F44336";
+            holder.status.setTextColor(Color.parseColor("#F44336"));
         }
-        holder.status.setTextColor(Color.parseColor(hexColor));
-        String roleName = account.getRole().getName();
-
-        holder.role.setText(roleName);
+        holder.role.setText(account.getRole().getName());
 
         String createdDate = "Created Date: " + DateUtil.localDateTimeToString(account.getCreatedDate());
         holder.createdDate.setText(createdDate);
         String lastModifiedDate = "Last Modified Date: " + DateUtil.localDateTimeToString(account.getLastModifiedDate());
         holder.lastModifiedDate.setText(lastModifiedDate);
 
-        boolean isExpandable = account.isExpanded();
-        holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-
-        int pos = position;
+        holder.expandableLayout.setVisibility(account.isExpanded() ? View.VISIBLE : View.GONE);
         holder.accountItem.setOnClickListener(v -> {
             account.setExpanded(!account.isExpanded());
-            notifyItemChanged(pos);
+            notifyItemChanged(position);
         });
 
         holder.btn_edit.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditAccountActivity.class);
             intent.putExtra("account", account);
-            intent.putExtra("role", roleName);
+            intent.putExtra("role", account.getRole().getName());
             context.startActivity(intent);
         });
     }
@@ -95,16 +81,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
     }
 
     public static class AccountHolder extends RecyclerView.ViewHolder {
-
-        TextView name;
-        TextView status;
-        TextView role;
-        TextView createdDate;
-        TextView lastModifiedDate;
-        ImageView icon;
-        ImageView images;
-        ConstraintLayout accountItem;
-        ConstraintLayout expandableLayout;
+        TextView name, status, role, createdDate, lastModifiedDate;
+        ImageView icon, images;
+        ConstraintLayout accountItem, expandableLayout;
         Button btn_edit;
 
         public AccountHolder(@NonNull View itemView) {

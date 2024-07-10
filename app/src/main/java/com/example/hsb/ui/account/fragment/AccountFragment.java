@@ -1,5 +1,6 @@
 package com.example.hsb.ui.account.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,21 +27,32 @@ import java.util.List;
 public class AccountFragment extends Fragment {
     private final List<Account> accountList = new ArrayList<>();
     private AccountAdapter adapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        setupRecyclerView(view);
+        setupViewModelObservers();
+        setupAddAccountButton(view);
+        return view;
+    }
 
+    private void setupRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.account_list);
+        adapter = new AccountAdapter(accountList, requireContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(adapter);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void setupViewModelObservers() {
         AccountFragmentViewModel accountFragmentViewModel = new AccountFragmentViewModel();
-
-        // Observe changes in the account list
         accountFragmentViewModel.getListAccountLiveData().observe(getViewLifecycleOwner(), accounts -> {
+            accountList.clear();
             if (accounts != null) {
-                accountList.clear();
                 accountList.addAll(accounts);
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
         });
 
         accountFragmentViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
@@ -48,23 +60,52 @@ public class AccountFragment extends Fragment {
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
-
-        RecyclerView recyclerView = view.findViewById(R.id.account_list);
-        adapter = new AccountAdapter(accountList, requireContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(adapter);
-
-        return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    private void setupAddAccountButton(View view) {
         Button addAccountBtn = view.findViewById(R.id.btn_add_account);
-        addAccountBtn.setOnClickListener(v -> {
-            Intent i = new Intent(getContext(), EditAccountActivity.class);
-            startActivity(i);
-        });
+        addAccountBtn.setOnClickListener(v -> startActivity(new Intent(getContext(), EditAccountActivity.class)));
     }
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_account, container, false);
+//
+//        accountFragmentViewModel = new AccountFragmentViewModel();
+//
+//        // Observe changes in the account list
+//        accountFragmentViewModel.getListAccountLiveData().observe(getViewLifecycleOwner(), accounts -> {
+//            if (accounts != null) {
+//                accountList.clear();
+//                accountList.addAll(accounts);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        accountFragmentViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
+//            if (message != null) {
+//                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        recyclerView = view.findViewById(R.id.account_list);
+//        adapter = new AccountAdapter(accountList, requireContext());
+//        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+//        recyclerView.setAdapter(adapter);
+//
+//        return view;
+//    }
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        Button addAccountBtn = view.findViewById(R.id.btn_add_account);
+//        addAccountBtn.setOnClickListener(v -> {
+//            Intent i = new Intent(getContext(), EditAccountActivity.class);
+//            startActivity(i);
+//        });
+//    }
+
 }

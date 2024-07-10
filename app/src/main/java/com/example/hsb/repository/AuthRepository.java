@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hsb.client.RetrofitClient;
-import com.example.hsb.entities.Account_Fix;
+import com.example.hsb.record.AccountRecord;
 import com.example.hsb.response.AccountResponse;
 import com.example.hsb.storage.SharedPrefManager;
 import com.example.hsb.utils.LoggerUtil;
@@ -25,9 +25,11 @@ public class AuthRepository {
     private static final String IDENTITY = "identity";
     private static final String PASSWORD = "password";
     private static final String CONFIRM_PASSWORD = "passwordConfirm";
-    private static final String SUCCESS = "success";
     private static final String TOKEN = "token";
-    private static final String ERROR = "error";
+    private static final String ERROR = "FAILED";
+    private static final String EMAIL = "email";
+    private static final String TERMINATE = "TERMINATE";
+    private static final String IS_DELETED = "ISDELETED";
 
     public static AuthRepository getInstance() {
         if (instance == null) {
@@ -35,27 +37,28 @@ public class AuthRepository {
         }
         return instance;
     }
-
-    public LiveData<String> login(Account_Fix account) {
+    public LiveData<String> login(AccountRecord account) {
         status = new MutableLiveData<>();
         Map<String, Object> jsonParams = new ArrayMap<>();
         jsonParams.put(IDENTITY, account.getUsername());
         jsonParams.put(PASSWORD, account.getPassword());
-        Call<AccountResponse> call = RetrofitClient.getInstance().getAuthServiceApi().login(RequestBodyUtil.createRequestBody(jsonParams));
+        Call<AccountResponse> call = RetrofitClient.getInstance().getAuthServiceApi().login(RequestBodyUtil.createRequestBody(jsonParams), "role_id");
         call.enqueue(new Callback<AccountResponse>() {
             @Override
             public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     AccountResponse accountResponse = response.body();
-                    assert accountResponse != null;
-                    if (accountResponse.getAccount().isVerified()) {
+                    String accountStatus = accountResponse.getAccount().getStatus();
+                    if (TERMINATE.equalsIgnoreCase(accountStatus)) {
+                        status.setValue(TERMINATE);
+                    } else if (IS_DELETED.equalsIgnoreCase(accountStatus)) {
+                        status.setValue(IS_DELETED);
+                    } else {
                         SharedPrefManager.getInstance().put(TOKEN, accountResponse.getToken());
                         SharedPrefManager.getInstance().put("account", accountResponse.getAccount());
-                        status.setValue(SUCCESS);
-                    } else {
-                        status.setValue("not verified");
+                        String roleName = accountResponse.getAccount().getExpand().getRole().getName();
+                        status.setValue(roleName.toUpperCase());
                     }
-
                 } else {
                     status.setValue(ERROR);
                 }
@@ -70,149 +73,35 @@ public class AuthRepository {
         return status;
     }
 
-//    public LiveData<String> refreshToken() {
-//        status = new MutableLiveData<>();
-//        Call<AccountResponse> call = RetrofitClient.getInstance().getApi().refreshToken("User " + SharedPrefManager.getInstance().get(TOKEN, String.class));
-//        call.enqueue(new Callback<AccountResponse>() {
-//            @Override
-//            public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
-//                if (response.isSuccessful()) {
-//                    AccountResponse accountResponse = response.body();
-//                    assert accountResponse != null;
-//                    SharedPrefManager.getInstance().put(TOKEN, accountResponse.getToken());
-//                    status.setValue(SUCCESS);
-//                } else {
-//                    status.setValue(ERROR);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<AccountResponse> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//                status.setValue(t.getMessage());
-//            }
-//        });
-//        return status;
-//    }
+    public LiveData<String> refreshToken() {
+        status = new MutableLiveData<>();
+        Call<AccountResponse> call = RetrofitClient.getInstance().getAuthServiceApi().refreshToken(SharedPrefManager.getInstance().get(TOKEN, String.class), "role_id");
+        call.enqueue(new Callback<AccountResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    AccountResponse accountResponse = response.body();
+                    String accountStatus = accountResponse.getAccount().getStatus();
+                    if (TERMINATE.equalsIgnoreCase(accountStatus)) {
+                        status.setValue(TERMINATE);
+                    } else if (IS_DELETED.equalsIgnoreCase(accountStatus)) {
+                        status.setValue(IS_DELETED);
+                    } else {
+                        SharedPrefManager.getInstance().put(TOKEN, accountResponse.getToken());
+                        String roleName = accountResponse.getAccount().getExpand().getRole().getName();
+                        status.setValue(roleName.toUpperCase());
+                    }
+                } else {
+                    status.setValue(ERROR);
+                }
+            }
 
-//    public LiveData<String> requestPasswordReset(String email) {
-//        status = new MutableLiveData<>();
-//        Map<String, Object> jsonParams = new ArrayMap<>();
-//        jsonParams.put(EMAIL, email);
-//        Call<Account> call = RetrofitClient.getInstance().getApi().requestForgot(RequestBodyUtil.createRequestBody(jsonParams));
-//        call.enqueue(new Callback<Account>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Account> call, @NonNull Response<Account> response) {
-//                if (response.isSuccessful()) {
-//                    status.setValue(SUCCESS);
-//                } else {
-//                    status.setValue(ERROR);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Account> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//                status.setValue(t.getMessage());
-//            }
-//        });
-//        return status;
-//    }
-//
-//    public LiveData<String> forgot(String token, String password, String confirmPassword) {
-//        status = new MutableLiveData<>();
-//        Map<String, Object> jsonParams = new ArrayMap<>();
-//        jsonParams.put(TOKEN, token);
-//        jsonParams.put(PASSWORD, password);
-//        jsonParams.put(CONFIRM_PASSWORD, confirmPassword);
-//        Call<AccountResponse> call = RetrofitClient.getInstance().getApi().forgot(RequestBodyUtil.createRequestBody(jsonParams));
-//        call.enqueue(new Callback<AccountResponse>() {
-//            @Override
-//            public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
-//                if (response.isSuccessful()) {
-//                    status.setValue(SUCCESS);
-//                } else {
-//                    status.setValue("token expired");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<AccountResponse> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//            }
-//        });
-//        return status;
-//    }
-//
-//    public LiveData<String> register(String email, String password, String passwordConfirm) {
-//        status = new MutableLiveData<>();
-//        Map<String, Object> jsonParams = new ArrayMap<>();
-//        jsonParams.put(EMAIL, email);
-//        jsonParams.put(PASSWORD, password);
-//        jsonParams.put(CONFIRM_PASSWORD, passwordConfirm);
-//        Call<AccountResponse> call = RetrofitClient.getInstance().getApi().register(RequestBodyUtil.createRequestBody(jsonParams));
-//        call.enqueue(new Callback<AccountResponse>() {
-//            @Override
-//            public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
-//                if (response.isSuccessful()) {
-//                    status.setValue(SUCCESS);
-//                } else {
-//                    if (response.code() == 400) {
-//                        status.setValue("email already exists");
-//                    } else {
-//                        status.setValue(ERROR);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<AccountResponse> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//                status.setValue(t.getMessage());
-//            }
-//        });
-//        return status;
-//    }
-//
-//    public void requestVerification(String email) {
-//        Map<String, Object> jsonParams = new ArrayMap<>();
-//        jsonParams.put(EMAIL, email);
-//        Call<Void> call = RetrofitClient.getInstance().getApi().requestVerification(RequestBodyUtil.createRequestBody(jsonParams));
-//        call.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-//                // no need to handle response
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//            }
-//        });
-//    }
-//
-//    public LiveData<String> confirmVerification(String token){
-//        status = new MutableLiveData<>();
-//        Map<String, Object> jsonParams = new ArrayMap<>();
-//        jsonParams.put(TOKEN, token);
-//        Call<AccountResponse> call = RetrofitClient.getInstance().getApi().verification(RequestBodyUtil.createRequestBody(jsonParams));
-//        call.enqueue(new Callback<AccountResponse>() {
-//            @Override
-//            public void onResponse(@NonNull Call<AccountResponse> call, @NonNull Response<AccountResponse> response) {
-//                if (response.isSuccessful()) {
-//                    status.setValue(SUCCESS);
-//                } else {
-//                    status.setValue(ERROR);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<AccountResponse> call, @NonNull Throwable t) {
-//                LoggerUtil.e(t.getMessage());
-//                status.setValue(t.getMessage());
-//            }
-//        });
-//        return status;
-//    }
-
+            @Override
+            public void onFailure(@NonNull Call<AccountResponse> call, @NonNull Throwable t) {
+                LoggerUtil.e(t.getMessage());
+                status.setValue(t.getMessage());
+            }
+        });
+        return status;
+    }
 }

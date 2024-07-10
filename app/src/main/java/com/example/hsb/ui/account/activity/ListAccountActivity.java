@@ -64,10 +64,7 @@ public class ListAccountActivity extends AppCompatActivity {
             bottomNavigationView.inflateMenu(R.menu.nav_menu_manager);
             bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 int id = item.getItemId();
-                if (id == R.id.dashboard) {
-                    switchFragment(homeFragment, TAG_DASHBOARD);
-                    return true;
-                } else if (id == R.id.account) {
+                if (id == R.id.account) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
                     return true;
                 } else if (id == R.id.category) {

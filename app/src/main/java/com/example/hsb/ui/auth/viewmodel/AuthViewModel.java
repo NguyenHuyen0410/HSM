@@ -3,7 +3,7 @@ package com.example.hsb.ui.auth.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hsb.entities.Account_Fix;
+import com.example.hsb.record.AccountRecord;
 import com.example.hsb.repository.AuthRepository;
 
 public class AuthViewModel extends ViewModel {
@@ -13,7 +13,7 @@ public class AuthViewModel extends ViewModel {
         this.authRepository = AuthRepository.getInstance();
     }
 
-    public LiveData<String> login(Account_Fix account) {
+    public LiveData<String> login(AccountRecord account) {
         return authRepository.login(account);
     }
 }

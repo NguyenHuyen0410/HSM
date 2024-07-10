@@ -8,6 +8,5 @@ import retrofit2.http.GET;
 
 public interface RoleServiceApi {
     @GET("role/records")
-    Call<ListResponse<Role>> getRecords(//@Header("Authorization") String token
-    );
+    Call<ListResponse<Role>> getRecords();
 }

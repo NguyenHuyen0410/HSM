@@ -1,7 +1,15 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Hsb" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Hsb" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/orchid_hotel_logo</item>
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimationDuration">2000</item>
     </style>
 </resources>
