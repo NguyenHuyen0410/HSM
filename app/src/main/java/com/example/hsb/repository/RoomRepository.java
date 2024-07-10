@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Room;
+import com.example.hsb.record.CategoryRecord;
 import com.example.hsb.record.RoomRecord;
 import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
@@ -163,7 +164,9 @@ public class RoomRepository {
     }
 
     public void createRoom(Room room, CreateRoomCallBack createRoomCallBack){
-        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(setRoomRecord(room));
+//        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(setRoomRecord(room));
+        RoomRecord roomRecord = setRoomRecord(room);
+        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(roomRecord);
         call.enqueue(new Callback<RoomRecord>() {
             @Override
             public void onResponse(@NonNull Call<RoomRecord> call, @NonNull Response<RoomRecord> response) {
@@ -181,7 +184,7 @@ public class RoomRepository {
     }
 
     public void deleteRoom(String roomId, DeleteRoomCallBack deleteRoomCallBack){
-        Call<Void> call = RetrofitClient.getInstance().getServiceBillServiceApi().deleteRecord(roomId);
+        Call<Void> call = RetrofitClient.getInstance().getRoomServiceApi().deleteRecord(roomId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
@@ -202,21 +205,24 @@ public class RoomRepository {
         RoomRecord roomRecord = new RoomRecord();
         if(room.getId() != null){
             roomRecord.setId(room.getId());
-            roomRecord.setCreated(DateUtil.localDateTimeToJsonFormat(room.getCreated()));
-            roomRecord.setUpdated(DateUtil.localDateTimeToJsonFormat(room.getUpdated()));
+            roomRecord.setCreated(DateUtil.localDateTimeToString(room.getCreated()));
+            roomRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.set_deleted(room.is_deleted());
+            roomRecord.setStatus(room.getStatus());
         } else{
-            roomRecord.setCreated(DateUtil.localDateTimeToJsonFormat(LocalDateTime.now()));
-            roomRecord.setUpdated(DateUtil.localDateTimeToJsonFormat(LocalDateTime.now()));
+            roomRecord.setCreated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.set_deleted(false);
+            roomRecord.setStatus("vacant");
         }
-        roomRecord.set_deleted(room.is_deleted());
+        roomRecord.setRoomImage(room.getRoomImage());
         roomRecord.setRoomNumber(room.getRoomNumber());
         roomRecord.setRoomType(room.getRoomType());
         roomRecord.setRoomCapacity(room.getRoomCapacity());
-        roomRecord.setRoomArea(roomRecord.getRoomArea());
-        roomRecord.setRoomImage(roomRecord.getRoomImage());
-        roomRecord.setDescription(roomRecord.getDescription());
+        roomRecord.setRoomArea(room.getRoomArea());
+        roomRecord.setRoomImage(room.getRoomImage());
+        roomRecord.setDescription(room.getDescription());
         roomRecord.setDeviceAccountId(room.getDeviceAccountId());
-        roomRecord.setStatus(room.getStatus());
         roomRecord.setRemark(room.getRemark());
         return roomRecord;
     }

@@ -2,12 +2,17 @@ package com.example.hsb.ui.room.activity.edit_room_activity;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Room;
+import com.example.hsb.entities.ServiceBill;
+import com.example.hsb.repository.AccountRepository;
 import com.example.hsb.repository.RoomRepository;
 import java.util.List;
 import lombok.Getter;
 
 public class EditRoomActivityViewModel extends ViewModel {
+    @Getter
     private final MutableLiveData<Room> mRoom = new MutableLiveData<>();
     @Getter
     private final MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
@@ -15,17 +20,15 @@ public class EditRoomActivityViewModel extends ViewModel {
     private final MutableLiveData<Boolean> deleteStatusLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Room>> mListRoomLiveData;
     private final RoomRepository roomRepository;
+    private final AccountRepository accountRepository;
 
     public EditRoomActivityViewModel() {
         roomRepository = RoomRepository.getInstance();
+        accountRepository = AccountRepository.getInstance();
         mListRoomLiveData = roomRepository.getRooms("","");
     }
     public MutableLiveData<Room> getRoomLiveData() {
         return mRoom;
-    }
-
-    public MutableLiveData<List<Room>> getRoomListLiveData() {
-        return mListRoomLiveData;
     }
 
     public void edtRoom(Room room){

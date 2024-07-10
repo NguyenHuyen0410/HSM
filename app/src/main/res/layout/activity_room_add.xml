@@ -43,15 +43,6 @@
             android:hint="Tên" />
 
 
-        <EditText
-            style="@style/room_update"
-            android:id="@+id/et_image_room"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:background="@drawable/edt_bg"
-            android:hint="Ảnh (URL)"
-            android:inputType="textPassword" />
 
         <EditText
             style="@style/room_update"
@@ -60,8 +51,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:background="@drawable/edt_bg"
-            android:hint="Loại phòng"
-            android:inputType="textPassword" />
+            android:hint="Loại phòng"/>
 
         <EditText
             style="@style/room_update"
@@ -70,10 +60,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:background="@drawable/edt_bg"
-            android:hint="Mô tả"
-            android:inputType="textPassword" />
-
-
+            android:hint="Mô tả"/>
 
 
         <EditText
@@ -85,6 +72,32 @@
             android:minHeight="48dp"
             android:hint="Id thiết bị" />
 
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="So nguoi" />
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="Dien tich" />
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="remark" />
 
         <Button
             android:id="@+id/btn_save_room"

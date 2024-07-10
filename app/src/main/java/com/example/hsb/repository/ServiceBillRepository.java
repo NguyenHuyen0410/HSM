@@ -15,6 +15,7 @@ import com.example.hsb.utils.DateUtil;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +41,14 @@ public class ServiceBillRepository {
 
     public void fetchServiceBill(String field, String value){
         String expand = "room_id";
-        String filter = field == null || field.isEmpty()  ? null :  field+"='"+value+"'";
+        String filter;
+        if (field == null || field.isEmpty()) {
+            filter = null;
+        } else if (Objects.equals(value, "false") || Objects.equals(value, "true")) {
+            filter = field+"="+value;
+        } else {
+            filter =  field+"='"+value+"'";
+        }
         List<ServiceBill> serviceBillList = new ArrayList<>();
         Call<ListResponse<ServiceBillRecord>> call = RetrofitClient.getInstance().getServiceBillServiceApi().getRecords(expand, filter);
         call.enqueue(new Callback<ListResponse<ServiceBillRecord>>() {
