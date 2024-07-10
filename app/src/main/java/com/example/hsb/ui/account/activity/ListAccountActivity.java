@@ -14,6 +14,8 @@ import com.example.hsb.storage.SystemRoles;
 import com.example.hsb.ui.employee.fragment.EmployeeProfileFragment;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.AccountFragment;
+//import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
+import com.example.hsb.ui.room.fragment.RoomFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class ListAccountActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private AccountFragment accountFragment;
     private EmployeeProfileFragment employeeProfileFragment;
+    private RoomFragment  roomFragment;
 
     private static final String TAG_DASHBOARD = "homeFragment";
     private static final String TAG_ACCOUNT = "accountFragment";
@@ -58,7 +61,9 @@ public class ListAccountActivity extends AppCompatActivity {
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        String currentRole = SystemRoles.MANAGER.getName();
+//        String currentRole = SystemRoles.MANAGER.getName();
+        String currentRole = SystemRoles.RECEPTIONIST.getName();
+//        String currentRole = SystemRoles.CUSTOMER.getName();
         if(currentRole.equals(SystemRoles.MANAGER.getName())){
             bottomNavigationView.getMenu().clear();
             bottomNavigationView.inflateMenu(R.menu.nav_menu_manager);
@@ -88,7 +93,7 @@ public class ListAccountActivity extends AppCompatActivity {
                     switchFragment(homeFragment, TAG_DASHBOARD);
                     return true;
                 } else if (id == R.id.room) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    switchFragment(roomFragment, TAG_ROOM);
                     return true;
                 } else if (id == R.id.service) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
