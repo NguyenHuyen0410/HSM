@@ -2,6 +2,8 @@ package com.example.hsb.record;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +16,8 @@ public class ServiceBillDetailRecord {
     private String collectionName;
     @SerializedName("created")
     private String created;
+    @SerializedName("processed_date")
+    private String processedDate;
     @SerializedName("id")
     private String id;
     @SerializedName("service_id")

@@ -1,9 +1,7 @@
 package com.example.hsb.ui.account.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,9 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
 import com.example.hsb.storage.SystemRoles;
+import com.example.hsb.ui.customer_history.fragment.ServiceHistoryFragment;
 import com.example.hsb.ui.employee.fragment.EmployeeProfileFragment;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.AccountFragment;
+import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
+import com.example.hsb.ui.room.fragment.RoomFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {
@@ -22,10 +23,16 @@ public class ListAccountActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private Fragment currentFragment;
     private HomeFragment homeFragment;
+    private HomeFragmentCustomer homeFragmentCustomer;
     private AccountFragment accountFragment;
     private EmployeeProfileFragment employeeProfileFragment;
+    //test
+    private RoomFragment  roomFragment;
 
-    private static final String TAG_DASHBOARD = "homeFragment";
+    private ServiceHistoryFragment serviceHistoryFragment;
+
+    private static final String TAG_HOME = "homeFragment";
+    private static final String TAG_HOME_CUSTOMER = "homeFragmentCustomer";
     private static final String TAG_ACCOUNT = "accountFragment";
     private static final String TAG_CATEGORY = "categoryFragment";
     private static final String TAG_SERVICE = "serviceFragment";
@@ -42,7 +49,7 @@ public class ListAccountActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         // Retrieve existing fragments by tag or create new instances if null
-        homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(TAG_DASHBOARD);
+        homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(TAG_HOME);
         if (homeFragment == null) {
             homeFragment = new HomeFragment();
         }
@@ -57,15 +64,34 @@ public class ListAccountActivity extends AppCompatActivity {
             employeeProfileFragment = new EmployeeProfileFragment();
         }
 
+
+        homeFragmentCustomer = (HomeFragmentCustomer) fragmentManager.findFragmentByTag(TAG_HOME_CUSTOMER);
+        if (homeFragmentCustomer == null) {
+            homeFragmentCustomer = new HomeFragmentCustomer();
+        }
+
+        serviceHistoryFragment = (ServiceHistoryFragment) fragmentManager.findFragmentByTag(TAG_HISTORY);
+        if (serviceHistoryFragment == null) {
+            serviceHistoryFragment = new ServiceHistoryFragment();
+        }
+
+        roomFragment = (RoomFragment) fragmentManager.findFragmentByTag(TAG_ROOM);
+        if (roomFragment == null) {
+            roomFragment = new RoomFragment();
+        }
+
+
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        String currentRole = SystemRoles.MANAGER.getName();
+        String currentRole = SystemRoles.RECEPTIONIST.getName();
+//        String currentRole = SystemRoles.CUSTOMER.getName();
         if(currentRole.equals(SystemRoles.MANAGER.getName())){
             bottomNavigationView.getMenu().clear();
             bottomNavigationView.inflateMenu(R.menu.nav_menu_manager);
             bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.dashboard) {
-                    switchFragment(homeFragment, TAG_DASHBOARD);
+                    switchFragment(homeFragment, TAG_HOME);
                     return true;
                 } else if (id == R.id.account) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
@@ -88,10 +114,10 @@ public class ListAccountActivity extends AppCompatActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.order) {
-                    switchFragment(homeFragment, TAG_DASHBOARD);
+                    switchFragment(homeFragment, TAG_HOME);
                     return true;
                 } else if (id == R.id.room) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    switchFragment(roomFragment, TAG_ROOM);
                     return true;
                 } else if (id == R.id.service) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
@@ -107,11 +133,11 @@ public class ListAccountActivity extends AppCompatActivity {
             bottomNavigationView.inflateMenu(R.menu.nav_menu_customer);
             bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 int id = item.getItemId();
-                if (id == R.id.history) {
-                    switchFragment(homeFragment, TAG_DASHBOARD);
+                if (id == R.id.service) {
+                    switchFragment(homeFragmentCustomer, TAG_HOME_CUSTOMER);
                     return true;
-                }  else if (id == R.id.service) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
+                }  else if (id == R.id.history) {
+                    switchFragment(serviceHistoryFragment, TAG_HISTORY);
                     return true;
                 } else if (id == R.id.profile) {
                     switchFragment(employeeProfileFragment, TAG_PROFILE);
@@ -121,9 +147,16 @@ public class ListAccountActivity extends AppCompatActivity {
             });
         }
         // Set the initial fragment if none is selected
-        if (savedInstanceState == null) {
-            switchFragment(homeFragment, TAG_DASHBOARD); // Default to homeFragment
+        if (currentRole.equals(SystemRoles.CUSTOMER.getName())) {
+            if (savedInstanceState == null) {
+                switchFragment(homeFragmentCustomer, TAG_HOME_CUSTOMER); // Default to homeFragment for customer
+            }
+        } else {
+            if (savedInstanceState == null) {
+                switchFragment(homeFragment, TAG_HOME); // Default to homeFragment
+            }
         }
+
     }
 
     private void switchFragment(Fragment fragment, String tag) {

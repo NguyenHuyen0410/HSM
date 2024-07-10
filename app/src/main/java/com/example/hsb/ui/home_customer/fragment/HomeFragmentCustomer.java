@@ -1,9 +1,10 @@
-package com.example.hsb.ui.home.fragment;
+package com.example.hsb.ui.home_customer.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Price;
-import com.example.hsb.ui.home.adapter.HomeAdapter;
+import com.example.hsb.ui.home_customer.adapter.HomeAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HomeFragment extends Fragment {
+public class HomeFragmentCustomer extends Fragment {
 
     private final List<Category> categoryList = new ArrayList<>();
     private final List<Price> priceList = new ArrayList<>();
@@ -28,15 +29,23 @@ public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
 
+    private TextView accountName;
+
+    private TextView roomNumber;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_customer, container, false);
 
         tabLayout = view.findViewById(R.id.tl_categories);
         recyclerView = view.findViewById(R.id.rv_service_list);
+        accountName = view.findViewById(R.id.tv_device_number);
+        roomNumber = view.findViewById(R.id.tv_room_number);
 
+        accountName.setText("sus");
+        roomNumber.setText("420");
         HomeFragmentViewModel categoryFragmentViewModel = new HomeFragmentViewModel();
 
         // Observe changes in the category list

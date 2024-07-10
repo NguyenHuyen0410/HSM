@@ -1,4 +1,4 @@
-package com.example.hsb.ui.home.edit_order_service_activity;
+package com.example.hsb.ui.home_customer.activity.edit_order_service_activity;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -24,7 +24,7 @@ import com.example.hsb.entities.Price;
 import com.example.hsb.entities.Service;
 import com.example.hsb.entities.ServiceBillDetail;
 
-public class OrderServiceActivity extends AppCompatActivity {
+public class OrderServiceCustomerActivity extends AppCompatActivity {
     private TextView name;
     private TextView tvPrice;
     private TextView tvAmount;
@@ -42,7 +42,7 @@ public class OrderServiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_request);
+        setContentView(R.layout.activity_service_request_customer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,27 +72,37 @@ public class OrderServiceActivity extends AppCompatActivity {
         // Set up role AutoCompleteTextView
 
 
-        addButton.setOnClickListener(v -> {
-            totalAmount++;
-            updateAmountAndPrice(price);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalAmount++;
+                updateAmountAndPrice(price);
+            }
         });
 
-        removeButton.setOnClickListener(v -> {
-            if (totalAmount > 0) {
-                totalAmount--;
-                updateAmountAndPrice(price);
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalAmount > 0) {
+                    totalAmount--;
+                    updateAmountAndPrice(price);
+                }
             }
         });
 
 
         // Observe the ViewModel for toast messages
-        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, message -> Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show());
+        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                Toast.makeText(OrderServiceCustomerActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setUpdateData(service,price);
-                Toast.makeText(OrderServiceActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,12 +117,12 @@ public class OrderServiceActivity extends AppCompatActivity {
 //        });
 
         // Observe the ViewModel for toast messages
-        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String message) {
-                Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        orderServiceActivityViewModel.getToastMessageLiveData().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String message) {
+//                Toast.makeText(OrderServiceActivity.this, message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void setLayout() {
@@ -137,28 +147,35 @@ public class OrderServiceActivity extends AppCompatActivity {
 
     public void setUpdateData(@Nullable Service service,@Nullable Price price) {
         boolean isValid = true;
-
+        ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
+                null,
+                service.getId(),
+                totalAmount,
+                "waiting",
+                remark.getText().toString(),
+                "ryh7idmam2q3k4m",
+                price.getId(),
+                null,
+                false,
+                null,
+                null,
+                price
+        );
         // Validate name
+        if (totalAmount > 0) {
+            serviceBillDetail.setQuantity(totalAmount);
+        } else {
+            tvAmount.setError("Hay dat nhieu hon 0");
+            isValid = false;
+        }
 
         if (isValid) {
-            ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
-                null,
-                    service.getId(),
-                    totalAmount,
-                    "waiting",
-                    remark.getText().toString(),
-                    "ryh7idmam2q3k4m",
-                    price.getId(),
-                    null,
-                    false,
-                    null,
-                    null,
-                    price
-            );
+
             // Call ViewModel to update or create category
-                orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
+            orderServiceActivityViewModel.createServiceBillDetail(serviceBillDetail);
+            Toast.makeText(OrderServiceCustomerActivity.this, "Order placed!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(OrderServiceActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
+            Toast.makeText(OrderServiceCustomerActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
         }
     }
 
