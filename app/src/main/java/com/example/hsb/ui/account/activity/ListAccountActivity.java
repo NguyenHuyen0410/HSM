@@ -9,8 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hsb.R;
 import com.example.hsb.storage.SystemRoles;
-import com.example.hsb.ui.customer_history.fragment.ServiceHistoryFragment;
+import com.example.hsb.ui.customer_history.fragment.ServiceHistoryCustomerFragment;
 import com.example.hsb.ui.employee.fragment.EmployeeProfileFragment;
+import com.example.hsb.ui.history.fragment.ServiceHistoryFragment;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.AccountFragment;
 import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
@@ -30,6 +31,7 @@ public class ListAccountActivity extends AppCompatActivity {
     private RoomFragment  roomFragment;
 
     private ServiceHistoryFragment serviceHistoryFragment;
+    private ServiceHistoryCustomerFragment serviceHistoryCustomerFragment ;
 
     private static final String TAG_HOME = "homeFragment";
     private static final String TAG_HOME_CUSTOMER = "homeFragmentCustomer";
@@ -37,6 +39,7 @@ public class ListAccountActivity extends AppCompatActivity {
     private static final String TAG_CATEGORY = "categoryFragment";
     private static final String TAG_SERVICE = "serviceFragment";
     private static final String TAG_PROFILE = "employeeProfileFragment";
+    private static final String TAG_HISTORY_CUSTOMER = "historyCustomerFragment";
     private static final String TAG_HISTORY = "historyFragment";
     private static final String TAG_ORDER = "orderFragment";
     private static final String TAG_ROOM = "roomFragment";
@@ -70,14 +73,19 @@ public class ListAccountActivity extends AppCompatActivity {
             homeFragmentCustomer = new HomeFragmentCustomer();
         }
 
-        serviceHistoryFragment = (ServiceHistoryFragment) fragmentManager.findFragmentByTag(TAG_HISTORY);
-        if (serviceHistoryFragment == null) {
-            serviceHistoryFragment = new ServiceHistoryFragment();
+        serviceHistoryCustomerFragment = (ServiceHistoryCustomerFragment) fragmentManager.findFragmentByTag(TAG_HISTORY_CUSTOMER);
+        if (serviceHistoryCustomerFragment == null) {
+            serviceHistoryCustomerFragment = new ServiceHistoryCustomerFragment();
         }
 
         roomFragment = (RoomFragment) fragmentManager.findFragmentByTag(TAG_ROOM);
         if (roomFragment == null) {
             roomFragment = new RoomFragment();
+        }
+
+        serviceHistoryFragment = (ServiceHistoryFragment) fragmentManager.findFragmentByTag(TAG_HISTORY);
+        if (serviceHistoryFragment == null) {
+            serviceHistoryFragment = new ServiceHistoryFragment();
         }
 
 
@@ -119,8 +127,8 @@ public class ListAccountActivity extends AppCompatActivity {
                 } else if (id == R.id.room) {
                     switchFragment(roomFragment, TAG_ROOM);
                     return true;
-                } else if (id == R.id.service) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
+                } else if (id == R.id.history) {
+                    switchFragment(serviceHistoryFragment, TAG_HISTORY);
                     return true;
                 } else if (id == R.id.profile) {
                     switchFragment(employeeProfileFragment, TAG_PROFILE);
@@ -137,7 +145,7 @@ public class ListAccountActivity extends AppCompatActivity {
                     switchFragment(homeFragmentCustomer, TAG_HOME_CUSTOMER);
                     return true;
                 }  else if (id == R.id.history) {
-                    switchFragment(serviceHistoryFragment, TAG_HISTORY);
+                    switchFragment(serviceHistoryCustomerFragment, TAG_HISTORY_CUSTOMER);
                     return true;
                 } else if (id == R.id.profile) {
                     switchFragment(employeeProfileFragment, TAG_PROFILE);

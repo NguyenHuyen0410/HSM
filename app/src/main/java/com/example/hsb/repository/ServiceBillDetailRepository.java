@@ -9,11 +9,13 @@ import com.example.hsb.entities.ServiceBillDetail;
 import com.example.hsb.record.PriceRecord;
 import com.example.hsb.record.ServiceBillDetailRecord;
 import com.example.hsb.response.ListResponse;
+import com.example.hsb.storage.ServiceBillDetailStatus;
 import com.example.hsb.utils.DateUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -212,6 +214,9 @@ public class ServiceBillDetailRepository {
     private ServiceBillDetailRecord setServiceBillDetailRecord(ServiceBillDetail serviceBillDetail) {
         ServiceBillDetailRecord serviceBillDetailRecord = new ServiceBillDetailRecord();
         if (serviceBillDetail.getId() != null) {
+            if (serviceBillDetail.getStatus().equals(ServiceBillDetailStatus.DONE)) {
+                serviceBillDetailRecord.setProcessedDate(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            }
             serviceBillDetailRecord.setId(serviceBillDetail.getId());
             serviceBillDetailRecord.setCreated(DateUtil.localDateTimeToString(serviceBillDetail.getCreatedDate()));
             serviceBillDetailRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
@@ -226,10 +231,8 @@ public class ServiceBillDetailRepository {
         serviceBillDetailRecord.setServiceId(serviceBillDetail.getServiceId());
         serviceBillDetailRecord.setBillId(serviceBillDetail.getBillId());
         serviceBillDetailRecord.setPriceId(serviceBillDetail.getPriceId());
-        if (serviceBillDetail.getProcessDate() == null ) {
+        if (serviceBillDetailRecord.getProcessedDate() == null ) {
             serviceBillDetailRecord.setProcessedDate("");
-        } else {
-            serviceBillDetailRecord.setProcessedDate(DateUtil.localDateTimeToString(serviceBillDetail.getProcessDate()));
         }
         return serviceBillDetailRecord;
     }

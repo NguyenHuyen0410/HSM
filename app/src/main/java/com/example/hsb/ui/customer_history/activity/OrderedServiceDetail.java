@@ -40,7 +40,7 @@ public class OrderedServiceDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.service_request_history_detail);
+        setContentView(R.layout.service_request_history_detail_customer);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

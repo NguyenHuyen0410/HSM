@@ -20,7 +20,7 @@ import com.example.hsb.ui.customer_history.adapter.OrderedServiceAdaptor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceHistoryFragment extends Fragment {
+public class ServiceHistoryCustomerFragment extends Fragment {
 
     private List<ServiceBillDetail> serviceBillDetailList = new ArrayList<>();
     private List<Service> serviceList = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ServiceHistoryFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rv_service_list);
 
-        serviceHistoryFragmentViewModel = new ServiceHistoryFragmentViewModel(null,"ryh7idmam2q3k4m");
+        serviceHistoryFragmentViewModel = new ServiceHistoryFragmentViewModel("bill_id","ryh7idmam2q3k4m");
 
 
         // Observe changes in the ServiceBillDetail list

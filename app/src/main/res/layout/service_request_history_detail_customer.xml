@@ -142,20 +142,14 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/auto_complete_status"
-                            android:layout_width="match_parent"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:layout_height="wrap_content"
-                            android:hint="Chon trang thai" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_margin="10dp"
+                        android:text="Đã hủy"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -313,22 +307,5 @@
                     android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-        <Button
-            android:id="@+id/btn_save"
-            style="@style/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Save"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_delete"
-            style="@style/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#D32317"
-            android:text="@string/delete"
-            android:textColor="@android:color/white" />
     </LinearLayout>
 </ScrollView>
