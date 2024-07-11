@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Tạo mới phòng"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <!-- Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_name_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="Tên" />
+
+
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_type_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Loại phòng"/>
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_description_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Mô tả"/>
+
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_device_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="Id thiết bị" />
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="So nguoi" />
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="Dien tich" />
+
+        <EditText
+            style="@style/room_update"
+            android:id="@+id/et_room_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="remark" />
+
+        <Button
+            android:id="@+id/btn_save_room"
+            style="@style/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Save"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_delete_room"
+            style="@style/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#D32317"
+            android:text="Delete"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</LinearLayout>
