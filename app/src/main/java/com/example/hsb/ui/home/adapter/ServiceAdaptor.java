@@ -14,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
+
 import com.example.hsb.entities.Price;
 import com.example.hsb.entities.Service;
-import com.example.hsb.ui.home.edit_order_service_activity.OrderServiceActivity;
+import com.example.hsb.ui.home.activity.edit_order_service_activity.OrderServiceActivity;
 
 import java.util.List;
 
 public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceHolder> {
 
-    private final List<Service> serviceList;
-    private final List<Price> priceList;
-    private final Context context;
+    private List<Service> serviceList;
+    private List<Price> priceList;
+    private Context context;
 
     // Constructor
     ServiceAdaptor(List<Service> serviceList, List<Price> priceList , Context context) {

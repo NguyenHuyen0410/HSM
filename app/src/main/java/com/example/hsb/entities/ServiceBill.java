@@ -21,5 +21,8 @@ public class ServiceBill {
     private String roomId;
     private Room room;
 
-
+    @Override
+    public String toString() {
+        return room.getRoomNumber();
+    }
 }

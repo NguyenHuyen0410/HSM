@@ -91,19 +91,6 @@ public class EditProfileActivity extends AppCompatActivity {
         etFirstName = findViewById(R.id.et_first_name);
         etLastName = findViewById(R.id.et_last_name);
         etDateOfBirth = findViewById(R.id.et_date_of_birth);
-        etDateOfBirth.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                    (view, year1, month1, dayOfMonth) -> {
-                        etDateOfBirth.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
-                    }, year, month, day);
-
-            datePickerDialog.show();
-        });
         etPhoneNumber = findViewById(R.id.et_phone);
         rgGender = findViewById(R.id.rgGender);
         etAddress = findViewById(R.id.et_address);
@@ -114,6 +101,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         });
+
     }
 
     public void setData(Employee employee){
@@ -143,10 +131,12 @@ public class EditProfileActivity extends AppCompatActivity {
         etAddress.setText(employee.getAddress());
         btnSave.setOnClickListener(v -> {
             if (selectedImageUri != null) {
+                System.out.println("Tao o day 1");
                 // Update image first
                 updateImage(employee);
             } else {
                 // Directly update profile without image
+                System.out.println("Tao o day 123");
                 setUpdate(employee);
             }
         });
@@ -205,7 +195,7 @@ public class EditProfileActivity extends AppCompatActivity {
         } else{
             employee.setAddress(etAddress.getText().toString());
         }
-
+        System.out.println(isValid);
         if(isValid){
             // Initialize ViewModel
             editProfileActivityViewModel = new EditProfileActivityViewModel();

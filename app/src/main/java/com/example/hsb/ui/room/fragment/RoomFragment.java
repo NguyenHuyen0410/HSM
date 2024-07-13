@@ -23,19 +23,26 @@ public class RoomFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room, container, false);
-
-        RoomFragmentViewModel roomFragmentViewModel = new RoomFragmentViewModel();
-        // Observe changes in the account list
-        roomFragmentViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
-            if (message != null) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         RecyclerView recyclerView = view.findViewById(R.id.room_list);
         adapter = new RoomAdaptor(roomList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
+
+        RoomFragmentViewModel roomFragmentViewModel = new RoomFragmentViewModel();
+        roomFragmentViewModel.getListRoomLiveData().observe(getViewLifecycleOwner(), currentRoomList -> {
+            roomList.clear();
+            if(currentRoomList!=null){
+                roomList.addAll(currentRoomList);
+            }
+            adapter.notifyDataSetChanged();
+
+            roomFragmentViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
+                if (message != null) {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+        // Observe changes in the account list
         return view;
     }
 }

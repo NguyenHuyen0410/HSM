@@ -41,15 +41,18 @@ public class EmployeeRepository {
 
     public void fetchEmployee(String accountId){
         final Employee[] employee = {new Employee()};
-        String expand = "account_id,nationality_id";
-        String filter = "account_id='"+accountId+"'";
-        Call<ListResponse<EmployeeRecord>> call = RetrofitClient.getInstance().getEmployeeServiceApi().getRecords(expand, filter);
+        Call<ListResponse<EmployeeRecord>> call = RetrofitClient.getInstance().getEmployeeServiceApi().getRecords();
         call.enqueue(new Callback<ListResponse<EmployeeRecord>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<EmployeeRecord>> call,@NonNull  Response<ListResponse<EmployeeRecord>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     ListResponse<EmployeeRecord> employeeRecordList = response.body();
-                    EmployeeRecord employeeRecord = employeeRecordList.getItems().get(0);
+                    EmployeeRecord employeeRecord = new EmployeeRecord();
+                    for(int i = 0; i < employeeRecordList.getItems().size(); i++){
+                        if(employeeRecordList.getItems().get(i).getAccountId().equals(accountId)){
+                            employeeRecord = employeeRecordList.getItems().get(i);
+                        }
+                    }
                     employee[0] = setEmployee(employeeRecord);
                     mEmployeeLiveData.setValue(employee[0]);
                 } else{
@@ -94,6 +97,7 @@ public class EmployeeRepository {
                     EmployeeRecord createRecord = response.body();
                     Employee newEmployee = new Employee();
                     newEmployee.setId(createRecord.getId());
+                    newEmployee.setAccountId(employee.getAccountId());
                     createEmployeeCallBack.onCreateSuccess(newEmployee);
                 } else {
                     // Handle update failure
@@ -202,28 +206,33 @@ public class EmployeeRepository {
                 DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getAccount().getUpdated()),
                 role, employeeRecord.getId(), employeeRecord.getProfileImage());
 
-        MstRegion region = new MstRegion(employeeRecord.getExpand().getRegion().getId(),
-                employeeRecord.getExpand().getRegion().getRegionCode(),
-                employeeRecord.getExpand().getRegion().getRegionName(),
-                employeeRecord.getExpand().getRegion().is_deleted(),
-                DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getRegion().getCreated()),
-                DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getRegion().getUpdated()));
+        MstRegion region = new MstRegion();
+        if(employeeRecord.getExpand().getNationality()!=null){
+            region = new MstRegion(employeeRecord.getExpand().getNationality().getId(),
+                    employeeRecord.getExpand().getNationality().getRegionCode(),
+                    employeeRecord.getExpand().getNationality().getRegionName(),
+                    employeeRecord.getExpand().getNationality().is_deleted(),
+                    DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getNationality().getCreated()),
+                    DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getNationality().getUpdated()));
+        }
 
-        return new Employee(employeeRecord.getId(),
-                employeeRecord.getAddress(),
-                DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getDob()),
-                employeeRecord.getFirstName(),
-                employeeRecord.getLastName(),
-                employeeRecord.getGender(),
-                employeeRecord.getPhoneNumber(),
-                employeeRecord.getProfileImage(),
+        return new Employee(
+                employeeRecord.getId() != null ? employeeRecord.getId() : "",
+                employeeRecord.getAddress() != null ? employeeRecord.getAddress() : "",
+                !employeeRecord.getDob().isEmpty() ? DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getDob()) : LocalDateTime.MIN,
+                employeeRecord.getFirstName() != null ? employeeRecord.getFirstName() : "",
+                employeeRecord.getLastName() != null ? employeeRecord.getLastName() : "",
+                employeeRecord.getGender() != null ? employeeRecord.getGender() : "",
+                employeeRecord.getPhoneNumber() != null ? employeeRecord.getPhoneNumber() : "",
+                employeeRecord.getProfileImage() != null ? employeeRecord.getProfileImage() : "",
                 employeeRecord.is_deleted(),
                 DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getCreated()),
                 DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getUpdated()),
-                employeeRecord.getRemark(),
-                DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getStartWorkDate()),
+                employeeRecord.getRemark() != null ? employeeRecord.getRemark() : "",
+                !employeeRecord.getStartWorkDate().isEmpty() ? DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getStartWorkDate()) : LocalDateTime.MIN,
                 account,
-                region);
+                region
+        );
     }
 
     public EmployeeRecord setEmployeeRecord(Employee employee){

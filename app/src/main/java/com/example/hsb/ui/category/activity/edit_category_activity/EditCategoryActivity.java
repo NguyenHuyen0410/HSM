@@ -132,13 +132,5 @@ public class EditCategoryActivity extends AppCompatActivity {
         }
     }
 
-    public void setData(@Nullable Category category) {
-        // Retrieve data from the fields
-        String updatedName = name.getText().toString();
-        String updatedCategory = description.getText().toString();
 
-        // Update the category
-        category.setName(updatedName);
-        category.setDescription(updatedCategory);
-    }
 }

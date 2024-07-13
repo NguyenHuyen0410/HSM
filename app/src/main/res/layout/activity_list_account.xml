@@ -6,7 +6,10 @@
     style="@style/bg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.activity.ListAccountActivity">
+    tools:context=".ui.ManagerActivity">
+    <include
+        android:id="@+id/acton_bar"
+        layout="@layout/action_bar" />
 
     <FrameLayout
         android:id="@+id/bottom_navigation_container"

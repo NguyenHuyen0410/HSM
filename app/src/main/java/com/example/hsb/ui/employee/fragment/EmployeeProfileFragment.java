@@ -16,54 +16,22 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.hsb.R;
+import com.example.hsb.entities.Employee;
+import com.example.hsb.record.AccountRecord;
+import com.example.hsb.storage.SharedPrefManager;
+import com.example.hsb.ui.auth.activity.LoginActivity;
 import com.example.hsb.ui.employee.activity.EditProfileActivity;
 import com.example.hsb.utils.DateUtil;
 
+import java.time.LocalDateTime;
+
 public class EmployeeProfileFragment extends Fragment {
     ImageView accountAvt;
-    TextView profileName;
-    TextView roleName;
-    TextView fieldDob;
-    TextView fieldGender;
-    TextView fieldAddress;
-    TextView fieldPhoneNumber;
-    TextView fieldStartWorkingFrom;
+    TextView profileName, roleName, fieldDob, fieldGender, fieldAddress, fieldPhoneNumber, fieldStartWorkingFrom, tvLogout;
     LinearLayout updateProfile;
     EmployeeFragmentViewModel employeeFragmentViewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Initialize ViewModel
-        employeeFragmentViewModel = new EmployeeFragmentViewModel("2pg3s16qnj2myjc");
-        employeeFragmentViewModel.getEmployeeMutableLiveData().observe(getViewLifecycleOwner(), employee -> {
-            if (employee != null) {
-                String imageUrl = "https://hotel-service-manage.pockethost.io/api/files/s1fvh4cvz1v4k80/"+employee.getId()+"/" +employee.getProfileImage()+"?token=";
-                Glide.with(EmployeeProfileFragment.this)
-                        .load(imageUrl)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(accountAvt);
-                profileName.setText(employee.getFirstName() + " " + employee.getLastName());
-                roleName.setText(employee.getAccount().getRole().getName());
-                fieldDob.setText(DateUtil.localDateTimeToString(employee.getDob()));
-                fieldGender.setText(employee.getGender());
-                fieldAddress.setText(employee.getAddress());
-                fieldPhoneNumber.setText(employee.getPhoneNumber());
-                fieldStartWorkingFrom.setText(DateUtil.localDateTimeToString(employee.getStartWorkDate()));
-
-                updateProfile.setOnClickListener(v -> {
-                    Intent i = new Intent(getContext() ,EditProfileActivity.class);
-                    i.putExtra("profileInfo", employee);
-                    startActivity(i);
-                });
-            }
-        });
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void bindingView(View view) {
         accountAvt = view.findViewById(R.id.account_avt);
         profileName = view.findViewById(R.id.profile_name);
         roleName = view.findViewById(R.id.room_name);
@@ -73,5 +41,59 @@ public class EmployeeProfileFragment extends Fragment {
         fieldPhoneNumber = view.findViewById(R.id.field_pn_content);
         fieldStartWorkingFrom = view.findViewById(R.id.field_swf_content);
         updateProfile = view.findViewById(R.id.profile_update);
+        view.findViewById(R.id.logout).setOnClickListener(v -> logout());
+
+        updateProfile.setOnClickListener(v -> {
+            Employee employee = employeeFragmentViewModel.getEmployeeMutableLiveData().getValue();
+            if (employee != null) {
+                Intent intent = new Intent(getContext(), EditProfileActivity.class);
+                intent.putExtra("profileInfo", employee);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        bindingView(view);
+        AccountRecord currentAccount = SharedPrefManager.getInstance().get("account", AccountRecord.class);
+        employeeFragmentViewModel = new EmployeeFragmentViewModel(currentAccount.getId());
+        employeeFragmentViewModel.getEmployeeMutableLiveData().observe(getViewLifecycleOwner(), this::updateUI);
+        return view;
+    }
+
+    private void updateUI(Employee employee) {
+        if (employee == null) return;
+        String imageUrl = "https://hotel-service-manage.pockethost.io/api/files/s1fvh4cvz1v4k80/" + employee.getId() + "/" + employee.getProfileImage() + "?token=";
+        Glide.with(this)
+                .load(imageUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(accountAvt);
+        profileName.setText(employee.getFirstName() + " " + employee.getLastName());
+        roleName.setText(employee.getAccount().getRole().getName());
+        if(!employee.getDob().equals(LocalDateTime.MIN)){
+            fieldDob.setText(DateUtil.localDateTimeToString(employee.getDob()));
+        } else{
+            fieldDob.setText("");
+        }
+        fieldGender.setText(employee.getGender());
+        fieldAddress.setText(employee.getAddress());
+        fieldPhoneNumber.setText(employee.getPhoneNumber());
+        if(!employee.getStartWorkDate().equals(LocalDateTime.MIN)){
+            fieldStartWorkingFrom.setText(DateUtil.localDateTimeToString(employee.getStartWorkDate()));
+        } else{
+            fieldDob.setText("");
+        }
+
+    }
+
+    private void logout() {
+        SharedPrefManager.getInstance().clear();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
+

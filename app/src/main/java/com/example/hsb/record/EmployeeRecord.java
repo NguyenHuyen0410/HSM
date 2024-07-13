@@ -41,6 +41,8 @@ public class EmployeeRecord {
     private Expand expand;
     @SerializedName("account_id")
     private String accountId;
+    @SerializedName("nationality_id")
+    private String nationalityId;
 
     @Getter
     @Setter
@@ -48,11 +50,11 @@ public class EmployeeRecord {
         @SerializedName("account_id")
         private AccountRecord account;
         @SerializedName("nationality_id")
-        private MstRegionRecord region;
+        private MstRegionRecord nationality;
 
-        public Expand(AccountRecord accountRecord, MstRegionRecord mstRegionRecord) {
+        public Expand(AccountRecord accountRecord, MstRegionRecord nationality) {
             this.account = accountRecord;
-            this.region = mstRegionRecord;
+            this.nationality = nationality;
         }
     }
 

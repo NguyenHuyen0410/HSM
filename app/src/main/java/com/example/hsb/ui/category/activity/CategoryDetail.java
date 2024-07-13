@@ -31,12 +31,9 @@ public class CategoryDetail extends AppCompatActivity {
     private ImageView imageView;
     private Button createBtn;
     private Button updateBtn;
-
     private Category category;
     private List<Service> serviceList;
     private ServiceAdaptor adapter;
-
-    private ServiceFragmentViewModel serviceFragmentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

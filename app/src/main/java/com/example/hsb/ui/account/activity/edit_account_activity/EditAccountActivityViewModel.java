@@ -45,6 +45,7 @@ public class EditAccountActivityViewModel extends ViewModel {
 
     public void createAccount(Account account) {
         Employee employee = new Employee();
+        employee.setAccountId(account.getId());
         employeeRepository.createEmployee(employee, new EmployeeRepository.CreateEmployeeCallBack() {
             @Override
             public void onCreateSuccess(Employee employee) {

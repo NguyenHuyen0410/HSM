@@ -16,11 +16,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface EmployeeServiceApi {
-    @GET("employee/records")
-    Call<ListResponse<EmployeeRecord>> getRecords(
-            @Query("expand") String expand,
-            @Query("filter") String filter
-    );
+    @GET("employee/records?expand=account_id,nationality_id")
+    Call<ListResponse<EmployeeRecord>> getRecords();
 
     @POST("employee/records/?expand=account_id,nationality_id")
     Call<EmployeeRecord> createRecord(@Body EmployeeRecord record);

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
 import com.example.hsb.ui.category.activity.CategoryDetail;
+import com.example.hsb.utils.ImageTransformationUtil;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
 
     private final List<Category> categoryList;
     private final Context context;
+    float radius = 20f; // Adjust the radius as needed
 
     public CategoryAdaptor(List<Category> categoryList, Context context) {
         this.context = context;
@@ -40,13 +42,15 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
         StringBuilder imgAddess = new StringBuilder();
 
-
         Category category = categoryList.get(position);
         imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/category/");
         imgAddess.append(category.getId());
         imgAddess.append("/");
         imgAddess.append(category.getImage());
-        Glide.with(context).load(imgAddess.toString()).into(holder.images);
+        Glide.with(context)
+                .load(imgAddess.toString())
+                .transform(new ImageTransformationUtil(radius))
+                .into(holder.images);
 
         holder.name.setText(category.getName());
 
@@ -64,7 +68,6 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.Catego
     }
 
     public static class CategoryHolder extends RecyclerView.ViewHolder {
-
         TextView name;
         ImageView images;
         Button button;

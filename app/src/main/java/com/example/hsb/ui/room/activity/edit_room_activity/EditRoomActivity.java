@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,16 +19,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
+import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Room;
 import com.example.hsb.utils.ValidateUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 public class EditRoomActivity extends AppCompatActivity {
 
     private EditText name;
-    private EditText image;
-    private EditText type;
     private EditText description;
-    private EditText device;
+    private EditText roomType;
+    private EditText deviceId;
+    private EditText capacity;
+    private EditText area;
+    private EditText remark;
+
 
     private EditRoomActivityViewModel editRoomActivityViewModel;
     @Override
@@ -48,10 +55,13 @@ public class EditRoomActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         name = findViewById(R.id.et_name_room);
-        image = findViewById(R.id.et_image_room);
-        type = findViewById(R.id.et_type_room);
         description = findViewById(R.id.et_description_room);
-        device = findViewById(R.id.et_device_room);
+        roomType = findViewById(R.id.et_type_room);
+        deviceId = findViewById(R.id.et_device_room);
+        capacity = findViewById(R.id.et_room_capacity);
+        area = findViewById(R.id.et_room_area);
+        remark = findViewById(R.id.et_room_remark);
+
         Button deleteBtn = findViewById(R.id.btn_delete_room);
         Button saveBtn = findViewById(R.id.btn_save_room);
 
@@ -61,11 +71,7 @@ public class EditRoomActivity extends AppCompatActivity {
         // Get the room passed to the activity
         Room room = (Room) getIntent().getSerializableExtra("room");
         if (room != null) {
-            name.setText(room.getRoomNumber());
-            image.setText(room.getRoomImage());
-            type.setText(room.getRoomType());
-            device.setText(room.getDeviceAccountId());
-            description.setText(room.getDescription());
+            setData(room);
         } else {
             room = new Room();
         }
@@ -112,39 +118,78 @@ public class EditRoomActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpdateData(Room room) {
+    private void setUpdateData(Room roomRecord) {
         boolean isValid =  true;
-        // Validate name
-//        if (ValidateUtil.isNameValid(name)) {
-//            room.setRoomNumber(name.getText().toString());
-//        } else {
-//            name.setError("Invalid name");
-//            isValid = false;
-//        }
+        if (!name.getText().toString().isEmpty()) {
+            roomRecord.setRoomNumber(name.getText().toString());
+        } else {
+            name.setError("Invalid name");
+            isValid = false;
+        }
+
+        if (!roomType.getText().toString().isEmpty()) {
+            roomRecord.setRoomType(roomType.getText().toString());
+        } else {
+            roomType.setError("Invalid room type");
+            isValid = false;
+        }
+
+        if (!deviceId.getText().toString().isEmpty()) {
+            roomRecord.setDeviceAccountId(deviceId.getText().toString());
+        } else {
+            deviceId.setError("Invalid name");
+            isValid = false;
+        }
+
+        if (!description.getText().toString().isEmpty()) {
+            roomRecord.setDescription(description.getText().toString());
+        } else {
+            description.setError("Invalid description");
+            isValid = false;
+        }
+
+        if (!capacity.getText().toString().isEmpty()) {
+            roomRecord.setRoomCapacity(Integer.parseInt(capacity.getText().toString()));
+        } else {
+            capacity.setError("Invalid capacity");
+            isValid = false;
+        }
+
+        if (!area.getText().toString().isEmpty()) {
+            roomRecord.setRoomArea(Integer.parseInt(area.getText().toString()));
+        } else {
+            area.setError("Invalid area");
+            isValid = false;
+        }
+
+        if (!remark.getText().toString().isEmpty()) {
+            roomRecord.setRemark(remark.getText().toString());
+        } else {
+            remark.setError("Invalid remark");
+            isValid = false;
+        }
+
+
+
         if (isValid) {
             // Call ViewModel to update or create room
-            if (room.getId() != null) {
-                editRoomActivityViewModel.edtRoom(room);
+            if (roomRecord.getId() != null) {
+                editRoomActivityViewModel.edtRoom(roomRecord);
             } else {
-                editRoomActivityViewModel.createRoom(room);
+                editRoomActivityViewModel.createRoom(roomRecord);
             }
         } else {
             Toast.makeText(EditRoomActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
         }
     }
-    public void setData(@Nullable Room room) {
-        // Retrieve data from the fields
-        String updatedName = name.getText().toString();
-        String updatedImage = image.getText().toString();
-        String updatedDescription = description.getText().toString();
-        String updatedType = type.getText().toString();
-        String updateDeviceAccountId = device.getText().toString();
 
-        // Update the category
-       room.setRoomNumber(updatedName);
-       room.setRoomImage(updatedImage);
-       room.setRoomType(updatedType);
-       room.setDescription(updatedDescription);
-       room.setDeviceAccountId(updateDeviceAccountId);
+    public void setData(@NotNull Room room){
+        name.setText(room.getRoomNumber());
+        roomType.setText(room.getRoomType());
+        deviceId.setText(room.getDeviceAccountId());
+        description.setText(room.getDescription());
+        capacity.setText(String.valueOf(room.getRoomCapacity()));
+        area.setText(String.valueOf(room.getRoomArea()));
+        remark.setText(room.getRemark());
     }
 }

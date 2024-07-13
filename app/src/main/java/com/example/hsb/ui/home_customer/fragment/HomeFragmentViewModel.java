@@ -1,34 +1,47 @@
-package com.example.hsb.ui.customer_history.fragment;
+package com.example.hsb.ui.home_customer.fragment;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.hsb.entities.Category;
+import com.example.hsb.entities.Price;
 import com.example.hsb.repository.CategoryRepository;
+import com.example.hsb.repository.PriceRepository;
 
 import java.util.List;
 
 import lombok.Getter;
 
-public class CategoryFragmentViewModel extends ViewModel {
+public class HomeFragmentViewModel extends ViewModel {
     private MutableLiveData<List<Category>> mListCategoryLiveData;
+    private MutableLiveData<List<Price>> mListPriceLiveData;
+
     // LiveData for toast messages
     @Getter
-    private MutableLiveData<String> toastMessageLiveData;
+    private final MutableLiveData<String> toastMessageLiveData;
 
-    public CategoryFragmentViewModel() {
+    public HomeFragmentViewModel() {
         mListCategoryLiveData = new MutableLiveData<>();
+        mListPriceLiveData = new MutableLiveData<>();
         toastMessageLiveData = new MutableLiveData<>();
         initData();
     }
 
     public void initData() {
         CategoryRepository categoryRepository = CategoryRepository.getInstance();
+        PriceRepository priceRepository = PriceRepository.getInstance();
+
         mListCategoryLiveData = categoryRepository.getCategoryList();
+        mListPriceLiveData = priceRepository.getPriceList();
+
     }
 
     public MutableLiveData<List<Category>> getListCategoryLiveData() {
         return mListCategoryLiveData;
+    }
+
+    public MutableLiveData<List<Price>> getListPriceLiveDataLiveData() {
+        return mListPriceLiveData;
     }
 
 }

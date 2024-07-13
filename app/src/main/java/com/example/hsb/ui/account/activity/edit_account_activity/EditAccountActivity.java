@@ -28,12 +28,8 @@ import java.util.Objects;
 public class EditAccountActivity extends AppCompatActivity {
     private final String[] statusItems = {"ACTIVE", "TERMINATE"};
     private final String[] roleItems = {"MANAGER", "RECEPTIONIST", "CUSTOMER"};
-    private EditText name;
-    private EditText password;
-    private EditText passwordConfirm;
-    private EditText email;
-    private AutoCompleteTextView autoCompleteStatus;
-    private AutoCompleteTextView autoCompleteRole;
+    private EditText name, password, passwordConfirm, email;
+    private AutoCompleteTextView autoCompleteStatus, autoCompleteRole;
     private EditAccountActivityViewModel editAccountActivityViewModel;
 
     @Override
@@ -59,12 +55,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
         // Get the account passed to the activity
         Account account = (Account) getIntent().getSerializableExtra("account");
-        name = findViewById(R.id.et_user_name);
-        password = findViewById(R.id.et_password);
-        passwordConfirm = findViewById(R.id.et_confirm_password);
-        email = findViewById(R.id.et_email);
-        autoCompleteRole = findViewById(R.id.auto_complete_role);
-        autoCompleteStatus = findViewById(R.id.auto_complete_status);
+        bindViews();
         Button saveBtn = findViewById(R.id.btn_save);
         Button deleteBtn = findViewById(R.id.btn_delete);
         if (account != null) {
@@ -118,7 +109,14 @@ public class EditAccountActivity extends AppCompatActivity {
         // Observe the ViewModel for toast messages
         editAccountActivityViewModel.getToastMessageLiveData().observe(this, message -> Toast.makeText(EditAccountActivity.this, message, Toast.LENGTH_SHORT).show());
     }
-
+    private void bindViews() {
+        name = findViewById(R.id.et_user_name);
+        password = findViewById(R.id.et_password);
+        passwordConfirm = findViewById(R.id.et_confirm_password);
+        email = findViewById(R.id.et_email);
+        autoCompleteRole = findViewById(R.id.auto_complete_role);
+        autoCompleteStatus = findViewById(R.id.auto_complete_status);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

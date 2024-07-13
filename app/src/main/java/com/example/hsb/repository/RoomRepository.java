@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Room;
+import com.example.hsb.record.CategoryRecord;
 import com.example.hsb.record.RoomRecord;
 import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
@@ -13,6 +14,7 @@ import com.example.hsb.utils.DateUtil;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -36,42 +38,58 @@ public class RoomRepository {
         return mRoomLiveData;
     }
 
-    public MutableLiveData<Room> getRooms(){
-        fetchRooms();
-        return mRoomLiveData;
+    public MutableLiveData<List<Room>> getRooms(String value, String field){
+        fetchRooms(value, field);
+        return mRoomListLiveData;
     }
 
     public void fetchRoom(String value, String field){
         String expand = "device_account_id";
-        String filter = field+"='"+value+"'";
-        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand, filter);
-        call.enqueue(new Callback<ListResponse<RoomRecord>>() {
+        String filter;
+        if (field == null || field.isEmpty()) {
+            filter = null;
+        } else if (Objects.equals(value, "false") || Objects.equals(value, "true")) {
+            filter = field+"="+value;
+        } else {
+            filter =  field+"='"+value+"'";
+        }
+
+        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().getRecord(expand, filter);
+        call.enqueue(new Callback<RoomRecord>() {
             @Override
-            public void onResponse(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Response<ListResponse<RoomRecord>> response) {
+            public void onResponse(@NonNull Call<RoomRecord> call, @NonNull Response<RoomRecord> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    RoomRecord record = response.body().getItems().get(0);
+                    RoomRecord record = response.body();
                     mRoomLiveData.setValue(setRoom(record));
                 } else{
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<RoomRecord> call, @NonNull Throwable t) {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
     }
 
-    public void fetchRooms(){
+    public void fetchRooms(String value, String field){
         String expand = "device_account_id";
-        String filter = "";
-        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand, filter);
+        String filter;
+        List<Room> rooms = new ArrayList<>();
+        if (field == null || field.isEmpty()) {
+            filter = null;
+        } else if (Objects.equals(value, "false") || Objects.equals(value, "true")) {
+            filter = field+"="+value;
+        } else {
+            filter =  field+"='"+value+"'";
+        }
+        Call<ListResponse<RoomRecord>> call = RetrofitClient.getInstance().getRoomServiceApi().getRecords(expand,filter);
         call.enqueue(new Callback<ListResponse<RoomRecord>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Response<ListResponse<RoomRecord>> response) {
                 if(response.isSuccessful() && response.body() != null){
                     List<RoomRecord> roomRecordList = response.body().getItems();
-                    List<Room> rooms = new ArrayList<>();
+
                     for(RoomRecord roomRecords: roomRecordList){
                         Room room = setRoom(roomRecords);
                         rooms.add(room);
@@ -146,7 +164,9 @@ public class RoomRepository {
     }
 
     public void createRoom(Room room, CreateRoomCallBack createRoomCallBack){
-        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(setRoomRecord(room));
+//        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(setRoomRecord(room));
+        RoomRecord roomRecord = setRoomRecord(room);
+        Call<RoomRecord> call = RetrofitClient.getInstance().getRoomServiceApi().createRecord(roomRecord);
         call.enqueue(new Callback<RoomRecord>() {
             @Override
             public void onResponse(@NonNull Call<RoomRecord> call, @NonNull Response<RoomRecord> response) {
@@ -164,7 +184,7 @@ public class RoomRepository {
     }
 
     public void deleteRoom(String roomId, DeleteRoomCallBack deleteRoomCallBack){
-        Call<Void> call = RetrofitClient.getInstance().getServiceBillServiceApi().deleteRecord(roomId);
+        Call<Void> call = RetrofitClient.getInstance().getRoomServiceApi().deleteRecord(roomId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
@@ -185,21 +205,24 @@ public class RoomRepository {
         RoomRecord roomRecord = new RoomRecord();
         if(room.getId() != null){
             roomRecord.setId(room.getId());
-            roomRecord.setCreated(DateUtil.localDateTimeToJsonFormat(room.getCreated()));
-            roomRecord.setUpdated(DateUtil.localDateTimeToJsonFormat(room.getUpdated()));
+            roomRecord.setCreated(DateUtil.localDateTimeToString(room.getCreated()));
+            roomRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.set_deleted(room.is_deleted());
+            roomRecord.setStatus(room.getStatus());
         } else{
-            roomRecord.setCreated(DateUtil.localDateTimeToJsonFormat(LocalDateTime.now()));
-            roomRecord.setUpdated(DateUtil.localDateTimeToJsonFormat(LocalDateTime.now()));
+            roomRecord.setCreated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
+            roomRecord.set_deleted(false);
+            roomRecord.setStatus("vacant");
         }
-        roomRecord.set_deleted(room.is_deleted());
+        roomRecord.setRoomImage(room.getRoomImage());
         roomRecord.setRoomNumber(room.getRoomNumber());
         roomRecord.setRoomType(room.getRoomType());
         roomRecord.setRoomCapacity(room.getRoomCapacity());
-        roomRecord.setRoomArea(roomRecord.getRoomArea());
-        roomRecord.setRoomImage(roomRecord.getRoomImage());
-        roomRecord.setDescription(roomRecord.getDescription());
+        roomRecord.setRoomArea(room.getRoomArea());
+        roomRecord.setRoomImage(room.getRoomImage());
+        roomRecord.setDescription(room.getDescription());
         roomRecord.setDeviceAccountId(room.getDeviceAccountId());
-        roomRecord.setStatus(room.getStatus());
         roomRecord.setRemark(room.getRemark());
         return roomRecord;
     }

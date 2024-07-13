@@ -11,37 +11,35 @@ import com.example.hsb.record.AccountRecord;
 import com.example.hsb.repository.AuthRepository;
 import com.example.hsb.storage.SharedPrefManager;
 import com.example.hsb.ui.auth.activity.LoginActivity;
-import com.example.hsb.ui.category.fragment.CategoryFragment;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private Intent intent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onTokenRefresh();
     }
-
     private void onTokenRefresh() {
+//        SharedPrefManager.getInstance().clear();
         AuthRepository.getInstance().refreshToken().observe(this, status -> {
             AccountRecord account = SharedPrefManager.getInstance().get("account", AccountRecord.class);
             if (account != null) {
                 switch (status) {
                     case "MANAGER":
-                        intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        intent = new Intent(SplashActivity.this, ManagerActivity.class);
                         startActivity(intent);
                         Toast.makeText(SplashActivity.this, "Chào mừng MANAGER - " + account.getUsername(), Toast.LENGTH_SHORT).show();
                         finish();
                         break;
                     case "RECEPTIONIST":
-                        intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        intent = new Intent(SplashActivity.this, ReceptionistActivity.class);
                         startActivity(intent);
                         Toast.makeText(SplashActivity.this, "Chào mừng RECEPTIONIST - " + account.getUsername(), Toast.LENGTH_SHORT).show();
                         finish();
                         break;
                     case "CUSTOMER":
-                        intent = new Intent(SplashActivity.this, CategoryFragment.class);
+                        intent = new Intent(SplashActivity.this, CustomerActivity.class);
                         startActivity(intent);
                         Toast.makeText(SplashActivity.this, "Chào mừng CUSTOMER", Toast.LENGTH_SHORT).show();
                         finish();

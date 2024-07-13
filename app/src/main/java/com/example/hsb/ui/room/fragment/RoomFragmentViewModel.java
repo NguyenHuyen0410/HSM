@@ -3,9 +3,7 @@ package com.example.hsb.ui.room.fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.hsb.entities.Category;
 import com.example.hsb.entities.Room;
-import com.example.hsb.repository.CategoryRepository;
 import com.example.hsb.repository.RoomRepository;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class RoomFragmentViewModel extends ViewModel {
         mListRoomLiveData = roomRepository.getRooms("", "");
     }
 
-    public MutableLiveData<List<Room>> getListCategoryLiveData() {
+    public MutableLiveData<List<Room>> getListRoomLiveData() {
         return mListRoomLiveData;
     }
 }

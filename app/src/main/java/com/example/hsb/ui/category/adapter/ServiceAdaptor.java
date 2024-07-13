@@ -15,9 +15,7 @@ import com.example.hsb.entities.Service;
 import java.util.List;
 
 public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceHolder> {
-
     private final List<Service> childItemList;
-
 
     // Constructor
     public ServiceAdaptor(List<Service> childItemList, Context context) {
@@ -67,11 +65,8 @@ public class ServiceAdaptor extends RecyclerView.Adapter<ServiceAdaptor.ServiceH
     // the Views present
     // in the child RecyclerView
     class ServiceHolder extends RecyclerView.ViewHolder {
-
         TextView childItemTitle;
-
 //        ImageView childItemImage;
-
         ServiceHolder(View itemView) {
             super(itemView);
             childItemTitle = itemView.findViewById(R.id.tv_child_item_service_name);

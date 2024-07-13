@@ -15,9 +15,9 @@
         <item name="android:text">Edit</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">#B6CDEC</item>
-        <item name="strokeColor">#57759C</item>
-        <item name="strokeWidth">2dp</item>
+        <item name="android:backgroundTint">#51719C</item>
+        <item name="strokeColor">#224675</item>
+        <item name="strokeWidth">1dp</item>
         <item name="cornerRadius">5dp</item>
     </style>
 
@@ -38,6 +38,20 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:backgroundTint">#09304F</item>
+        <item name="android:textSize">15sp</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="add_account_button">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:backgroundTint">#683BCF</item>
         <item name="android:textSize">15sp</item>
         <item name="cornerRadius">20dp</item>
         <item name="android:layout_marginTop">10dp</item>

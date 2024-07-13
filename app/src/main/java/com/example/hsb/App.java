@@ -1,9 +1,6 @@
 package com.example.hsb;
 
 import android.app.Application;
-
-import androidx.appcompat.app.AppCompatDelegate;
-
 import com.google.gson.Gson;
 
 public class App extends Application {

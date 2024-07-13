@@ -24,6 +24,8 @@ import com.example.hsb.entities.Price;
 import com.example.hsb.entities.Service;
 import com.example.hsb.entities.ServiceBillDetail;
 
+import java.time.LocalDateTime;
+
 public class OrderServiceActivity extends AppCompatActivity {
     private TextView name;
     private TextView tvPrice;
@@ -142,13 +144,14 @@ public class OrderServiceActivity extends AppCompatActivity {
 
         if (isValid) {
             ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
-                null,
+                    null,
                     service.getId(),
                     totalAmount,
                     "waiting",
                     remark.getText().toString(),
                     "ryh7idmam2q3k4m",
                     price.getId(),
+                    LocalDateTime.now(),
                     false,
                     null,
                     null,

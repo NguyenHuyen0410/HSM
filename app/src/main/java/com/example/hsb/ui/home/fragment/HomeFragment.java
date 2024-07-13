@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +34,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        tabLayout = view.findViewById(R.id.table1);
+        tabLayout = view.findViewById(R.id.tl_categories);
         recyclerView = view.findViewById(R.id.rv_service_list);
 
         HomeFragmentViewModel categoryFragmentViewModel = new HomeFragmentViewModel();

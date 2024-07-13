@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Room;
 import com.example.hsb.ui.category.activity.CategoryDetail;
+import com.example.hsb.ui.room.activity.RoomDetail;
+
 import java.util.List;
 
 public class RoomAdaptor extends RecyclerView.Adapter<RoomAdaptor.RoomHolder> {
@@ -38,7 +40,7 @@ public class RoomAdaptor extends RecyclerView.Adapter<RoomAdaptor.RoomHolder> {
 
 
         Room room = roomList.get(position);
-        imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/category/");
+        imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/rooms/");
         imgAddess.append(room.getId());
         imgAddess.append("/");
         imgAddess.append(room.getRoomImage());
@@ -46,9 +48,9 @@ public class RoomAdaptor extends RecyclerView.Adapter<RoomAdaptor.RoomHolder> {
 
         holder.name.setText(room.getRoomNumber());
         holder.type.setText(room.getRoomType());
-        holder.area.setText(room.getRoomArea());
+//        holder.area.setText(room.getRoomArea());
         holder.button.setOnClickListener(v -> {
-            Intent intent = new Intent(context, CategoryDetail.class);
+            Intent intent = new Intent(context, RoomDetail.class);
             intent.putExtra("room", room);
             context.startActivity(intent);
         });
@@ -73,7 +75,7 @@ public class RoomAdaptor extends RecyclerView.Adapter<RoomAdaptor.RoomHolder> {
             images = itemView.findViewById(R.id.img_room);
             type = itemView.findViewById(R.id.tv_room_type);
             area = itemView.findViewById(R.id.tv_room_area);
-            button = itemView.findViewById(R.id.btn_update_room);
+            button = itemView.findViewById(R.id.btn_room_view);
         }
     }
 }

@@ -33,44 +33,24 @@ public class RetrofitClient {
         return instance;
     }
 
-    public AccountServiceApi getAccountServiceApi() {
-        return retrofit.create(AccountServiceApi.class);
-    }
+    public AccountServiceApi getAccountServiceApi() {return retrofit.create(AccountServiceApi.class);}
 
-    public EmployeeServiceApi getEmployeeServiceApi() {
-        return retrofit.create(EmployeeServiceApi.class);
-    }
+    public EmployeeServiceApi getEmployeeServiceApi() {return retrofit.create(EmployeeServiceApi.class);}
 
-    public RoomServiceApi getRoomServiceApi() {
-        return retrofit.create(RoomServiceApi.class);
-    }
+    public RoomServiceApi getRoomServiceApi() {return retrofit.create(RoomServiceApi.class);}
 
-    public ServiceBillServiceApi getServiceBillServiceApi() {
-        return retrofit.create(ServiceBillServiceApi.class);
-    }
+    public ServiceBillServiceApi getServiceBillServiceApi() {return retrofit.create(ServiceBillServiceApi.class);}
 
-    public ServicesServiceApi getServicesServiceApi() {
-        return retrofit.create(ServicesServiceApi.class);
-    }
+    public ServicesServiceApi getServicesServiceApi() {return retrofit.create(ServicesServiceApi.class);}
 
-    public CategoryServiceApi getCategoryServiceApi() {
-        return retrofit.create(CategoryServiceApi.class);
-    }
+    public CategoryServiceApi getCategoryServiceApi() {return retrofit.create(CategoryServiceApi.class);}
 
-    public PriceServiceApi getPriceServiceApi() {
-        return retrofit.create(PriceServiceApi.class);
-    }
+    public PriceServiceApi getPriceServiceApi() {return retrofit.create(PriceServiceApi.class);}
 
-    public RoleServiceApi getRoleServiceApi() {
-        return retrofit.create(RoleServiceApi.class);
-    }
+    public RoleServiceApi getRoleServiceApi() {return retrofit.create(RoleServiceApi.class);}
 
-    public AuthServiceApi getAuthServiceApi() {
-        return retrofit.create(AuthServiceApi.class);
-    }
+    public AuthServiceApi getAuthServiceApi() {return retrofit.create(AuthServiceApi.class);}
 
-    public ServiceBillDetailServiceApi getServiceBillDetailServiceApi() {
-        return retrofit.create(ServiceBillDetailServiceApi.class);
-    }
+    public ServiceBillDetailServiceApi getServiceBillDetailServiceApi() {return retrofit.create(ServiceBillDetailServiceApi.class);}
 
 }

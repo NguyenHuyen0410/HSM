@@ -66,7 +66,7 @@ public class RoomDetail extends AppCompatActivity {
         type.setText(room.getRoomType());
         device.setText(room.getDeviceAccountId());
         StringBuilder imgAddress = new StringBuilder();
-        imgAddress.append("https://hotel-service-manage.pockethost.io/api/files/room/");
+        imgAddress.append("https://hotel-service-manage.pockethost.io/api/files/rooms/");
         imgAddress.append(room.getId());
         imgAddress.append("/");
         imgAddress.append(room.getRoomImage());

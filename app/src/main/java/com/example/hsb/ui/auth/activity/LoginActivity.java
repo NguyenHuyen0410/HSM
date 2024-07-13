@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
 import com.example.hsb.record.AccountRecord;
-import com.example.hsb.ui.account.activity.ListAccountActivity;
+import com.example.hsb.ui.CustomerActivity;
+import com.example.hsb.ui.ManagerActivity;
+import com.example.hsb.ui.ReceptionistActivity;
 import com.example.hsb.ui.auth.viewmodel.AuthViewModel;
-import com.example.hsb.ui.category.fragment.CategoryFragment;
+import com.example.hsb.ui.home.fragment.HomeFragment;
+import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
 
 public class LoginActivity extends AppCompatActivity {
     private AuthViewModel authViewModel;
@@ -58,17 +60,17 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Tài khoản đã bị xoá", Toast.LENGTH_SHORT).show();
                     break;
                 case "MANAGER":
-                    intent = new Intent(this, ListAccountActivity.class);
+                    intent = new Intent(this, ManagerActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công: MANAGER", Toast.LENGTH_SHORT).show();
                     break;
                 case "RECEPTIONIST":
-                    intent = new Intent(this, CategoryFragment.class);
+                    intent = new Intent(this, ReceptionistActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công: RECEPTIONIST", Toast.LENGTH_SHORT).show();
                     break;
                 case "CUSTOMER":
-                    intent = new Intent(this, CategoryFragment.class);
+                    intent = new Intent(this, CustomerActivity.class);
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công: CUSTOMER", Toast.LENGTH_SHORT).show();
                     break;

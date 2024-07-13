@@ -22,7 +22,7 @@ public class OrderServiceActivityViewModel extends ViewModel {
 
     public OrderServiceActivityViewModel() {
         serviceBillDetailRepository = ServiceBillDetailRepository.getInstance();
-        mListServiceBillDetailLiveData = serviceBillDetailRepository.getServiceBillDetailList();
+        mListServiceBillDetailLiveData = serviceBillDetailRepository.getServiceBillDetailList("k", "v");
     }
 
     public MutableLiveData<List<ServiceBillDetail>> getServiceBillDetailListLiveData() {
