@@ -117,13 +117,12 @@ public class CategoryRepository {
 
     public void editCategory(Category category, EditCategoryCallback callback) {
         CategoryRecord categoryRecord = setCategoryRecord(category);
-        Call<ListResponse<CategoryRecord>> call = RetrofitClient.getInstance().getCategoryServiceApi().updateRecord(category.getId(), categoryRecord);
-        call.enqueue(new Callback<ListResponse<CategoryRecord>>() {
+        Call<CategoryRecord> call = RetrofitClient.getInstance().getCategoryServiceApi().updateRecord(category.getId(), categoryRecord);
+        call.enqueue(new Callback<CategoryRecord>() {
             @Override
-            public void onResponse(@NonNull Call<ListResponse<CategoryRecord>> call,@NonNull Response<ListResponse<CategoryRecord>> response) {
+            public void onResponse(@NonNull Call<CategoryRecord> call,@NonNull Response<CategoryRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ListResponse<CategoryRecord> categoryResponse = response.body();
-                    CategoryRecord record = categoryResponse.getItems().get(0);
+                    CategoryRecord record = response.body();
                     Category updatedCategory = new Category(
                             record.getId(),
                             record.getName(),
@@ -141,7 +140,7 @@ public class CategoryRepository {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ListResponse<CategoryRecord>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CategoryRecord> call, @NonNull Throwable t) {
                 callback.onEditFailure(t.getMessage());
             }
         });
@@ -149,13 +148,12 @@ public class CategoryRepository {
 
     public void createCategory(Category category, CreateCategoryCallback callback) {
         CategoryRecord categoryRecord = setCategoryRecord(category);
-        Call<ListResponse<CategoryRecord>> call = RetrofitClient.getInstance().getCategoryServiceApi().createRecord(categoryRecord);
-        call.enqueue(new Callback<ListResponse<CategoryRecord>>() {
+        Call<CategoryRecord> call = RetrofitClient.getInstance().getCategoryServiceApi().createRecord(categoryRecord);
+        call.enqueue(new Callback<CategoryRecord>() {
             @Override
-            public void onResponse(@NonNull Call<ListResponse<CategoryRecord>> call, @NonNull Response<ListResponse<CategoryRecord>> response) {
+            public void onResponse(@NonNull Call<CategoryRecord> call, @NonNull Response<CategoryRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ListResponse<CategoryRecord> categoryResponse = response.body();
-                    CategoryRecord record = categoryResponse.getItems().get(0);
+                    CategoryRecord record = response.body();
                     Category newCategory = new Category(
                             record.getId(),
                             record.getName(),
@@ -173,7 +171,7 @@ public class CategoryRepository {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ListResponse<CategoryRecord>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CategoryRecord> call, @NonNull Throwable t) {
                 callback.onCreateFailure(t.getMessage());
             }
         });

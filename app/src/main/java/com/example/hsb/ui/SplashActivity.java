@@ -21,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
         onTokenRefresh();
     }
     private void onTokenRefresh() {
-//        SharedPrefManager.getInstance().clear();
         AuthRepository.getInstance().refreshToken().observe(this, status -> {
             AccountRecord account = SharedPrefManager.getInstance().get("account", AccountRecord.class);
             if (account != null) {

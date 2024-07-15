@@ -16,10 +16,10 @@ public interface CategoryServiceApi {
     Call<ListResponse<CategoryRecord>> getRecords();
 
     @POST("category/records")
-    Call<ListResponse<CategoryRecord>> createRecord(@Body CategoryRecord record);
+    Call<CategoryRecord> createRecord(@Body CategoryRecord record);
 
     @PATCH("category/records/{recordId}")
-    Call<ListResponse<CategoryRecord>> updateRecord(@Path("recordId") String recordId, @Body CategoryRecord record);
+    Call<CategoryRecord> updateRecord(@Path("recordId") String recordId, @Body CategoryRecord record);
 
     @DELETE("category/records/{recordId}")
     Call<Void> deleteRecord(@Path("recordId") String recordId);

@@ -200,6 +200,7 @@ public class EmployeeRepository {
                 employeeRecord.getExpand().getAccount().getUsername(),
                 employeeRecord.getExpand().getAccount().getAccountGmail(),
                 employeeRecord.getExpand().getAccount().getAccountPassword(),
+                employeeRecord.getExpand().getAccount().getOldPassword(),
                 employeeRecord.getExpand().getAccount().getStatus(),
                 employeeRecord.getExpand().getAccount().is_deleted(),
                 DateUtil.apiDateTimeStringToLocalDateTime(employeeRecord.getExpand().getAccount().getCreated()),

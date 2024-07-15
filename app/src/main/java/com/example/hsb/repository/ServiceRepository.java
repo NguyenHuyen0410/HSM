@@ -56,8 +56,9 @@ public class ServiceRepository {
                                 DateUtil.apiDateTimeStringToLocalDateTime(record.getUpdated())
                         );
                         serviceList.add(service);
+                        System.out.println(service);
                     }
-                    mListServiceLiveData.setValue(serviceList);
+                    mListServiceLiveData.postValue(serviceList);
                 } else {
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }

@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.hsb.client.RetrofitClient;
 import com.example.hsb.entities.Account;
 import com.example.hsb.entities.Room;
-import com.example.hsb.record.CategoryRecord;
 import com.example.hsb.record.RoomRecord;
+import com.example.hsb.record.ServiceBillRecord;
 import com.example.hsb.response.ListResponse;
 import com.example.hsb.utils.DateUtil;
 
@@ -104,6 +104,58 @@ public class RoomRepository {
                 toastMessageLiveData.setValue("Request failed: " + t.getMessage());
             }
         });
+    }
+
+    public void getRoomByServiceId(String serviceId, FetchRoomByServiceId callback) {
+        Call<ListResponse<ServiceBillRecord>> call1 = RetrofitClient.getInstance().getServiceBillServiceApi().getRecords();
+        call1.enqueue(new Callback<ListResponse<ServiceBillRecord>>() {
+            @Override
+            public void onResponse(@NonNull Call<ListResponse<ServiceBillRecord>> call, @NonNull Response<ListResponse<ServiceBillRecord>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(new Exception("No room found."));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListResponse<ServiceBillRecord>> call, @NonNull Throwable t) {
+                callback.onError(new Exception("No room found."));
+            }
+        });
+    }
+
+    public interface FetchRoomByServiceId {
+        void onSuccess(ListResponse<ServiceBillRecord> roomNumbers);
+        void onError(Throwable t);
+    }
+
+    public void getRoomByAccountId(String accountId, FetchRoomByAccountId callback) {
+        Call<ListResponse<RoomRecord>> call1 = RetrofitClient.getInstance().getRoomServiceApi().getPlainRecords();
+        call1.enqueue(new Callback<ListResponse<RoomRecord>>() {
+            @Override
+            public void onResponse(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Response<ListResponse<RoomRecord>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    System.out.println(response.body().getItems().get(0).getId());
+                    System.out.println(response.body().getItems().get(1).getId());
+                    System.out.println(response.body().getItems().get(2).getId());
+                    System.out.println(response.body().getItems().get(3).getId());
+
+                    callback.onSuccess(response.body().getItems());
+                } else {
+                    callback.onError(new Exception("No room found."));
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<ListResponse<RoomRecord>> call, @NonNull Throwable t) {
+                callback.onError(new Exception("No room found."));
+            }
+        });
+    }
+
+    public interface FetchRoomByAccountId {
+        void onSuccess(List<RoomRecord> roomRecords);
+        void onError(Throwable t);
     }
 
     public interface EditRoomCallBack{

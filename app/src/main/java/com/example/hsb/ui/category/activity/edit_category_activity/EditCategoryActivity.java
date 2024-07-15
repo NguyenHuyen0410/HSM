@@ -1,12 +1,10 @@
 package com.example.hsb.ui.category.activity.edit_category_activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hsb.R;
@@ -65,7 +62,6 @@ public class EditCategoryActivity extends AppCompatActivity {
             category = new Category();
         }
 
-
         Category finalCategory = category;
         saveBtn.setOnClickListener(v -> setUpdateData(finalCategory));
 
@@ -88,15 +84,17 @@ public class EditCategoryActivity extends AppCompatActivity {
             }
         });
 
-        // Observe the ViewModel for category updates
-        editCategoryActivityViewModel.getCategoryLiveData().observe(this, new Observer<Category>() {
-            @Override
-            public void onChanged(Category updatedCategory) {
-                // Handle the updated account, e.g., show a message or update UI
-                Toast.makeText(EditCategoryActivity.this, "Category updated successfully", Toast.LENGTH_SHORT).show();
-                // Optionally finish the activity or update the UI further
-                finish();
-            }
+        editCategoryActivityViewModel.getCategoryLiveData().observe(this, updatedCategory -> {
+            // Handle the updated account, e.g., show a message or update UI
+            Toast.makeText(EditCategoryActivity.this, "Category updated successfully", Toast.LENGTH_SHORT).show();
+            // Optionally finish the activity or update the UI further
+            finish();
+        });
+
+        // Observe category list updates to ensure the latest data is displayed
+        editCategoryActivityViewModel.getCategoryListLiveData().observe(this, categories -> {
+            // Handle the updated list of categories if needed
+            // This can be useful if you have a dropdown or list that should be updated
         });
     }
 
@@ -131,6 +129,4 @@ public class EditCategoryActivity extends AppCompatActivity {
             Toast.makeText(EditCategoryActivity.this, "Please fix the errors above", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

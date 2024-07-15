@@ -1,6 +1,5 @@
 package com.example.hsb.ui.employee.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
@@ -29,7 +28,6 @@ import com.example.hsb.utils.ImageLoaderUtil;
 import com.example.hsb.utils.ValidateUtil;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Objects;
 
 import okhttp3.MultipartBody;
@@ -43,6 +41,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText etPhoneNumber;
     private RadioGroup rgGender;
     private EditText etAddress;
+    private EditText etStartWorkDate;
     private Button btnSave;
     private EditProfileActivityViewModel editProfileActivityViewModel;
     private Uri selectedImageUri;
@@ -94,6 +93,7 @@ public class EditProfileActivity extends AppCompatActivity {
         etPhoneNumber = findViewById(R.id.et_phone);
         rgGender = findViewById(R.id.rgGender);
         etAddress = findViewById(R.id.et_address);
+        etStartWorkDate = findViewById(R.id.et_start_work_date);
         btnSave = findViewById(R.id.btn_save);
 
         ivAccountAvt.setOnClickListener(v -> {
@@ -114,7 +114,12 @@ public class EditProfileActivity extends AppCompatActivity {
         etLastName.setText(employee.getLastName());
         LocalDateTime dob = employee.getDob(); // Assuming getDateOfBirth() returns LocalDateTime
         if (dob != null) {
-            String formattedDate = DateUtil.localDateTimeToString(dob);
+            String formattedDate = "";
+            if(dob.equals(LocalDateTime.MIN)){
+                formattedDate = "";
+            } else{
+                formattedDate = DateUtil.localDateTimeToString(dob);
+            }
             etDateOfBirth.setText(formattedDate);
         } else {
             etDateOfBirth.setText(""); // Handle case where DOB is null
@@ -129,14 +134,24 @@ public class EditProfileActivity extends AppCompatActivity {
             rgGender.clearCheck(); // Optional: Clear the selection if the gender is not recognized
         }
         etAddress.setText(employee.getAddress());
+        LocalDateTime swd = employee.getStartWorkDate(); // Assuming getDateOfBirth() returns LocalDateTime
+        if (swd != null) {
+            String formattedStartDate = "";
+            if(swd.equals(LocalDateTime.MIN)){
+                formattedStartDate = "";
+            } else{
+                formattedStartDate = DateUtil.localDateTimeToString(swd);
+            }
+            etStartWorkDate.setText(formattedStartDate);
+        } else {
+            etStartWorkDate.setText(""); // Handle case where DOB is null
+        }
         btnSave.setOnClickListener(v -> {
             if (selectedImageUri != null) {
-                System.out.println("Tao o day 1");
                 // Update image first
                 updateImage(employee);
             } else {
                 // Directly update profile without image
-                System.out.println("Tao o day 123");
                 setUpdate(employee);
             }
         });
@@ -173,10 +188,16 @@ public class EditProfileActivity extends AppCompatActivity {
             employee.setLastName(etLastName.getText().toString());
         }
 
-        if(!ValidateUtil.isDateOfBirthValid(etDateOfBirth)){
+        if(!ValidateUtil.isDateValid(etDateOfBirth)){
             isValid = false;
         } else{
             employee.setDob(DateUtil.parseToLocalDateTime(etDateOfBirth.getText().toString()));
+        }
+
+        if(!ValidateUtil.isDateValid(etStartWorkDate)){
+            isValid = false;
+        } else{
+            employee.setStartWorkDate(DateUtil.parseToLocalDateTime(etStartWorkDate.getText().toString()));
         }
 
         if(!ValidateUtil.isPhoneValid(etPhoneNumber)){

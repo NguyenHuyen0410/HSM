@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.employee.fragment.EmployeeProfileFragment">
 
+    <include
+        android:id="@+id/acton_bar"
+        layout="@layout/action_bar" />
+
     <!-- Top section with profile picture and email -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBackground"
+        android:layout_marginTop="65dp"
         android:layout_width="match_parent"
         android:layout_height="394dp"
         android:background="@color/white"

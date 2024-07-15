@@ -32,7 +32,7 @@ public class FragmentNavigator {
     private ServiceHistoryCustomerFragment serviceHistoryCustomerFragment;
     private CategoryFragment categoryFragment;
     private static final String TAG_HOME = "homeFragment";
-    private static final String TAG_HOME_CUSTOMER = "homeFragmentCustomer";
+    private static final String TAG_HOME_CUSTOMER = "fragmentHomeCustomer";
     private static final String TAG_ACCOUNT = "accountFragment";
     private static final String TAG_PROFILE = "employeeProfileFragment";
     private static final String TAG_HISTORY_CUSTOMER = "historyCustomerFragment";
@@ -111,8 +111,6 @@ public class FragmentNavigator {
                     switchFragment(homeFragmentCustomer, TAG_HOME_CUSTOMER);
                 } else if (id == R.id.history) {
                     switchFragment(serviceHistoryCustomerFragment, TAG_HISTORY_CUSTOMER);
-                } else if (id == R.id.profile) {
-                    switchFragment(employeeProfileFragment, TAG_PROFILE);
                 }
                 return true;
             });

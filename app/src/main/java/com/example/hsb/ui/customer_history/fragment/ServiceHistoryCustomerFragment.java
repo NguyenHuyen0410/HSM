@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,9 @@ public class ServiceHistoryCustomerFragment extends Fragment {
         AccountRecord currentAccount = SharedPrefManager.getInstance().get("account", AccountRecord.class);
 
         serviceHistoryFragmentViewModel = new ServiceHistoryFragmentViewModel("bill_id",currentAccount.getId());
+        adapter = new OrderedServiceAdaptor(serviceBillDetailList, serviceList, requireContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(adapter);
 
         // Observe changes in the ServiceBillDetail list
         serviceHistoryFragmentViewModel.getListServiceBillDetailLiveData().observe(getViewLifecycleOwner(), new Observer<List<ServiceBillDetail>>() {
@@ -66,10 +70,6 @@ public class ServiceHistoryCustomerFragment extends Fragment {
                 }
             }
         });
-
-        adapter = new OrderedServiceAdaptor(serviceBillDetailList, serviceList, requireContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(adapter);
 
         return view;
     }

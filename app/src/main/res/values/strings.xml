@@ -11,11 +11,12 @@
     <string name="change_password_title">Đổi mật khẩu</string>
     <string name="change_password">Đổi mật khẩu</string>
     <string name="old_password">Mật khẩu cũ</string>
+    <string name="old_password_eng">Old password</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="confirm_password">Xác nhận mật khẩu</string>
     <string name="username">Pkdminh</string>
     <string name="roomName">President Suite</string>
-    <string name="edit_account">Edit Account</string>
+    <string name="edit_account">Account Modify</string>
     <string name="delete">Delete</string>
     <string name="add_account">Add new account</string>
     <string name="name">Name</string>

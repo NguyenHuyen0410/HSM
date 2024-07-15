@@ -67,5 +67,8 @@
         <activity
             android:name=".ui.home_customer.activity.edit_order_service_activity.OrderServiceCustomerActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.category.activity.edit_category_activity.EditCategoryActivity"
+            android:exported="true" />
     </application>
 </manifest>

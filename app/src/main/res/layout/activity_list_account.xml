@@ -7,16 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ManagerActivity">
-    <include
-        android:id="@+id/acton_bar"
-        layout="@layout/action_bar" />
 
     <FrameLayout
         android:id="@+id/bottom_navigation_container"
         android:layout_width="match_parent"
-        android:layout_height="592dp"
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_marginTop="60dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="18dp" />
@@ -30,4 +25,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu_manager" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,12 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.hsb.R;
 import com.example.hsb.entities.Price;
+import com.example.hsb.entities.Room;
 import com.example.hsb.entities.Service;
 import com.example.hsb.entities.ServiceBillDetail;
+import com.example.hsb.record.ServiceBillRecord;
+import com.example.hsb.repository.RoomRepository;
+import com.example.hsb.response.ListResponse;
 import com.example.hsb.storage.ServiceBillDetailStatus;
 import com.example.hsb.storage.SystemRoles;
 import com.example.hsb.ui.account.activity.edit_account_activity.EditAccountActivity;
@@ -42,13 +46,11 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
     private TextView totalCost;
 
     private TextView remark;
-
+    private TextView roomNumber;
     private ImageView image;
-
     private Button saveBtn;
-
     private Button deleteBtn;
-
+    private RoomRepository roomRepository;
     private EditOrderedServiceDetailViewModel editOrderedServiceDetailViewModel;
     private ServiceFragmentViewModel serviceFragmentViewModel;
 
@@ -136,7 +138,7 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
 
         Price price = serviceBillDetail.getPrice();
         Double finalCost = price.getPrice() * serviceBillDetail.getQuantity();
-        StringBuilder imgAddess = new StringBuilder();
+        StringBuilder imgAddress = new StringBuilder();
         serviceBillDetailId.setText(serviceBillDetail.getId());
         processedDate.setText(date);
         processedTime.setText(time);
@@ -148,13 +150,36 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
         totalCost.setText(String.valueOf(finalCost));
         remark.setText(serviceBillDetail.getRemark());
 
+        roomRepository = RoomRepository.getInstance();
+        System.out.println("Fetching room number for service ID: " + service.getId());
+        roomRepository.getRoomByServiceId(service.getId(), new RoomRepository.FetchRoomByServiceId() {
+            @Override
+            public void onSuccess(ListResponse<ServiceBillRecord> roomNum) {
+                System.out.println("Room data fetched successfully");
+                boolean roomFound = false;
+                for (ServiceBillRecord record : roomNum.getItems()) {
+                    if (record.getId().equals(service.getId())) {
+                        roomNumber.setText(record.getExpand().getRoom().getRoomNumber());
+                        System.out.println("Room number found: " + record.getExpand().getRoom().getRoomNumber());
+                        roomFound = true;
+                        break;
+                    }
+                }
+                if (!roomFound) {
+                    System.out.println("No matching room found for service ID: " + service.getId());
+                }
+            }
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("Error fetching room number: " + t.getMessage());
+            }
+        });
 
-        imgAddess.append("https://hotel-service-manage.pockethost.io/api/files/services/");
-        imgAddess.append(service.getId());
-        imgAddess.append("/");
-        imgAddess.append(service.getImage());
-        Glide.with(this).load(imgAddess.toString()).into(image);
-
+        imgAddress.append("https://hotel-service-manage.pockethost.io/api/files/services/")
+                .append(service.getId())
+                .append("/")
+                .append(service.getImage());
+        Glide.with(this).load(imgAddress.toString()).into(image);
     }
 
     public void setUpdateData(@Nullable ServiceBillDetail serviceBillDetail) {
@@ -204,6 +229,7 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
         quantity = findViewById(R.id.tv_service_quantity);
         totalCost = findViewById(R.id.tv_service_total_cost);
         remark = findViewById(R.id.tv_remark);
+        roomNumber = findViewById(R.id.tv_room_number);
         image = findViewById(R.id.iv_service);
         saveBtn = findViewById(R.id.btn_save);
         deleteBtn = findViewById(R.id.btn_delete);

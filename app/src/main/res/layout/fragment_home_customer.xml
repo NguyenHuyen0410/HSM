@@ -53,73 +53,102 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp">
+            android:padding="10dp">
 
+            <!-- First line: Thông tin máy and device number -->
             <TextView
+                android:id="@+id/tv_label_device_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thông tin máy:"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_device_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="ABC123"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/tv_label_device_info"
+                app:layout_constraintStart_toEndOf="@id/tv_label_device_info"/>
 
+            <!-- Second line: Room and room number -->
             <TextView
+                android:id="@+id/tv_label_room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Room :"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_device_info"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"/>
 
             <TextView
                 android:id="@+id/tv_room_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="101"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/tv_label_room"
+                app:layout_constraintStart_toEndOf="@id/tv_label_room"/>
+
+            <!-- Button at the bottom right -->
+            <Button
+                android:id="@+id/customer_logout"
+                style="@style/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="309dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="5dp"
+                android:text="Action"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable"
-        app:layout_constraintTop_toBottomOf="@id/patientInfo"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/patientInfo"
+        app:tabMode="scrollable" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_service_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:descendantFocusability="blocksDescendants"
-        app:layout_constraintTop_toBottomOf="@id/tl_categories"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/row_home"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_height="330dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:descendantFocusability="blocksDescendants"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_categories" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

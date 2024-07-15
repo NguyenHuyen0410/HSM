@@ -12,8 +12,7 @@
         android:id="@+id/layout_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_gradient_background"
-
+        android:background="@drawable/rounded_room_item"
         android:orientation="vertical"
         android:padding="20dp"
         android:clickable="true"
@@ -23,7 +22,7 @@
         <TextView
             android:id="@+id/tv_booking_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <TextView
@@ -32,77 +31,90 @@
             android:layout_height="wrap_content"
             android:text="Dịch vụ giải trí"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:orientation="horizontal">
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:paddingEnd="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ngày giao :"
+                    android:text="Ngày giao:"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_process_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="20/10/2020"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
-
-
-
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:orientation="horizontal">
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:paddingStart="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giờ giao:"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_process_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="22:00"
                     android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Trạng thái: "
+                android:textColor="#2B2727"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_process_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hoàn thành"
+                android:textColor="#FF0000"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_process_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Hoàn thành"
-            android:textColor="#FF0000"
-            android:textSize="15dp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

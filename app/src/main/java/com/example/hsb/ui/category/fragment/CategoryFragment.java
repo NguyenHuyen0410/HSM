@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hsb.R;
 import com.example.hsb.entities.Category;
-import com.example.hsb.entities.Service;
 import com.example.hsb.ui.category.adapter.CategoryAdaptor;
 
 import java.util.ArrayList;
@@ -25,29 +25,13 @@ public class CategoryFragment extends Fragment {
     private final List<Category> categoryList = new ArrayList<>();
     private CategoryAdaptor adapter;
 
-    private final List<Service> serviceList = new ArrayList<>();
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
-        CategoryFragmentViewModel categoryFragmentViewModel = new CategoryFragmentViewModel();
+        CategoryFragmentViewModel categoryFragmentViewModel = new ViewModelProvider(requireActivity()).get(CategoryFragmentViewModel.class);
 
-
-        ServiceFragmentViewModel serviceFragmentViewModel = new ServiceFragmentViewModel();
-        serviceFragmentViewModel.getListServiceLiveData().observe(getViewLifecycleOwner(), new Observer<List<Service>>() {
-            @Override
-            public void onChanged(List<Service> services) {
-                if (services != null) {
-                    serviceList.clear();
-                    serviceList.addAll(services);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        // Observe changes in the account list
         categoryFragmentViewModel.getListCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
             @Override
             public void onChanged(List<Category> categories) {
@@ -58,7 +42,6 @@ public class CategoryFragment extends Fragment {
                 }
             }
         });
-
 
         categoryFragmentViewModel.getToastMessageLiveData().observe(getViewLifecycleOwner(), message -> {
             if (message != null) {

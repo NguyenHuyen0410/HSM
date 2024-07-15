@@ -2,6 +2,10 @@ package com.example.hsb.utils;
 
 import android.widget.EditText;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class ValidateUtil {
     public static boolean isEmailValid(EditText etEmail) {
         String email = etEmail.getText().toString();
@@ -92,15 +96,24 @@ public class ValidateUtil {
         }
     }
 
-    public static boolean isDateOfBirthValid(EditText etDateOfBirth) {
+    public static boolean isDateValid(EditText etDateOfBirth) {
         String dateOfBirth = etDateOfBirth.getText().toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         if (dateOfBirth.isEmpty()) {
             etDateOfBirth.setError("Date of birth is required");
             etDateOfBirth.requestFocus();
             return false;
-        } else {
+        }
+        try {
+            // Parse the date string to LocalDateTime
+            LocalDateTime.parse(dateOfBirth, formatter);
             etDateOfBirth.setError(null);
             return true;
+        } catch (DateTimeParseException e) {
+            // Handle the case where parsing fails
+            etDateOfBirth.setError("Invalid date format. Please use dd/MM/yyyy HH:mm:ss");
+            etDateOfBirth.requestFocus();
+            return false;
         }
     }
 

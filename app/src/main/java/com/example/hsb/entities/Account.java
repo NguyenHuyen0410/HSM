@@ -18,6 +18,7 @@ public class Account implements Serializable {
     private String name;
     private String email;
     private String password;
+    private String oldPassword;
     private String accountStatus;
     private boolean isDeleted;
     private LocalDateTime createdDate;
@@ -27,13 +28,14 @@ public class Account implements Serializable {
     private String profileId;
     private String accountImage;
 
-    public Account(String id, String name, String email, String password, String accountStatus,
+    public Account(String id, String name, String email, String password, String oldPassword, String accountStatus,
                    boolean isDeleted, LocalDateTime createdDate,
                    LocalDateTime lastModifiedDate, Role role, String profileId, String accountImage) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.oldPassword = oldPassword;
         this.accountStatus = accountStatus;
         this.isDeleted = isDeleted;
         this.createdDate = createdDate;

@@ -22,6 +22,10 @@ public interface ServiceBillServiceApi {
             @Query("filter") String filter
     );
 
+    @GET("service_bill/records?expand=room_id")
+    Call<ListResponse<ServiceBillRecord>> getRecords(
+    );
+
     @POST("service_bill/records?expand=room_id")
     Call<ServiceBillRecord> createRecord(@Body ServiceBillRecord record);
 

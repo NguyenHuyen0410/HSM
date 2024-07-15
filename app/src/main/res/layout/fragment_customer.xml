@@ -6,6 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <FrameLayout
         android:id="@+id/bottom_navigation_container"
         android:layout_width="match_parent"

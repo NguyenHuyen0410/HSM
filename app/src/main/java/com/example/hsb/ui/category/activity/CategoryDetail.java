@@ -44,9 +44,9 @@ public class CategoryDetail extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Set navigation icon (arrow) to be white
-        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24);
         if (upArrow != null) {
-            upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+            upArrow.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
 

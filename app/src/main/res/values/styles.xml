@@ -21,6 +21,18 @@
         <item name="cornerRadius">5dp</item>
     </style>
 
+    <!-- Button style -->
+    <style name="logout_button">
+        <item name="android:textSize">10sp</item>
+        <item name="android:text">Edit</item>
+        <item name="android:textColor">#51719C</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#E0E4EA</item>
+        <item name="strokeColor">#B2C0D3</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">5dp</item>
+    </style>
+
     <style name="set_delete_button">
         <item name="android:textSize">10sp</item>
         <item name="android:text">Set Delete</item>
@@ -94,7 +106,6 @@
     </style>
 
     <style name="field_content_style">
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
     </style>
 

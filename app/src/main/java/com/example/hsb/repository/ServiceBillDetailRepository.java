@@ -87,11 +87,11 @@ public class ServiceBillDetailRepository {
                                 price
                         );
                         serviceBillDetailList.add(serviceBillDetail);
-
+                        System.out.println(serviceBillDetail);
                     }
 
                     // Update LiveData after data is added
-                    mListServiceBillDetailLiveData.setValue(serviceBillDetailList);
+                    mListServiceBillDetailLiveData.postValue(serviceBillDetailList);
                 } else {
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }

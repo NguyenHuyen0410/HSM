@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="1dp">
+    android:layout_height="180dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recyclerview_room"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@drawable/rounded_room_item">
 
         <ImageView
             android:id="@+id/img_room"
             android:layout_width="153dp"
             android:layout_height="104dp"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:src="@drawable/room"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,83 +32,79 @@
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_room"
+            app:layout_constraintStart_toEndOf="@id/img_room"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="104dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:text="Loại phòng: "
             android:textColor="#ACA2A2"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_room"
-            app:layout_constraintTop_toBottomOf="@+id/tv_room_name" />
+            app:layout_constraintStart_toEndOf="@id/img_room"
+            app:layout_constraintTop_toBottomOf="@id/tv_room_name" />
 
         <TextView
             android:id="@+id/tv_room_type"
-            android:layout_width="73dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Single bed"
             android:textColor="#ACA2A2"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_room"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_name" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="70dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:text="Độ rộng: "
             android:textColor="#ACA2A2"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/img_room"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@id/img_room"
+            app:layout_constraintTop_toBottomOf="@id/textView2" />
 
         <TextView
             android:id="@+id/tv_room_area"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="200"
             android:textColor="#ACA2A2"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@id/textView3"
+            app:layout_constraintTop_toBottomOf="@id/textView2" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="m2"
             android:textColor="#ACA2A2"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_room_area"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@id/tv_room_area"
+            app:layout_constraintTop_toBottomOf="@id/textView2" />
 
         <Button
             android:id="@+id/btn_room_view"
             style="@style/edit_button"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="40dp"
             android:text="Xem thêm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,11 +22,12 @@ public interface RoomServiceApi {
             @Query("filter") String filter
     );
 
-    @GET("rooms/records")
-    Call<ListResponse<RoomRecord>> getRecords(
-            @Query("expand") String expand,
-            @Query("filter") String filter
-    );
+    @GET("rooms/records?expand=device_account_id")
+    Call<ListResponse<RoomRecord>> getPlainRecords();
+
+    @GET("rooms/records?expand=device_account_id")
+    Call<ListResponse<RoomRecord>> getRecords(@Query("expand") String expand,
+                                              @Query("filter") String filter);
 
     @POST("rooms/records?expand=device_account_id")
     Call<RoomRecord> createRecord(@Body RoomRecord record);

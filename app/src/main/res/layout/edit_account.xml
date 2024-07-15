@@ -41,6 +41,15 @@
             android:hint="@string/name" />
 
         <EditText
+            android:id="@+id/et_old_password"
+            style="@style/edit_account_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_bg"
+            android:hint="@string/old_password_eng"
+            android:inputType="textPassword" />
+
+        <EditText
             android:id="@+id/et_password"
             style="@style/edit_account_input"
             android:layout_width="match_parent"

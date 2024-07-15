@@ -16,12 +16,15 @@ public class EditCategoryActivityViewModel extends ViewModel {
     private final MutableLiveData<String> toastMessageLiveData = new MutableLiveData<>();
     @Getter
     private final MutableLiveData<Boolean> deleteStatusLiveData = new MutableLiveData<>();
-    private final MutableLiveData<List<Category>> mListCategoryLiveData;
+    private final MutableLiveData<List<Category>> mListCategoryLiveData = new MutableLiveData<>();
     private final CategoryRepository categoryRepository;
 
     public EditCategoryActivityViewModel() {
         categoryRepository = CategoryRepository.getInstance();
-        mListCategoryLiveData = categoryRepository.getCategoryList();
+        // Observe the category list updates
+        categoryRepository.getCategoryList().observeForever(categories -> {
+            mListCategoryLiveData.postValue(categories);
+        });
     }
 
     public MutableLiveData<Category> getCategoryLiveData() {

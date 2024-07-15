@@ -25,17 +25,10 @@ public class OrderedServiceDetail extends AppCompatActivity {
     private TextView status;
     private TextView name;
     private TextView priceValue;
-
     private TextView quantity;
-
     private TextView totalCost;
-
     private TextView remark;
-
     private ImageView image;
-
-
-    private ServiceFragmentViewModel serviceFragmentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

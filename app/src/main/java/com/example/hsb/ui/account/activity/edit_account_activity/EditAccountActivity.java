@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -28,7 +29,7 @@ import java.util.Objects;
 public class EditAccountActivity extends AppCompatActivity {
     private final String[] statusItems = {"ACTIVE", "TERMINATE"};
     private final String[] roleItems = {"MANAGER", "RECEPTIONIST", "CUSTOMER"};
-    private EditText name, password, passwordConfirm, email;
+    private EditText name, password, passwordConfirm, oldPassword, email;
     private AutoCompleteTextView autoCompleteStatus, autoCompleteRole;
     private EditAccountActivityViewModel editAccountActivityViewModel;
 
@@ -62,6 +63,7 @@ public class EditAccountActivity extends AppCompatActivity {
             setData(account);
         } else {
             account = new Account();
+            oldPassword.setVisibility(View.GONE);
         }
         Account finalAccount = account;
         saveBtn.setOnClickListener(v -> setUpdateData(finalAccount));
@@ -113,6 +115,7 @@ public class EditAccountActivity extends AppCompatActivity {
         name = findViewById(R.id.et_user_name);
         password = findViewById(R.id.et_password);
         passwordConfirm = findViewById(R.id.et_confirm_password);
+        oldPassword = findViewById(R.id.et_old_password);
         email = findViewById(R.id.et_email);
         autoCompleteRole = findViewById(R.id.auto_complete_role);
         autoCompleteStatus = findViewById(R.id.auto_complete_status);
@@ -143,6 +146,8 @@ public class EditAccountActivity extends AppCompatActivity {
         } else {
             account.setPassword(password.getText().toString());
         }
+
+        account.setOldPassword(oldPassword.getText().toString());
 
         // Validate email
         if (ValidateUtil.isEmailValid(email)) {
@@ -194,6 +199,7 @@ public class EditAccountActivity extends AppCompatActivity {
         name.setText(account.getName());
         password.setText(account.getPassword()); // Assuming password is retrievable, otherwise, handle appropriately
         passwordConfirm.setText(account.getPassword());
+        oldPassword.setText(account.getOldPassword());
         email.setText(account.getEmail());
         autoCompleteRole.setText(account.getRole().getName(), false);
         autoCompleteStatus.setText(account.getAccountStatus(), false);
