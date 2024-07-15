@@ -104,4 +104,23 @@ public class ValidateUtil {
         }
     }
 
+    public static boolean isDescValid(EditText etDescription){
+        String description = etDescription.getText().toString();
+        if(description.isEmpty()){
+            etDescription.setError("Description is required");
+            etDescription.requestFocus();
+            return false;
+        }else {
+            etDescription.setError(null);
+            return true;
+        }
+    }
+
+//    public static boolean isPriceValid(EditText etPrice){
+//        String price = etPrice.getText().toString();
+//        if(price.isEmpty() ){
+//
+//        }
+//    }
+
 }

@@ -1,5 +1,8 @@
 package com.example.hsb.entities;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ServiceCategory {
+public class ServiceCategory implements Serializable {
     private String id;
     private String categoryId;
     private String serviceId;

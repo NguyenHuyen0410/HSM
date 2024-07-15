@@ -20,8 +20,13 @@ public class ServiceCategoryRecord {
     private boolean isDeleted;
     @SerializedName("updated")
     private String updated;
+    @SerializedName("category_id")
+    private String categoryId;
+    @SerializedName("service_id")
+    private String serviceId;
     @SerializedName("expand")
     private Expand expand;
+
 
     @Getter
     @Setter

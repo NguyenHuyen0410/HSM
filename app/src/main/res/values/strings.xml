@@ -43,7 +43,7 @@
     <string name="order">Order</string>
     <string name="room">Room</string>
 
-    <string name="service_desc">Pool service available</string>
+    <string name="service_info">Pool service available</string>
     <string name="service_name">Pool</string>
     <string name="price">Price</string>
 </resources>

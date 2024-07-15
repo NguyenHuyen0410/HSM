@@ -9,6 +9,7 @@ import com.example.hsb.service.RoleServiceApi;
 import com.example.hsb.service.RoomServiceApi;
 import com.example.hsb.service.ServiceBillDetailServiceApi;
 import com.example.hsb.service.ServiceBillServiceApi;
+import com.example.hsb.service.ServiceCategoryServiceApi;
 import com.example.hsb.service.ServicesServiceApi;
 
 import retrofit2.Retrofit;
@@ -76,5 +77,7 @@ public class RetrofitClient {
     }
 
     public ServiceBillDetailServiceApi getServiceBillDetailServiceApi () {return retrofit.create(ServiceBillDetailServiceApi.class);}
+
+    public ServiceCategoryServiceApi getServiceCategoryServiceApi () {return retrofit.create(ServiceCategoryServiceApi.class);}
 
 }

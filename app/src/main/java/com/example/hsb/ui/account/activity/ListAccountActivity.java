@@ -15,6 +15,7 @@ import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.account.fragment.AccountFragment;
 import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
 import com.example.hsb.ui.room.fragment.RoomFragment;
+import com.example.hsb.ui.service.fragment.ServiceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ListAccountActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class ListAccountActivity extends AppCompatActivity {
     private HomeFragmentCustomer homeFragmentCustomer;
     private AccountFragment accountFragment;
     private EmployeeProfileFragment employeeProfileFragment;
+    private ServiceFragment serviceFragment;
+    //test
     //test
     private RoomFragment  roomFragment;
 
@@ -80,10 +83,15 @@ public class ListAccountActivity extends AppCompatActivity {
             roomFragment = new RoomFragment();
         }
 
+        serviceFragment = (ServiceFragment) fragmentManager.findFragmentByTag(TAG_SERVICE);
+        if (serviceFragment == null) {
+            serviceFragment = new ServiceFragment();
+        }
+
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        String currentRole = SystemRoles.RECEPTIONIST.getName();
+        String currentRole = SystemRoles.MANAGER.getName();
 //        String currentRole = SystemRoles.CUSTOMER.getName();
         if(currentRole.equals(SystemRoles.MANAGER.getName())){
             bottomNavigationView.getMenu().clear();
@@ -100,7 +108,7 @@ public class ListAccountActivity extends AppCompatActivity {
                     switchFragment(accountFragment, TAG_ACCOUNT);
                     return true;
                 } else if (id == R.id.service) {
-                    switchFragment(accountFragment, TAG_ACCOUNT);
+                    switchFragment(serviceFragment, TAG_SERVICE);
                     return true;
                 } else if (id == R.id.profile) {
                     switchFragment(employeeProfileFragment, TAG_PROFILE);
