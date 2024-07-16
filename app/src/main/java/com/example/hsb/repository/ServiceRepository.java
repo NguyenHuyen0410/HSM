@@ -56,9 +56,8 @@ public class ServiceRepository {
                                 DateUtil.apiDateTimeStringToLocalDateTime(record.getUpdated())
                         );
                         serviceList.add(service);
-                        System.out.println(service);
                     }
-                    mListServiceLiveData.postValue(serviceList);
+                    mListServiceLiveData.setValue(serviceList);
                 } else {
                     toastMessageLiveData.setValue("Response not successful: " + response.message());
                 }
@@ -91,24 +90,23 @@ public class ServiceRepository {
 
     public void editService(Service service, EditServiceCallback callback) {
         ServiceRecord serviceRecord = setServiceRecord(service);
-        Call<ListResponse<ServiceRecord>> call = RetrofitClient.getInstance().getServicesServiceApi().updateRecord(service.getId(), serviceRecord);
-        call.enqueue(new Callback<ListResponse<ServiceRecord>>() {
+        Call<ServiceRecord> call = RetrofitClient.getInstance().getServicesServiceApi().updateRecord(service.getId(), serviceRecord);
+        call.enqueue(new Callback<ServiceRecord>() {
             @Override
-            public void onResponse(@NonNull Call<ListResponse<ServiceRecord>> call, @NonNull Response<ListResponse<ServiceRecord>> response) {
+            public void onResponse(@NonNull Call<ServiceRecord> call, @NonNull Response<ServiceRecord> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ListResponse<ServiceRecord> serviceResponse = response.body();
-                    ServiceRecord record = serviceResponse.getItems().get(0);
+                    ServiceRecord serviceResponse = response.body();
                     Service updatedService = new Service(
-                            record.getId(),
-                            record.getName(),
-                            record.getImage(),
-                            record.getDescription(),
-                            DateUtil.apiDateTimeStringToLocalDateTime(record.getStartTime()),
-                            DateUtil.apiDateTimeStringToLocalDateTime(record.getEndTime()),
-                            record.getRemark(),
-                            record.isDeleted(),
-                            DateUtil.apiDateTimeStringToLocalDateTime(record.getCreated()),
-                            DateUtil.apiDateTimeStringToLocalDateTime(record.getUpdated())
+                            serviceResponse.getId(),
+                            serviceResponse.getName(),
+                            serviceResponse.getImage(),
+                            serviceResponse.getDescription(),
+                            DateUtil.apiDateTimeStringToLocalDateTime(serviceResponse.getStartTime()),
+                            DateUtil.apiDateTimeStringToLocalDateTime(serviceResponse.getEndTime()),
+                            serviceResponse.getRemark(),
+                            serviceResponse.isDeleted(),
+                            DateUtil.apiDateTimeStringToLocalDateTime(serviceResponse.getCreated()),
+                            DateUtil.apiDateTimeStringToLocalDateTime(serviceResponse.getUpdated())
                     );
                     callback.onEditSuccess(updatedService);
                 } else {
@@ -117,7 +115,7 @@ public class ServiceRepository {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ListResponse<ServiceRecord>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ServiceRecord> call, @NonNull Throwable t) {
                 callback.onEditFailure(t.getMessage());
             }
         });
@@ -187,13 +185,13 @@ public class ServiceRepository {
             serviceRecord.setCreated(DateUtil.localDateTimeToString(LocalDateTime.now()));
             serviceRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));
         }
+        serviceRecord.setStartTime(DateUtil.localDateTimeToJsonFormat(service.getStartTime()));
+        serviceRecord.setEndTime(DateUtil.localDateTimeToJsonFormat(service.getEndTime()));
         serviceRecord.setName(service.getName());
         serviceRecord.setDescription(service.getDescription());
         serviceRecord.setImage(service.getImage());
         serviceRecord.setDeleted(service.isDeleted());
         serviceRecord.setRemark(service.getRemark());
-        serviceRecord.setStartTime(DateUtil.localDateTimeToString(service.getStartTime()));
-        serviceRecord.setEndTime(DateUtil.localDateTimeToString(service.getEndTime()));
         return serviceRecord;
     }
 }

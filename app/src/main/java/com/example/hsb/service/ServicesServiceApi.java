@@ -19,7 +19,7 @@ public interface ServicesServiceApi {
     Call<ListResponse<ServiceRecord>> createRecord(@Body ServiceRecord record);
 
     @PATCH("services/records/{recordId}")
-    Call<ListResponse<ServiceRecord>> updateRecord(@Path("recordId") String recordId, @Body ServiceRecord record);
+    Call<ServiceRecord> updateRecord(@Path("recordId") String recordId, @Body ServiceRecord record);
 
     @DELETE("services/records{recordId}")
     Call<Void> deleteRecord(@Path("recordId") String recordId);

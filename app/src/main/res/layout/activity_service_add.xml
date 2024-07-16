@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Tạo mới dịch vụ"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btn_save_room"
+        style="@style/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Save"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_delete_room"
+        style="@style/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#D32317"
+        android:text="Delete"
+        android:textColor="@android:color/white" />
+    <!-- Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_name_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="Tên" />
+
+
+
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_description_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Mô tả"/>
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_price_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Giá"/>
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_start_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Thời gian bắt đầu"/>
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_end_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/edt_bg"
+            android:hint="Thời gian kết thúc"/>
+
+
+
+        <EditText
+            style="@style/service_update"
+            android:id="@+id/et_room_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:minHeight="48dp"
+            android:hint="remark" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_category_checkbox" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

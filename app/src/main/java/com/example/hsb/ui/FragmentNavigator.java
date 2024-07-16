@@ -17,6 +17,7 @@ import com.example.hsb.ui.history.fragment.ServiceHistoryFragment;
 import com.example.hsb.ui.home.fragment.HomeFragment;
 import com.example.hsb.ui.home_customer.fragment.HomeFragmentCustomer;
 import com.example.hsb.ui.room.fragment.RoomFragment;
+import com.example.hsb.ui.service.fragment.ServiceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FragmentNavigator {
@@ -31,6 +32,7 @@ public class FragmentNavigator {
     private ServiceHistoryFragment serviceHistoryFragment;
     private ServiceHistoryCustomerFragment serviceHistoryCustomerFragment;
     private CategoryFragment categoryFragment;
+    private ServiceFragment serviceFragment;
     private static final String TAG_HOME = "homeFragment";
     private static final String TAG_HOME_CUSTOMER = "fragmentHomeCustomer";
     private static final String TAG_ACCOUNT = "accountFragment";
@@ -39,6 +41,7 @@ public class FragmentNavigator {
     private static final String TAG_HISTORY = "historyFragment";
     private static final String TAG_ROOM = "roomFragment";
     private static final String TAG_CATEGORY = "categoryFragment";
+    private static final String TAG_SERVICE = "serviceFragment";
 
     public FragmentNavigator(Context context, FragmentManager fragmentManager) {
         this.context = context;
@@ -55,6 +58,7 @@ public class FragmentNavigator {
         serviceHistoryFragment = getOrCreateFragment(ServiceHistoryFragment.class, TAG_HISTORY);
         serviceHistoryCustomerFragment = getOrCreateFragment(ServiceHistoryCustomerFragment.class, TAG_HISTORY_CUSTOMER);
         categoryFragment = getOrCreateFragment(CategoryFragment.class, TAG_CATEGORY);
+        serviceFragment = getOrCreateFragment(ServiceFragment.class, TAG_SERVICE);
     }
 
     private <T extends Fragment> T getOrCreateFragment(Class<T> fragmentClass, String tag) {
@@ -80,7 +84,7 @@ public class FragmentNavigator {
                 } else if (id == R.id.account) {
                     switchFragment(accountFragment, TAG_ACCOUNT);
                 } else if (id == R.id.service) {
-                    switchFragment(homeFragment, TAG_HOME);
+                    switchFragment(serviceFragment, TAG_SERVICE);
                 } else if (id == R.id.profile) {
                     switchFragment(employeeProfileFragment, TAG_PROFILE);
                 }

@@ -70,5 +70,8 @@
         <activity
             android:name=".ui.category.activity.edit_category_activity.EditCategoryActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.service.activity.edit_service_activity.EditServiceActivity"
+            android:exported="true"></activity>
     </application>
 </manifest>
