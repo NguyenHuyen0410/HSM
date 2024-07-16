@@ -38,35 +38,29 @@ public class OrderServiceActivity extends AppCompatActivity {
     private TextView name;
     private TextView tvPrice;
     private TextView tvAmount;
-
     private ImageView imageView;
-
     private int totalAmount = 0;
     private EditText remark;
     private Button addButton;
     private Button removeButton;
     private Button orderButton;
-
     private ArrayAdapter<ServiceBill> adapter;
-
     private AutoCompleteTextView autoCompleteRooms;
     private OrderServiceActivityViewModel orderServiceActivityViewModel;
-
     private String selectedRoomId;
-
-    private List<ServiceBill> serviceBillList = new ArrayList<>();
+    private final List<ServiceBill> serviceBillList = new ArrayList<>();
+    private String currentServiceBillId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_request);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        System.out.println("Badfasdfasdfdasf");
 
         // Set navigation icon (arrow) to be white
-        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24);
         if (upArrow != null) {
-            upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+            upArrow.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
 
@@ -85,8 +79,6 @@ public class OrderServiceActivity extends AppCompatActivity {
         Service service = (Service) getIntent().getSerializableExtra("service");
         Price price = (Price) getIntent().getSerializableExtra("price");
         setData(service, price);
-
-  
 
         orderServiceActivityViewModel.getServiceBillLiveData().observe(this, serviceBills -> {
             if (serviceBills != null) {
@@ -118,13 +110,11 @@ public class OrderServiceActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, R.layout.list_room_item, serviceBillList);
         autoCompleteRooms.setAdapter(adapter);
 
-
         autoCompleteRooms.setOnItemClickListener((parent, view, position, id) -> {
             ServiceBill serviceBill = (ServiceBill) parent.getItemAtPosition(position);
+            currentServiceBillId = serviceBill.getId();
             selectedRoomId= serviceBill.getRoomId() ;
         });
-
-
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,9 +122,6 @@ public class OrderServiceActivity extends AppCompatActivity {
                 setUpdateData(service,price);
             }
         });
-
-
-
     }
 
     public void setLayout() {
@@ -158,15 +145,16 @@ public class OrderServiceActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setUpdateData(@Nullable Service service,@Nullable Price price) {
+    public void setUpdateData(@Nullable Service service, @Nullable Price price) {
         boolean isValid = true;
+
         ServiceBillDetail serviceBillDetail = new ServiceBillDetail(
                 null,
                 service.getId(),
                 totalAmount,
                 "waiting",
                 remark.getText().toString(),
-                "ryh7idmam2q3k4m",
+                currentServiceBillId,
                 price.getId(),
                 null,
                 false,

@@ -16,7 +16,8 @@ public interface ServiceBillDetailServiceApi {
     @GET("service_bill_detail/records")
     Call<ListResponse<ServiceBillDetailRecord>> getRecords(
             @Query("expand") String expand,
-            @Query("filter") String filter
+            @Query("filter") String filter,
+            @Query("sort") String sort
     );
 
     @POST("service_bill_detail/records")

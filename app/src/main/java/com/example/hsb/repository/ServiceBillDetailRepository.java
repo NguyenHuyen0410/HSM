@@ -46,7 +46,8 @@ public class ServiceBillDetailRepository {
         String filter = field == null || field.isEmpty()  ? null :  field+"='"+value+"'";
         System.out.println(filter);
         List<ServiceBillDetail> serviceBillDetailList = new ArrayList<>();
-        Call<ListResponse<ServiceBillDetailRecord>> call = RetrofitClient.getInstance().getServiceBillDetailServiceApi().getRecords(expand,filter);
+
+        Call<ListResponse<ServiceBillDetailRecord>> call = RetrofitClient.getInstance().getServiceBillDetailServiceApi().getRecords(expand,filter,"-updated");
         call.enqueue(new Callback<ListResponse<ServiceBillDetailRecord>>() {
             @Override
             public void onResponse(@NonNull Call<ListResponse<ServiceBillDetailRecord>> call, Response<ListResponse<ServiceBillDetailRecord>> response) {
@@ -217,9 +218,7 @@ public class ServiceBillDetailRepository {
     private ServiceBillDetailRecord setServiceBillDetailRecord(ServiceBillDetail serviceBillDetail) {
         ServiceBillDetailRecord serviceBillDetailRecord = new ServiceBillDetailRecord();
         if (serviceBillDetail.getId() != null) {
-            if (serviceBillDetail.getStatus().equals(ServiceBillDetailStatus.DONE)) {
-                serviceBillDetailRecord.setProcessedDate(DateUtil.localDateTimeToString(LocalDateTime.now()));
-            }
+            serviceBillDetailRecord.setProcessedDate(DateUtil.localDateTimeToJsonFormat(LocalDateTime.now()));
             serviceBillDetailRecord.setId(serviceBillDetail.getId());
             serviceBillDetailRecord.setCreated(DateUtil.localDateTimeToString(serviceBillDetail.getCreatedDate()));
             serviceBillDetailRecord.setUpdated(DateUtil.localDateTimeToString(LocalDateTime.now()));

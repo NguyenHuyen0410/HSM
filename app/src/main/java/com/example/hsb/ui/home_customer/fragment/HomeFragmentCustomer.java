@@ -113,7 +113,7 @@ public class HomeFragmentCustomer extends Fragment {
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Logout")
-                        .setMessage("Are you sure you want to log out?")
+                        .setMessage("Are you sure you want to checkout?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // User clicked Yes button

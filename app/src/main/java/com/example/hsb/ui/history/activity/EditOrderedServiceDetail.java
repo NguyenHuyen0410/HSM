@@ -52,7 +52,6 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
     private Button deleteBtn;
     private RoomRepository roomRepository;
     private EditOrderedServiceDetailViewModel editOrderedServiceDetailViewModel;
-    private ServiceFragmentViewModel serviceFragmentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class EditOrderedServiceDetail extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Set navigation icon (arrow) to be white
-        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.arrow_white);
+        Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24);
         if (upArrow != null) {
             upArrow.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
